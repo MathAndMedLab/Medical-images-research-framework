@@ -1,28 +1,34 @@
-import core.Data.DirData;
-import core.algorithm.Algorithm;
-import core.algorithm.impl.DicomReaderAlgorithm;
-import core.block.Block;
-import core.block.impl.BlockImpl;
-import core.block.impl.DicomReaderBlock;
-import core.block.impl.VolumeBlock;
+import core.algorithm.impl.img.ImageSeriesThresholdBlock;
+import core.algorithm.impl.num.ImageSeriesVoxelVolumeCalcAlg;
+import core.algorithm.impl.repo.RepoImageSeriesAccessor;
+import core.pipeline.AlgorithmHostBlock;
+import core.pipeline.SequentialPipeline;
+import core.repo.LocalDirectoryRepo;
+import model.data.Data;
+import model.data.ImageSeries;
+import model.data.RepoRequest;
+import model.pipeline.PipelineBlock;
 
 import java.util.ArrayList;
 
 public class Main {
-    public static void main (String args []) {
-        DicomReaderBlock dicomReader = new DicomReaderBlock();
-        VolumeBlock volumeCalculator = new VolumeBlock();
-        dicomReader.setInputData(new DirData());
-        dicomReader.addListener(volumeCalculator);
 
-        ArrayList<Block> pipe = new ArrayList<Block>();
-        pipe.add(dicomReader);
-        pipe.add(volumeCalculator);
-        // Pipeline mock, runs consequantly blocks.
-        // May be improved with custom Event class to handle if we need to fire execute on some class's side.
-        for (Block block : pipe){
-            block.Execute();
-        }
+    public static void main (String args []) throws NoSuchMethodException {
+
+        AlgorithmHostBlock<RepoRequest, ImageSeries> repoAccessorHost = new AlgorithmHostBlock<>(new RepoImageSeriesAccessor());
+        AlgorithmHostBlock<ImageSeries, ImageSeries> imageSeriesThresholder = new AlgorithmHostBlock<>(new ImageSeriesThresholdBlock((byte) 1, (byte) 2));
+        AlgorithmHostBlock<ImageSeries, Data> volumeCalculator = new AlgorithmHostBlock<>(new ImageSeriesVoxelVolumeCalcAlg());
+
+        SequentialPipeline pipe = SequentialPipeline.CreateFromBlockList(new ArrayList<>() {{
+            add(repoAccessorHost);
+            add(imageSeriesThresholder);
+            add(volumeCalculator);
+        }}, false);
+
+        RepoRequest init = new RepoRequest(new LocalDirectoryRepo(), "c:\\src");
+
+        pipe.Run(init);
         System.out.println ("Pipeline finished");
     }
+
 }
