@@ -23,10 +23,10 @@ public class LocalDirectoryRepo implements Repo {
     private static final ImageSeries DummySeries = CreateDummy();
 
     private static ImageSeries CreateDummy() {
-        ArrayList<MedImageTag> tags = new ArrayList<>() {{
+        ArrayList<MedImageTag> tags = new ArrayList<MedImageTag>() {{
             add(new MedImageTag("onepixelvolume", UUID.fromString("34091644-e39a-11e8-9f32-f2801f1b9fd1"), 2));
         }};
-        ArrayList<MedImage> dicoms = new ArrayList<>() {{
+        ArrayList<MedImage> dicoms = new ArrayList<MedImage>() {{
             add(new DicomImage(tags, new byte[][]{
                     {1, 2},
                     {3, 4}

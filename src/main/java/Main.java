@@ -19,7 +19,7 @@ public class Main {
         AlgorithmHostBlock<ImageSeries, ImageSeries> imageSeriesThresholder = new AlgorithmHostBlock<>(new ImageSeriesThresholdBlock((byte) 1, (byte) 2));
         AlgorithmHostBlock<ImageSeries, Data> volumeCalculator = new AlgorithmHostBlock<>(new ImageSeriesVoxelVolumeCalcAlg());
 
-        SequentialPipeline pipe = SequentialPipeline.CreateFromBlockList(new ArrayList<>() {{
+        SequentialPipeline pipe = SequentialPipeline.CreateFromBlockList(new ArrayList<PipelineBlock>() {{
             add(repoAccessorHost);
             add(imageSeriesThresholder);
             add(volumeCalculator);
