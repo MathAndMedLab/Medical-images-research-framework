@@ -1,12 +1,15 @@
-package core.algorithm.impl.img;
+package features.imageFilters;
 
 import core.algorithm.Algorithm;
-import model.data.ImageSeries;
-import model.data.MedImage;
+import core.data.medImage.ImageSeries;
+import core.data.medImage.MedImage;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Filters the pixels of all images provided in {@link ImageSeries} to be within specified boundaries.
+ */
 public class ImageSeriesThresholdBlock implements Algorithm<ImageSeries, ImageSeries> {
 
     private byte upperBound;
@@ -37,6 +40,7 @@ public class ImageSeriesThresholdBlock implements Algorithm<ImageSeries, ImageSe
         byte[][] pixels = medImage.getImagePixels();
 
         //TODO: (avlomakin) read about value-type arrays (RLY ??????????? arrays != collections?????????????)
+        // arrays are storages of fixed size, while collections are extensible. Like arrays and vectors in C++
         for (byte[] pixel : pixels)
             for (int i = 0; i < pixel.length; i++)
                 pixel[i] = ((pixel[i] >= lowerBound) && (pixel[i] <= upperBound)) ? pixel[i] : 0;

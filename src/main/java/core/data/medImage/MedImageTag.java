@@ -1,8 +1,11 @@
-package model.data;
+package core.data.medImage;
 
 import java.util.UUID;
 
-public class MedImageTag  {
+/**
+ * Stores a single tag that is part of metadata of medical images.
+ */
+public class MedImageTag {
     public final String name;
 
     //TODO: (avlomakin) replace with a class that supports (xxxx;xxxx) medical tag ids

@@ -1,7 +1,12 @@
-package model.data;
+package core.data.medImage;
+
+import core.data.Data;
 
 import java.util.*;
 
+/**
+ * ImageSeries stores a list of {@link MedImage}
+ */
 public class ImageSeries extends Data implements Iterable<MedImage>, Cloneable {
 
     //TODO: manage access to the fields after image model is chosen

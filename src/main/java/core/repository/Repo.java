@@ -1,6 +1,6 @@
-package model.repo;
+package core.repository;
 
-import model.data.ImageSeries;
+import core.data.medImage.ImageSeries;
 
 public interface Repo {
     ImageSeries GetImageSeries(String link);

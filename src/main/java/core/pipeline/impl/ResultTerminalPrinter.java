@@ -1,8 +1,9 @@
-package core.pipeline;
+package core.pipeline.impl;
 
-import model.data.Data;
-import model.pipeline.PipelineBlock;
+import core.pipeline.PipelineBlock;
+import core.data.Data;
 
+//TODO(avlomakin): add javadoc here
 public class ResultTerminalPrinter extends PipelineBlock<Data, Data> {
 
     @Override

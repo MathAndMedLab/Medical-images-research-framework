@@ -1,13 +1,13 @@
-import core.algorithm.impl.img.ImageSeriesThresholdBlock;
-import core.algorithm.impl.num.ImageSeriesVoxelVolumeCalcAlg;
-import core.algorithm.impl.repo.RepoImageSeriesAccessor;
-import core.pipeline.AlgorithmHostBlock;
-import core.pipeline.SequentialPipeline;
-import core.repo.LocalDirectoryRepo;
-import model.data.Data;
-import model.data.ImageSeries;
-import model.data.RepoRequest;
-import model.pipeline.PipelineBlock;
+import features.imageFilters.ImageSeriesThresholdBlock;
+import features.numInfoFromImage.ImageSeriesVoxelVolumeCalcAlg;
+import features.repositoryAccessors.RepoImageSeriesAccessor;
+import core.pipeline.impl.AlgorithmHostBlock;
+import core.pipeline.impl.SequentialPipeline;
+import core.repository.LocalDirectoryRepo;
+import core.data.Data;
+import core.data.medImage.ImageSeries;
+import features.repositoryAccessors.data.RepoRequest;
+import core.pipeline.PipelineBlock;
 
 import java.util.ArrayList;
 

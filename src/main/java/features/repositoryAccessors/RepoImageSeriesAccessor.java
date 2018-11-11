@@ -1,9 +1,10 @@
-package core.algorithm.impl.repo;
+package features.repositoryAccessors;
 
 import core.algorithm.Algorithm;
-import model.data.ImageSeries;
-import model.data.RepoRequest;
+import core.data.medImage.ImageSeries;
+import features.repositoryAccessors.data.RepoRequest;
 
+// TODO(avlomakin): add javadoc here
 public class RepoImageSeriesAccessor implements Algorithm<RepoRequest, ImageSeries> {
 
     @Override

@@ -1,11 +1,16 @@
-package model.data;
+package core.data.medImage;
+
+import core.data.Data;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
+/**
+ * Data about medical image, including both pixels data and metadata.
+ *
+ * <p>Any particular type of medical image should extend MedImage
+ */
 public abstract class MedImage extends Data implements Cloneable{
 
     protected List<MedImageTag> tags;
