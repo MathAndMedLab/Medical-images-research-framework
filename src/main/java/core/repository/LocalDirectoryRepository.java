@@ -9,13 +9,18 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- * Link = path on a filesystem
+ * Local file system commander, Link = path on a filesystem
  */
-public class LocalDirectoryRepo implements Repo {
+public class LocalDirectoryRepository implements Repository {
 
+    /**
+     * Reads all medical images from directory
+     * @param link path to the directory
+     * @return collected ImageSeries
+     */
     //TODO: (avlomakin) implement on next iteration
     @Override
-    public ImageSeries GetImageSeries(String link) {
+    public ImageSeries getImageSeries(String link) {
         return DummySeries;
     }
 
