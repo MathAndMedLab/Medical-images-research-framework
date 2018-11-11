@@ -1,7 +1,9 @@
-package model.data;
+package features.repositoryAccessors.data;
 
-import model.repo.Repo;
+import core.data.Data;
+import core.repository.Repo;
 
+// TODO(avlomakin): add javadoc here
 public class RepoRequest extends Data {
 
     private Repo repo;

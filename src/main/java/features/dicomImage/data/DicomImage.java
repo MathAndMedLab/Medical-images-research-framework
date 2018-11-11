@@ -1,5 +1,8 @@
-package model.data;
+package features.dicomImage.data;
 
+
+import core.data.medImage.MedImage;
+import core.data.medImage.MedImageTag;
 
 import java.util.List;
 
@@ -8,7 +11,7 @@ import java.util.List;
  */
 //TODO: (avlomakin) move to core.data
 
-public class DicomImage extends MedImage{
+public class DicomImage extends MedImage {
 
     private byte[][] pixelData;
 

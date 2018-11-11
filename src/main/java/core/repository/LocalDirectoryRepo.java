@@ -1,10 +1,9 @@
-package core.repo;
+package core.repository;
 
-import model.data.DicomImage;
-import model.data.ImageSeries;
-import model.data.MedImage;
-import model.data.MedImageTag;
-import model.repo.Repo;
+import features.dicomImage.data.DicomImage;
+import core.data.medImage.ImageSeries;
+import core.data.medImage.MedImage;
+import core.data.medImage.MedImageTag;
 
 import java.util.ArrayList;
 import java.util.UUID;
