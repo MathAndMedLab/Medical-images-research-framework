@@ -5,6 +5,7 @@ import core.data.Data;
 import core.data.medImage.ImageSeries;
 import core.data.medImage.MedImage;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 /**
@@ -12,7 +13,7 @@ import java.util.UUID;
  */
 public class ImageSeriesVoxelVolumeCalcAlg implements Algorithm<ImageSeries, Data> {
 
-    private final UUID ONE_PIXEL_VOLUME_ID = UUID.fromString("34091644-e39a-11e8-9f32-f2801f1b9fd1");
+    private final String ONE_PIXEL_VOLUME_ID = "34091644-e39a-11e8-9f32-f2801f1b9fd1";
 
     @Override
     public Data execute(ImageSeries input) {

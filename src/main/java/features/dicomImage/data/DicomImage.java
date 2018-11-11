@@ -2,7 +2,7 @@ package features.dicomImage.data;
 
 
 import core.data.medImage.MedImage;
-import core.data.medImage.MedImageTag;
+import core.data.medImage.MedImageAttribute;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class DicomImage extends MedImage {
 
     private byte[][] pixelData;
 
-    public DicomImage(List<MedImageTag> tags, byte[][] pixelData) {
+    public DicomImage(List<MedImageAttribute> tags, byte[][] pixelData) {
         super(tags);
         this.pixelData = pixelData;
     }
@@ -31,7 +31,22 @@ public class DicomImage extends MedImage {
     }
 
     @Override
-    public DicomImage clone() throws CloneNotSupportedException {
+    public DicomImage clone() {
         return new DicomImage(tags, pixelData);
+    }
+
+    @Override
+    public void addAttribute(MedImageAttribute attribute) {
+
+    }
+
+    @Override
+    public double getOnePixelVolume() {
+        return 0;
+    }
+
+    @Override
+    public boolean isThresholdApplied() {
+        return false;
     }
 }

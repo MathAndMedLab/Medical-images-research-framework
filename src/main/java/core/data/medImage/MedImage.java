@@ -13,9 +13,9 @@ import java.util.UUID;
  */
 public abstract class MedImage extends Data implements Cloneable{
 
-    protected List<MedImageTag> tags;
+    protected List<MedImageAttribute> tags;
 
-    public MedImage(List<MedImageTag> tags) {
+    public MedImage(List<MedImageAttribute> tags) {
         this.tags = tags;
     }
 
@@ -23,16 +23,22 @@ public abstract class MedImage extends Data implements Cloneable{
 
     public abstract void setImagePixels(byte[][] pixels);
 
-    public MedImageTag findTag(UUID tagId) {
+    public MedImageAttribute findTag(String tag) {
 
         //TODO: (avlomakin) read more about java streams (LINQ C#)
-        Optional<MedImageTag> result = tags.stream().filter(x -> x.id == tagId).findFirst();
+        Optional<MedImageAttribute> result = tags.stream().filter(x -> x.tag.equals(tag)).findFirst();
         return result.orElse(null);
     }
 
     //TODO: (avlomakin) check clone patterns in java
     @Override
-    public abstract MedImage clone() throws CloneNotSupportedException;
+    public abstract MedImage clone();
 
-    //TODO: (avlomakin) create MedImage wrapper for tags access( IsThresholdApplied() {return findTag(MedImageTag.THRESHOLD))
+    public abstract void addAttribute(MedImageAttribute attribute);
+
+
+    //TODO: (avlomakin) create MedImage wrapper for attributes access( IsThresholdApplied() {return findTag(MedImageAttribute.THRESHOLD))
+    public abstract double getOnePixelVolume();
+
+    public abstract boolean isThresholdApplied();
 }

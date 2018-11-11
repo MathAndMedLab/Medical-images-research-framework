@@ -1,9 +1,9 @@
 package core.repository;
 
+import core.data.medImage.MedImageAttribute;
 import features.dicomImage.data.DicomImage;
 import core.data.medImage.ImageSeries;
 import core.data.medImage.MedImage;
-import core.data.medImage.MedImageTag;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -27,8 +27,9 @@ public class LocalDirectoryRepository implements Repository {
     private static final ImageSeries DummySeries = CreateDummy();
 
     private static ImageSeries CreateDummy() {
-        ArrayList<MedImageTag> tags = new ArrayList<MedImageTag>() {{
-            add(new MedImageTag("onepixelvolume", UUID.fromString("34091644-e39a-11e8-9f32-f2801f1b9fd1"), 2));
+        ArrayList<MedImageAttribute> tags = new ArrayList<MedImageAttribute>() {{
+            //TODO: (avlomakin) uncomment and modify
+           // add(new MedImageAttribute("onepixelvolume", UUID.fromString("34091644-e39a-11e8-9f32-f2801f1b9fd1"), tagType, 2, valueRepresentation));
         }};
         ArrayList<MedImage> dicoms = new ArrayList<MedImage>() {{
             add(new DicomImage(tags, new byte[][]{
