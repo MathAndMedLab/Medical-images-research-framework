@@ -58,6 +58,10 @@ public class MedImageAttribute {
         return new MedImageAttribute(name, tag, AttributeTagType.UUID, value, valueRepresentation);
     }
 
+    public static MedImageAttribute createFromMock(MedImageAttributeMockup mockup, Object value){
+        //TODO: (avlomakin) implement
+    }
+
     private static boolean isDicomVR(AttributeValueRepresentation valueRepresentation) {
         switch (valueRepresentation) {
             case DicomPN:
