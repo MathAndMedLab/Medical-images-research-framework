@@ -1,6 +1,6 @@
 import core.pipeline.impl.ConsumerBlock;
 import core.pipeline.impl.SequentialPipeline;
-import core.repository.LocalDirectoryRepository;
+import features.repository.LocalDirectoryRepository;
 import features.imageFilters.ImageSeriesThresholdBlock;
 import features.numInfoFromImage.ImageSeriesVoxelVolumeCalcAlg;
 import features.repositoryAccessors.RepoImageSeriesAccessor;

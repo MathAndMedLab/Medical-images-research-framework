@@ -1,0 +1,15 @@
+package core.data.medImage;
+
+public class MedImageAttributeMockup {
+    public final String name;
+    public final String tag;
+    public final AttributeTagType attributeTagType;
+    public final AttributeValueRepresentation valueRepresentation;
+
+    public MedImageAttributeMockup(String name, String tag, AttributeTagType attributeTagType, AttributeValueRepresentation valueRepresentation) {
+        this.name = name;
+        this.tag = tag;
+        this.attributeTagType = attributeTagType;
+        this.valueRepresentation = valueRepresentation;
+    }
+}

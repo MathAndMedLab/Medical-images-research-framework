@@ -14,7 +14,12 @@ public class ImageSeries extends Data implements Iterable<MedImage>, Cloneable {
     public List<MedImage> images;
 
     public ImageSeries(List<MedImageAttribute> attributes, List<MedImage> images) {
-        this.attributes = attributes;
+
+        this.attributes = new ArrayList<>();
+
+        if(attributes != null)
+            this.attributes.addAll(attributes);
+
         this.images = images;
     }
 

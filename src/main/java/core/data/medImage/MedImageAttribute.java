@@ -59,7 +59,15 @@ public class MedImageAttribute {
     }
 
     public static MedImageAttribute createFromMock(MedImageAttributeMockup mockup, Object value){
+        if(!isMockupValid(mockup))
+            throw new IllegalArgumentException("mockup");
+
+        return new MedImageAttribute(mockup.name, mockup.tag, mockup.attributeTagType, value, mockup.valueRepresentation);
+    }
+
+    private static boolean isMockupValid(MedImageAttributeMockup mockup) {
         //TODO: (avlomakin) implement
+        return true;
     }
 
     private static boolean isDicomVR(AttributeValueRepresentation valueRepresentation) {

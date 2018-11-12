@@ -1,11 +1,13 @@
 package core.data.medImage;
 
-/*
-Stores all mockups for all well-known MIRF data attrtibutes
-*/
+
+/**
+ * Stores all mockups for all well-known MIRF data attributes
+ */
 public final class MirfAttributes{
 
-    private DicomAttributes() {}
+    private MirfAttributes() {}
 
-    public static final MedImageAttributeMockup ONE_PIXEL_VOLUME = new MedImageAttributeMockup("onepixelvolume", "(1234, 1234)", AttributeValueRepresentation.DicomUN);
+    public static final MedImageAttributeMockup THRESHOLDED = new MedImageAttributeMockup("Thresholded", "96969da6-e6c2-11e8-9f32-f2801f1b9fd1",
+            AttributeTagType.UUID, AttributeValueRepresentation.DicomUN);
 }

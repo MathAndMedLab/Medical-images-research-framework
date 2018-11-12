@@ -3,6 +3,7 @@ package features.dicomImage.data;
 
 import core.data.medImage.MedImage;
 import core.data.medImage.MedImageAttribute;
+import core.data.medImage.MirfAttributes;
 
 import java.util.List;
 
@@ -37,16 +38,24 @@ public class DicomImage extends MedImage {
 
     @Override
     public void addAttribute(MedImageAttribute attribute) {
-
+        if(!tags.contains(attribute))
+            tags.add(attribute);
     }
 
     @Override
     public double getOnePixelVolume() {
-        return 0;
+        return (double)findTag(DicomAttributes.ONE_PIXEL_VOLUME.tag).value;
     }
 
     @Override
     public boolean isThresholdApplied() {
-        return false;
+        MedImageAttribute threshold = findTag(MirfAttributes.THRESHOLDED.tag);
+        return threshold != null && (boolean) threshold.value;
+    }
+
+    @Override
+    public void setThresholded(boolean value) {
+        MedImageAttribute thresholded = MedImageAttribute.createFromMock(MirfAttributes.THRESHOLDED, value);
+        addAttribute(thresholded);
     }
 }

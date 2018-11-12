@@ -23,7 +23,7 @@ public abstract class MedImage extends Data implements Cloneable{
 
     public abstract void setImagePixels(byte[][] pixels);
 
-    public MedImageAttribute findTag(String tag) {
+    protected MedImageAttribute findTag(String tag) {
 
         //TODO: (avlomakin) read more about java streams (LINQ C#)
         Optional<MedImageAttribute> result = tags.stream().filter(x -> x.tag.equals(tag)).findFirst();
@@ -36,9 +36,9 @@ public abstract class MedImage extends Data implements Cloneable{
 
     public abstract void addAttribute(MedImageAttribute attribute);
 
-
-    //TODO: (avlomakin) create MedImage wrapper for attributes access( IsThresholdApplied() {return findTag(MedImageAttribute.THRESHOLD))
     public abstract double getOnePixelVolume();
 
     public abstract boolean isThresholdApplied();
+
+    public abstract void setThresholded(boolean value);
 }

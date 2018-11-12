@@ -1,11 +1,8 @@
 package features.imageFilters;
 
 import core.algorithm.Algorithm;
-import core.data.medImage.AttributeValueRepresentation;
 import core.data.medImage.ImageSeries;
 import core.data.medImage.MedImage;
-import core.data.medImage.MedImageAttribute;
-import core.data.medImage.MirfAttributes;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,9 +36,7 @@ public class ImageSeriesThresholdBlock implements Algorithm<ImageSeries, ImageSe
                 pixel[i] = ((pixel[i] >= lowerBound) && (pixel[i] <= upperBound)) ? pixel[i] : 0;
 
         MedImage result = medImage.clone();
-        MedImageAttribute thresholded = MedImageAttribute.createFromMock(MirfAttributes.THRESHOLDED.tag, true);
-
-        result.addAttribute(thresholded);
+        result.setThresholded(true);
         result.setImagePixels(pixels);
 
         return result;

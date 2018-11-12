@@ -1,8 +1,7 @@
 package core.pipeline.impl;
 
-import core.algorithm.Algorithm;
-import core.pipeline.PipelineBlock;
 import core.data.Data;
+import core.pipeline.PipelineBlock;
 
 import java.util.function.Consumer;
 
@@ -26,7 +25,6 @@ public class ConsumerBlock extends PipelineBlock<Data, Data> {
 
     @Override
     public void addListener(PipelineBlock<Data, ?> listener) {
-        //TODO: (avlomakin) change Error to Exception and read about java Exceptions
-        throw new Error("Subscription to the ConsumerBlock block is not allowed");
+        throw new RuntimeException("Subscription to the ConsumerBlock block is not allowed");
     }
 }
