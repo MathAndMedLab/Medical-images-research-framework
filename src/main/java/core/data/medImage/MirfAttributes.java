@@ -2,7 +2,7 @@ package core.data.medImage;
 
 
 /**
- * Stores all mockups for all well-known MIRF data attributes
+ * Stores {@link MedImageAttributeMockup} for all well-known MIRF data attributes
  */
 public final class MirfAttributes{
 

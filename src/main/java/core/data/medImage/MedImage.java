@@ -19,6 +19,9 @@ public abstract class MedImage extends Data implements Cloneable{
         this.tags = tags;
     }
 
+
+    //TODO: (avlomakin) replace byte[][] to BufferedImage
+    
     public abstract byte[][] getImagePixels();
 
     public abstract void setImagePixels(byte[][] pixels);
@@ -34,11 +37,26 @@ public abstract class MedImage extends Data implements Cloneable{
     @Override
     public abstract MedImage clone();
 
+    /**
+     * Adds custom attribute to the {@link MedImage}
+     * @param attribute attribute to be added
+     */
     public abstract void addAttribute(MedImageAttribute attribute);
 
+    /**
+     * @return volume of one pixel
+     */
     public abstract double getOnePixelVolume();
 
+    /**
+     * Checks if image was processed by threshold Algorithm
+     * @return check result
+     */
     public abstract boolean isThresholdApplied();
 
+    /**
+     * Stores information about threshold algorithm applying
+     * @param value
+     */
     public abstract void setThresholded(boolean value);
 }

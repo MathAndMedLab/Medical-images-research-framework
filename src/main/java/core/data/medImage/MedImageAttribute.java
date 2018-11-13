@@ -43,7 +43,7 @@ public class MedImageAttribute {
     }
 
     /**
-     * Create MIRF data attribute
+     * Creates MIRF data attribute
      * @param tag attribute tag  - UUID
      * @param name attribute name
      * @param valueRepresentation  Value Representation (VR) that describes the data type and format of the attribute value (see MIRF documentation)
@@ -58,6 +58,12 @@ public class MedImageAttribute {
         return new MedImageAttribute(name, tag, AttributeTagType.UUID, value, valueRepresentation);
     }
 
+    /**
+     * Creates {@link MedImageAttribute} from {@link MedImageAttributeMockup}
+     * @param mockup mockup to be used
+     * @param value attribute value
+     * @return created attribute
+     */
     public static MedImageAttribute createFromMock(MedImageAttributeMockup mockup, Object value){
         if(!isMockupValid(mockup))
             throw new IllegalArgumentException("mockup");

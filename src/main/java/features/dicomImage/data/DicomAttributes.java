@@ -4,6 +4,9 @@ import core.data.medImage.AttributeTagType;
 import core.data.medImage.AttributeValueRepresentation;
 import core.data.medImage.MedImageAttributeMockup;
 
+/**
+ * Stores {@link MedImageAttributeMockup} for all well-known DICOM data attributes
+ */
 public final class DicomAttributes{
     private DicomAttributes() {}
 
