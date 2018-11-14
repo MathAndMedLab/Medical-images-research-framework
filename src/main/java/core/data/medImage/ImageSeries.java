@@ -23,6 +23,11 @@ public class ImageSeries extends Data implements Iterable<MedImage>, Cloneable {
         this.images = images;
     }
 
+    /**
+     * Finds ImageSeries attribute by tag
+     * @param tag tag of the requested attribute
+     * @return found attribute or null
+     */
     public MedImageAttribute findTag(String tag) {
         Optional<MedImageAttribute> result = attributes.stream().filter(x -> x.tag.equals(tag)).findFirst();
         return result.orElse(null);

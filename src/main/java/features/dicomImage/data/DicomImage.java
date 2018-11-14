@@ -3,6 +3,7 @@ package features.dicomImage.data;
 
 import core.data.medImage.MedImage;
 import core.data.medImage.MedImageAttribute;
+import core.data.medImage.MirfAttributeCreator;
 import core.data.medImage.MirfAttributes;
 
 import java.util.List;
@@ -11,7 +12,6 @@ import java.util.List;
  * Dummy implementation of dicom image
  */
 //TODO: (avlomakin) move to core.data
-
 public class DicomImage extends MedImage {
 
     private byte[][] pixelData;
@@ -55,7 +55,7 @@ public class DicomImage extends MedImage {
 
     @Override
     public void setThresholded(boolean value) {
-        MedImageAttribute thresholded = MedImageAttribute.createFromMock(MirfAttributes.THRESHOLDED, value);
+        MedImageAttribute thresholded = MirfAttributeCreator.createFromMock(MirfAttributes.THRESHOLDED, value);
         addAttribute(thresholded);
     }
 }

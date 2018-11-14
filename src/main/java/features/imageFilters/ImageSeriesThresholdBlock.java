@@ -30,7 +30,6 @@ public class ImageSeriesThresholdBlock implements Algorithm<ImageSeries, ImageSe
     private MedImage thresholdImage(MedImage medImage){
         byte[][] pixels = medImage.getImagePixels();
 
-        // arrays are storages of fixed size, while collections are extensible. Like arrays and vectors in C++
         for (byte[] pixel : pixels)
             for (int i = 0; i < pixel.length; i++)
                 pixel[i] = ((pixel[i] >= lowerBound) && (pixel[i] <= upperBound)) ? pixel[i] : 0;

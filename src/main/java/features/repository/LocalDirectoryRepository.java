@@ -1,11 +1,9 @@
 package features.repository;
 
-import core.data.medImage.MedImageAttribute;
+import core.data.medImage.*;
 import core.repository.Repository;
 import features.dicomImage.data.DicomAttributes;
 import features.dicomImage.data.DicomImage;
-import core.data.medImage.ImageSeries;
-import core.data.medImage.MedImage;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -30,7 +28,7 @@ public class LocalDirectoryRepository implements Repository {
 
     private static ImageSeries CreateDummy() {
         ArrayList<MedImageAttribute> tags = new ArrayList<MedImageAttribute>() {{
-            add(MedImageAttribute.createFromMock(DicomAttributes.ONE_PIXEL_VOLUME, 2.0));
+            add(MirfAttributeCreator.createFromMock(DicomAttributes.ONE_PIXEL_VOLUME, 2.0));
         }};
 
         ArrayList<MedImage> dicoms = new ArrayList<MedImage>() {{
