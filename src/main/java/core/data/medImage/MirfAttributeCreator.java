@@ -15,7 +15,7 @@ public final class MirfAttributeCreator {
      * @param value attribute value
      * @return created attribute
      */
-    public static MedImageAttribute CreateMirfAttribute(String tag, String name, Object value)
+    public static MedImageAttribute createMirfAttribute(String tag, String name, Object value)
     {
         if(!tag.matches("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}"))
             throw new IllegalArgumentException("tag");

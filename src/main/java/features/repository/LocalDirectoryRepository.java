@@ -6,7 +6,6 @@ import features.dicomImage.data.DicomAttributes;
 import features.dicomImage.data.DicomImage;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * Local file system commander, Link = path on a filesystem
@@ -24,9 +23,9 @@ public class LocalDirectoryRepository implements Repository {
         return DummySeries;
     }
 
-    private static final ImageSeries DummySeries = CreateDummy();
+    private static final ImageSeries DummySeries = createDummy();
 
-    private static ImageSeries CreateDummy() {
+    private static ImageSeries createDummy() {
         ArrayList<MedImageAttribute> tags = new ArrayList<MedImageAttribute>() {{
             add(MirfAttributeCreator.createFromMock(DicomAttributes.ONE_PIXEL_VOLUME, 2.0));
         }};

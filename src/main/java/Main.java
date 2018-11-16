@@ -21,7 +21,7 @@ public class Main {
 
         RepoRequest init = new RepoRequest(Paths.get("c:", "src","data").toString(), new LocalDirectoryRepository());
 
-        pipe.Run(init);
+        pipe.run(init);
         System.out.println ("Pipeline finished");
     }
 

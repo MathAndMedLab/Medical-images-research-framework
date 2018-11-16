@@ -18,7 +18,7 @@ public final class DicomAttributeCreator {
      * @param value attribute value
      * @return created attribute for Dicom format
      */
-    public static MedImageAttribute CreateDicomAttribute(String tag, String name, Object value)
+    public static MedImageAttribute createDicomAttribute(String tag, String name, Object value)
     {
         if(!isDicomTag(tag))
             throw new IllegalArgumentException("tag");

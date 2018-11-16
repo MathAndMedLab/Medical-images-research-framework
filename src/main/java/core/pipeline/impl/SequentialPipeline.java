@@ -18,7 +18,7 @@ public class SequentialPipeline {
 
     private List<PipelineBlock> blocks;
 
-    public void Run(Data initialData) {
+    public void run(Data initialData) {
         blocks.get(0).InputDataReady(null, initialData);
     }
 
