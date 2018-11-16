@@ -4,7 +4,9 @@ import core.algorithm.Algorithm;
 import core.data.Data;
 import core.data.medImage.ImageSeries;
 import core.data.medImage.MedImage;
+import features.dicomImage.data.DicomAttributes;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 /**
@@ -12,21 +14,24 @@ import java.util.UUID;
  */
 public class ImageSeriesVoxelVolumeCalcAlg implements Algorithm<ImageSeries, Data> {
 
-    private final UUID ONE_PIXEL_VOLUME_ID = UUID.fromString("34091644-e39a-11e8-9f32-f2801f1b9fd1");
-
     @Override
     public Data execute(ImageSeries input) {
 
-        //TODO: (avlomakin) create table of well-known GUIDS
-        double onePixelVolume = (double)(int)input.findTag(ONE_PIXEL_VOLUME_ID).value;
-
         double result = 0;
+
         for (MedImage image: input.images) {
+
+            //TODO: (avlomakin) replace with Log.Warning
+            if(!image.isThresholdApplied())
+                System.out.println("Warning, performing volume calculation on non-thresholded image, possible unexpected result");
+
+            double onePixelVolume = image.getOnePixelVolume();
             // TODO(sabrinamusatian): rewrite it using Arrays.stream
             for (byte[] line: image.getImagePixels()) {
                 for (byte aLine : line) result += (aLine != 0) ? onePixelVolume : 0;
             }
         }
+
         Data data = new Data();
         data.data = result;
 

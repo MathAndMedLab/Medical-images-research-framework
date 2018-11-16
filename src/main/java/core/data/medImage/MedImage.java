@@ -13,26 +13,50 @@ import java.util.UUID;
  */
 public abstract class MedImage extends Data implements Cloneable{
 
-    protected List<MedImageTag> tags;
+    protected List<MedImageAttribute> tags;
 
-    public MedImage(List<MedImageTag> tags) {
+    public MedImage(List<MedImageAttribute> tags) {
         this.tags = tags;
     }
 
+
+    //TODO: (avlomakin) replace byte[][] to BufferedImage
+    
     public abstract byte[][] getImagePixels();
 
     public abstract void setImagePixels(byte[][] pixels);
 
-    public MedImageTag findTag(UUID tagId) {
+    protected MedImageAttribute findTag(String tag) {
 
         //TODO: (avlomakin) read more about java streams (LINQ C#)
-        Optional<MedImageTag> result = tags.stream().filter(x -> x.id == tagId).findFirst();
+        Optional<MedImageAttribute> result = tags.stream().filter(x -> x.tag.equals(tag)).findFirst();
         return result.orElse(null);
     }
 
     //TODO: (avlomakin) check clone patterns in java
     @Override
-    public abstract MedImage clone() throws CloneNotSupportedException;
+    public abstract MedImage clone();
 
-    //TODO: (avlomakin) create MedImage wrapper for tags access( IsThresholdApplied() {return findTag(MedImageTag.THRESHOLD))
+    /**
+     * Adds custom attribute to the {@link MedImage}
+     * @param attribute attribute to be added
+     */
+    public abstract void addAttribute(MedImageAttribute attribute);
+
+    /**
+     * @return volume of one pixel
+     */
+    public abstract double getOnePixelVolume();
+
+    /**
+     * Checks if image was processed by threshold Algorithm
+     * @return check result
+     */
+    public abstract boolean isThresholdApplied();
+
+    /**
+     * Stores information about threshold algorithm applying
+     * @param value
+     */
+    public abstract void setThresholded(boolean value);
 }

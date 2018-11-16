@@ -1,33 +1,27 @@
+import core.pipeline.impl.ConsumerBlock;
+import core.pipeline.impl.SequentialPipeline;
+import features.repository.LocalDirectoryRepository;
 import features.imageFilters.ImageSeriesThresholdBlock;
 import features.numInfoFromImage.ImageSeriesVoxelVolumeCalcAlg;
 import features.repositoryAccessors.RepoImageSeriesAccessor;
-import core.pipeline.impl.AlgorithmHostBlock;
-import core.pipeline.impl.SequentialPipeline;
-import core.repository.LocalDirectoryRepo;
-import core.data.Data;
-import core.data.medImage.ImageSeries;
 import features.repositoryAccessors.data.RepoRequest;
-import core.pipeline.PipelineBlock;
 
-import java.util.ArrayList;
+import java.nio.file.Paths;
 
 public class Main {
 
-    public static void main (String args []) throws NoSuchMethodException {
+    public static void main (String args []) {
 
-        AlgorithmHostBlock<RepoRequest, ImageSeries> repoAccessorHost = new AlgorithmHostBlock<>(new RepoImageSeriesAccessor());
-        AlgorithmHostBlock<ImageSeries, ImageSeries> imageSeriesThresholder = new AlgorithmHostBlock<>(new ImageSeriesThresholdBlock((byte) 1, (byte) 2));
-        AlgorithmHostBlock<ImageSeries, Data> volumeCalculator = new AlgorithmHostBlock<>(new ImageSeriesVoxelVolumeCalcAlg());
+        SequentialPipeline pipe = new SequentialPipeline();
 
-        SequentialPipeline pipe = SequentialPipeline.CreateFromBlockList(new ArrayList<PipelineBlock>() {{
-            add(repoAccessorHost);
-            add(imageSeriesThresholder);
-            add(volumeCalculator);
-        }}, false);
+        pipe.add(new RepoImageSeriesAccessor());
+        pipe.add(new ImageSeriesThresholdBlock((byte) 1, (byte) 2));
+        pipe.add(new ImageSeriesVoxelVolumeCalcAlg());
+        pipe.add(new ConsumerBlock(x -> System.out.println(x.data.toString())));
 
-        RepoRequest init = new RepoRequest(new LocalDirectoryRepo(), "c:\\src");
+        RepoRequest init = new RepoRequest(Paths.get("c:", "src","data").toString(), new LocalDirectoryRepository());
 
-        pipe.Run(init);
+        pipe.run(init);
         System.out.println ("Pipeline finished");
     }
 

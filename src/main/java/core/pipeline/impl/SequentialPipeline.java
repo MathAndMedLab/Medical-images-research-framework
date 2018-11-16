@@ -1,34 +1,53 @@
 package core.pipeline.impl;
 
+import core.algorithm.Algorithm;
 import core.pipeline.PipelineBlock;
 import core.data.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
-// TODO(avlomakin): add javadoc here
+/**
+ * Simple pipeline that is used to sequentially apply Algorithms to the data flow
+ */
 public class SequentialPipeline {
 
-    public SequentialPipeline(List<PipelineBlock> blocks) {
-        this.blocks = blocks;
+    public SequentialPipeline() {
+        this.blocks = new ArrayList<>();
     }
 
-    List<PipelineBlock> blocks;
+    private List<PipelineBlock> blocks;
 
-    public void Run(Data initialData)
-    {
+    public void run(Data initialData) {
         blocks.get(0).InputDataReady(null, initialData);
     }
 
-    public static SequentialPipeline CreateFromBlockList(List<PipelineBlock> blocks, boolean connected) throws NoSuchMethodException {
-        //this lang is so bad
-        blocks.add(new ResultTerminalPrinter());
+    /**
+     * Creates {@link AlgorithmHostBlock} for the specified Algorithm and calls {@link #add(PipelineBlock) add} method
+     *
+     * @param algorithm algorithm to be appended to this pipeline
+     * @param <TIn> is an input type of the {@link Algorithm}
+     * @param <TOut> is an output type of the {@link Algorithm}
+     */
+    public <TIn extends Data, TOut extends Data> void add(Algorithm<TIn, TOut> algorithm)
+    {
+        AlgorithmHostBlock<TIn, TOut> block = new AlgorithmHostBlock<>(algorithm);
+        add(block);
+    }
 
-        if(!connected){
-            for(int i = 0; i < blocks.size() - 1; i++)
-                blocks.get(i).addListener(blocks.get(i + 1));
-        }
+    /**
+     * Appends specified block the end of this pipeline, connects it to the previous block if exists
+     *
+     * @param block block to be appended to this pipeline
+     * @param <TIn> is an input type of the {@link PipelineBlock}
+     * @param <TOut> is an output type of the {@link PipelineBlock}
+     */
+    public <TIn extends Data, TOut extends Data> void add(PipelineBlock<TIn, TOut> block)
+    {
+        if(!blocks.isEmpty())
+            blocks.get(blocks.size() - 1).addListener(block);
 
-        return new SequentialPipeline(blocks);
+        blocks.add(block);
     }
 }
 
