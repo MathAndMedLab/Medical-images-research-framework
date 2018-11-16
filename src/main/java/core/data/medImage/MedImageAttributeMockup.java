@@ -2,7 +2,8 @@ package core.data.medImage;
 
 /**
  *
- * Class to store information about {@link MedImageAttribute} signature, without actual value
+ * Class to store information about {@link MedImageAttribute} signature, define how the attribute looks like.
+ * Can be used to create a concrete {@link MedImageAttribute} by calling {@link MirfAttributeCreator#createFromMock(MedImageAttributeMockup, Object)}
  */
 public class MedImageAttributeMockup {
     public final String name;
