@@ -2,6 +2,8 @@ package core.pipeline.impl;
 
 
 import core.algorithm.Algorithm;
+import core.algorithm.ReportableAlgorithm;
+import core.data.report.Report;
 import core.pipeline.PipelineBlock;
 import core.data.Data;
 
@@ -19,6 +21,8 @@ public class AlgorithmHostBlock<TInput extends Data, TOutput extends Data> exten
     Algorithm<TInput, TOutput> algorithm;
 
     public boolean enabled = true;
+    private TInput cachedInput;
+    private TOutput cachedOutput;
 
     public AlgorithmHostBlock(Algorithm<TInput, TOutput> algorithm) {
         super();
@@ -28,8 +32,17 @@ public class AlgorithmHostBlock<TInput extends Data, TOutput extends Data> exten
     @Override
     public void InputDataReady(PipelineBlock<?, TInput> sender, TInput tInput) {
         if (enabled) {
-            TOutput result = algorithm.execute(tInput);
-            notifyListeners(this, result);
+            cachedInput = tInput;
+            cachedOutput = algorithm.execute(tInput);
+            notifyListeners(this, cachedOutput);
         }
+    }
+
+    public Report getReport()
+    {
+        if(algorithm instanceof ReportableAlgorithm)
+            return ((ReportableAlgorithm<TInput, TOutput>) algorithm).getReport(cachedInput,cachedOutput);
+        else
+            throw new RuntimeException(String.format("Algorithm %s cannot be reported", algorithm.getClass().getName()));
     }
 }

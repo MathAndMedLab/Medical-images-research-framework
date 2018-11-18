@@ -13,72 +13,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
-      <library name="Gradle: javax.json-api-1.0">
+      <library name="Gradle: aiviewer">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../libs/javax.json-api-1.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Gradle: javax.json-1.0.4">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../libs/javax.json-1.0.4.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Gradle: vecmath1.2-1.14">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../libs/vecmath1.2-1.14.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Gradle: jmdns">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../libs/jmdns.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Gradle: hsqldb">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../libs/hsqldb.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Gradle: commons-compress-1.12">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../libs/commons-compress-1.12.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Gradle: pixelmed_imageio">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../libs/pixelmed_imageio.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Gradle: pixelmed">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../libs/pixelmed.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../libs/aiviewer.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -94,6 +31,15 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
+      <library name="Gradle: commons-compress-1.12">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/commons-compress-1.12.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
       <library name="Gradle: commons-net-ftp-2.0">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../libs/commons-net-ftp-2.0.jar!/" />
@@ -103,9 +49,54 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="Gradle: aiviewer">
+      <library name="Gradle: guava-27.0-jre">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../libs/aiviewer.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../libs/guava-27.0-jre.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: hsqldb">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/hsqldb.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: javax.json-1.0.4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/javax.json-1.0.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: javax.json-api-1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/javax.json-api-1.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: jmdns">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/jmdns.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: pixelmed">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/pixelmed.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -115,6 +106,51 @@
       <library name="Gradle: pixelmed_codec">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../libs/pixelmed_codec.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: pixelmed_imageio">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/pixelmed_imageio.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: vecmath1.2-1.14">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/vecmath1.2-1.14.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: io-7.1.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/itext/io-7.1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: kernel-7.1.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/itext/kernel-7.1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: layout-7.1.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/itext/layout-7.1.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

@@ -5,6 +5,8 @@ import core.repository.Repository;
 import features.dicomImage.data.DicomAttributes;
 import features.dicomImage.data.DicomImage;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -14,13 +16,25 @@ public class LocalDirectoryRepository implements Repository {
 
     /**
      * Reads all medical images from directory
+     *
      * @param link path to the directory
      * @return collected ImageSeries
-//     */
+     * //
+     */
     //TODO: (avlomakin) implement on next iteration
     @Override
     public ImageSeries getImageSeries(String link) {
         return DummySeries;
+    }
+
+    @Override
+    public void SaveFile(byte[] file, String link, String filename) {
+        try {
+            FileOutputStream stream = new FileOutputStream(link + "/" + filename);
+            stream.write(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static final ImageSeries DummySeries = createDummy();
@@ -39,5 +53,4 @@ public class LocalDirectoryRepository implements Repository {
 
         return new ImageSeries(null, dicoms);
     }
-
 }

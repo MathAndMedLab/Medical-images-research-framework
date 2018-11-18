@@ -58,4 +58,9 @@ public class DicomImage extends MedImage {
         MedImageAttribute thresholded = MirfAttributeCreator.createFromMock(MirfAttributes.THRESHOLDED, value);
         addAttribute(thresholded);
     }
+
+    @Override
+    public String getExtension() {
+        return "DICOM";
+    }
 }

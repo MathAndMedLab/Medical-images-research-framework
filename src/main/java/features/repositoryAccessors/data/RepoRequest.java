@@ -12,6 +12,8 @@ public class RepoRequest extends Data {
 
     private Repository repository;
 
+    public Object bundle;
+
     public RepoRequest(String link, Repository repository) {
         this.link = link;
         this.repository = repository;

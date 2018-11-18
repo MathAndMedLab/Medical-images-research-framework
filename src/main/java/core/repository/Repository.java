@@ -8,4 +8,6 @@ import core.data.medImage.ImageSeries;
  */
 public interface Repository {
     ImageSeries getImageSeries(String link);
+
+    void SaveFile(byte[] file, String link, String filename);
 }

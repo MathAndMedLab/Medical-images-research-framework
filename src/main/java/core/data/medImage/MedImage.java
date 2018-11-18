@@ -59,4 +59,10 @@ public abstract class MedImage extends Data implements Cloneable{
      * @param value
      */
     public abstract void setThresholded(boolean value);
+
+    /**
+     * Retrieves file extension of MedImage
+     * @return extension
+     */
+    public abstract String getExtension();
 }
