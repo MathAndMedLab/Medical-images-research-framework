@@ -1,8 +1,8 @@
-package features.repositoryAccessors;
+package features.repositoryaccessors;
 
 import core.algorithm.Algorithm;
-import core.data.medImage.ImageSeries;
-import features.repositoryAccessors.data.RepoRequest;
+import core.data.medimage.ImageSeries;
+import features.repositoryaccessors.data.RepoRequest;
 import core.pipeline.impl.AlgorithmHostBlock;
 
 /**

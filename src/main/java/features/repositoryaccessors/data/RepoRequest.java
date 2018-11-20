@@ -1,4 +1,4 @@
-package features.repositoryAccessors.data;
+package features.repositoryaccessors.data;
 
 import core.data.Data;
 import core.repository.Repository;

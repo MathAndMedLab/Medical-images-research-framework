@@ -1,6 +1,6 @@
-package features.dicomImage;
+package features.dicomimage;
 
-import core.data.medImage.MedImageAttribute;
+import core.data.medimage.MedImageAttribute;
 
 /**
  * Manages DICOM attributes creation

@@ -1,8 +1,8 @@
-package features.imageFilters;
+package features.imagefilters;
 
 import core.algorithm.Algorithm;
-import core.data.medImage.ImageSeries;
-import core.data.medImage.MedImage;
+import core.data.medimage.ImageSeries;
+import core.data.medimage.MedImage;
 
 import java.util.List;
 import java.util.stream.Collectors;

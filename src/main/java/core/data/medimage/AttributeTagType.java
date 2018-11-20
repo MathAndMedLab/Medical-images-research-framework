@@ -1,4 +1,4 @@
-package core.data.medImage;
+package core.data.medimage;
 
 /**
  * {@link MedImage} data attribute tag type
