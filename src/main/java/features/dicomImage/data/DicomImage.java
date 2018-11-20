@@ -2,7 +2,7 @@ package features.dicomImage.data;
 
 
 import core.data.medImage.MedImage;
-import core.data.medImage.MedImageAttribute;
+import core.data.medImage.MirfAttribute;
 import core.data.medImage.MirfAttributeCreator;
 import core.data.medImage.MirfAttributes;
 
@@ -16,7 +16,7 @@ public class DicomImage extends MedImage {
 
     private byte[][] pixelData;
 
-    public DicomImage(List<MedImageAttribute> tags, byte[][] pixelData) {
+    public DicomImage(List<MirfAttribute> tags, byte[][] pixelData) {
         super(tags);
         this.pixelData = pixelData;
     }
@@ -37,7 +37,7 @@ public class DicomImage extends MedImage {
     }
 
     @Override
-    public void addAttribute(MedImageAttribute attribute) {
+    public void addAttribute(MirfAttribute attribute) {
         if(!tags.contains(attribute))
             tags.add(attribute);
     }
@@ -49,13 +49,13 @@ public class DicomImage extends MedImage {
 
     @Override
     public boolean isThresholdApplied() {
-        MedImageAttribute threshold = findTag(MirfAttributes.THRESHOLDED.tag);
+        MirfAttribute threshold = findTag(MirfAttributes.THRESHOLDED.tag);
         return threshold != null && (boolean) threshold.value;
     }
 
     @Override
     public void setThresholded(boolean value) {
-        MedImageAttribute thresholded = MirfAttributeCreator.createFromMock(MirfAttributes.THRESHOLDED, value);
+        MirfAttribute thresholded = MirfAttributeCreator.createFromMock(MirfAttributes.THRESHOLDED, value);
         addAttribute(thresholded);
     }
 

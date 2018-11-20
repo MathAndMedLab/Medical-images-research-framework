@@ -4,7 +4,6 @@ import core.data.Data;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Data about medical image, including both pixels data and metadata.
@@ -13,9 +12,9 @@ import java.util.UUID;
  */
 public abstract class MedImage extends Data implements Cloneable{
 
-    protected List<MedImageAttribute> tags;
+    protected List<MirfAttribute> tags;
 
-    public MedImage(List<MedImageAttribute> tags) {
+    public MedImage(List<MirfAttribute> tags) {
         this.tags = tags;
     }
 
@@ -26,10 +25,10 @@ public abstract class MedImage extends Data implements Cloneable{
 
     public abstract void setImagePixels(byte[][] pixels);
 
-    protected MedImageAttribute findTag(String tag) {
+    protected MirfAttribute findTag(String tag) {
 
         //TODO: (avlomakin) read more about java streams (LINQ C#)
-        Optional<MedImageAttribute> result = tags.stream().filter(x -> x.tag.equals(tag)).findFirst();
+        Optional<MirfAttribute> result = tags.stream().filter(x -> x.tag.equals(tag)).findFirst();
         return result.orElse(null);
     }
 
@@ -41,7 +40,7 @@ public abstract class MedImage extends Data implements Cloneable{
      * Adds custom attribute to the {@link MedImage}
      * @param attribute attribute to be added
      */
-    public abstract void addAttribute(MedImageAttribute attribute);
+    public abstract void addAttribute(MirfAttribute attribute);
 
     /**
      * @return volume of one pixel

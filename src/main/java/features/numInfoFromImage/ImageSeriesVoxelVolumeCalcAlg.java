@@ -26,7 +26,6 @@ public class ImageSeriesVoxelVolumeCalcAlg implements Algorithm<ImageSeries, Dat
                 System.out.println("Warning, performing volume calculation on non-thresholded image, possible unexpected result");
 
             double onePixelVolume = image.getOnePixelVolume();
-            // TODO(sabrinamusatian): rewrite it using Arrays.stream
             for (byte[] line: image.getImagePixels()) {
                 for (byte aLine : line) result += (aLine != 0) ? onePixelVolume : 0;
             }

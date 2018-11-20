@@ -130,6 +130,42 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
+      <library name="Gradle: barcodes-7.1.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/itext/barcodes-7.1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: font-asian-7.1.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/itext/font-asian-7.1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: forms-7.1.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/itext/forms-7.1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: hyph-7.1.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/itext/hyph-7.1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
       <library name="Gradle: io-7.1.2">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../libs/itext/io-7.1.2.jar!/" />
@@ -151,6 +187,42 @@
       <library name="Gradle: layout-7.1.2">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../libs/itext/layout-7.1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: pdfa-7.1.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/itext/pdfa-7.1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: sign-7.1.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/itext/sign-7.1.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: slf4j-api-1.7.13">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/slf4j/slf4j-api-1.7.13.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Gradle: slf4j-simple-1.7.13">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/slf4j/slf4j-simple-1.7.13.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

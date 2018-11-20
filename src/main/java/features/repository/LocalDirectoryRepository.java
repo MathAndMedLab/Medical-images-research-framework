@@ -40,7 +40,7 @@ public class LocalDirectoryRepository implements Repository {
     private static final ImageSeries DummySeries = createDummy();
 
     private static ImageSeries createDummy() {
-        ArrayList<MedImageAttribute> tags = new ArrayList<MedImageAttribute>() {{
+        ArrayList<MirfAttribute> tags = new ArrayList<MirfAttribute>() {{
             add(MirfAttributeCreator.createFromMock(DicomAttributes.ONE_PIXEL_VOLUME, 2.0));
         }};
 

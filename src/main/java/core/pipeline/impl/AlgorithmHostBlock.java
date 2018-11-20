@@ -2,8 +2,6 @@ package core.pipeline.impl;
 
 
 import core.algorithm.Algorithm;
-import core.algorithm.ReportableAlgorithm;
-import core.data.report.Report;
 import core.pipeline.PipelineBlock;
 import core.data.Data;
 
@@ -18,11 +16,11 @@ import core.data.Data;
  */
 public class AlgorithmHostBlock<TInput extends Data, TOutput extends Data> extends PipelineBlock<TInput, TOutput> {
 
-    Algorithm<TInput, TOutput> algorithm;
+    protected Algorithm<TInput, TOutput> algorithm;
 
     public boolean enabled = true;
-    private TInput cachedInput;
-    private TOutput cachedOutput;
+    protected TInput cachedInput;
+    protected TOutput cachedOutput;
 
     public AlgorithmHostBlock(Algorithm<TInput, TOutput> algorithm) {
         super();
@@ -36,13 +34,5 @@ public class AlgorithmHostBlock<TInput extends Data, TOutput extends Data> exten
             cachedOutput = algorithm.execute(tInput);
             notifyListeners(this, cachedOutput);
         }
-    }
-
-    public Report getReport()
-    {
-        if(algorithm instanceof ReportableAlgorithm)
-            return ((ReportableAlgorithm<TInput, TOutput>) algorithm).getReport(cachedInput,cachedOutput);
-        else
-            throw new RuntimeException(String.format("Algorithm %s cannot be reported", algorithm.getClass().getName()));
     }
 }

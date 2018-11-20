@@ -3,56 +3,42 @@ package features.reports.pdf;
 import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
-import com.itextpdf.kernel.geom.PageSize;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.UnitValue;
 import core.algorithm.Algorithm;
-import core.algorithm.ReportableAlgorithm;
-import core.data.report.DataTableReport;
-import core.data.report.Report;
-import core.pipeline.PipelineBlock;
-import core.pipeline.impl.AlgorithmHostBlock;
+import core.data.Data;
+import core.data.report.AlgorithmReport;
+import core.data.report.DataTableAlgorithmReport;
+import features.reports.PdfElementData;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Dictionary;
 
-/**
- * Common pdf generator for MIRF report types
- */
-public class RepositoryAccessorPdfReporter implements Algorithm<AlgorithmHostBlock, FileData> {
+public class MirfReportToPdfElementConverter<Input extends Data> implements Algorithm<Input, PdfElementData> {
 
-    private static final String EXTENSION = ".pdf";
-    private String name;
+    private Algorithm<Input, AlgorithmReport> reportCreator;
 
-    public RepositoryAccessorPdfReporter(String name) {
-        this.name = name;
+    public MirfReportToPdfElementConverter(Algorithm<Input, AlgorithmReport> reportCreator) {
+        this.reportCreator = reportCreator;
     }
 
     @Override
-    public FileData execute(AlgorithmHostBlock input) {
-        Report report = input.getReport();
+    public PdfElementData execute(Input input) {
+        AlgorithmReport report = reportCreator.execute(input);
+        return new PdfElementData(execute(report));
+    }
 
-        ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-        PdfWriter writer = new PdfWriter(resultStream);
-
-        PdfDocument pdf = new PdfDocument(writer);
-
-        Document document = new Document(pdf, PageSize.A4);
-
-        document.setMargins(10, 10, 10, 10);
+    public IBlockElement execute(AlgorithmReport report) {
         IBlockElement generatedReport;
 
+        //TODO: (avlomakin) implement IBlockElement generation for other types of reports
         switch (report.mirfReportType) {
             case DataTable:
-                generatedReport = generatePdfForTableReport((DataTableReport) report);
+                generatedReport = generatePdfForTableReport((DataTableAlgorithmReport) report);
                 break;
             case Unknown:
             case Extension:
@@ -60,13 +46,10 @@ public class RepositoryAccessorPdfReporter implements Algorithm<AlgorithmHostBlo
             default:
                 throw new RuntimeException(String.format("Cannot generate report for %s", report.mirfReportType));
         }
-
-        document.add(generatedReport);
-        document.close();
-        return new FileData(resultStream.toByteArray(), name, EXTENSION);
+        return generatedReport;
     }
 
-    private Table generatePdfForTableReport(DataTableReport report) {
+    private Table generatePdfForTableReport(DataTableAlgorithmReport report) {
 
         PdfFont font = null;
         PdfFont bold = null;
@@ -79,18 +62,18 @@ public class RepositoryAccessorPdfReporter implements Algorithm<AlgorithmHostBlo
 
         Table table = new Table(report.table.columns.size());
 
-        table.setWidth(UnitValue.createPercentValue(100));
+        table.setWidth(UnitValue.createPercentValue(70));
 
         addHeaders(table, report.table.columns, bold);
-        for (Dictionary<String,String> row : report.table.rows)
+        for (Dictionary<String, String> row : report.table.rows)
             addRow(table, row, font, report.table.columns);
 
         return table;
     }
 
     private void addRow(Table table, Dictionary<String, String> items, PdfFont font, Collection<String> headers) {
-        for (String header: headers)
-                table.addCell(new Cell().add(new Paragraph(items.get(header)).setFont(font)));
+        for (String header : headers)
+            table.addCell(new Cell().add(new Paragraph(items.get(header)).setFont(font)));
     }
 
     private void addHeaders(Table table, Collection<String> items, PdfFont font) {

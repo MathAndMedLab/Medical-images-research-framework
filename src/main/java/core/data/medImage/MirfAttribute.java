@@ -3,7 +3,7 @@ package core.data.medImage;
 /**
  * Stores a single tag that is part of metadata of medical images.
  */
-public class MedImageAttribute {
+public class MirfAttribute {
 
     public final String name;
 
@@ -14,7 +14,7 @@ public class MedImageAttribute {
 
     public String description;
 
-    public MedImageAttribute(String name, String tag, Object value) {
+    public MirfAttribute(String name, String tag, Object value) {
         this.name = name;
         this.tag = tag;
         this.value = value;
