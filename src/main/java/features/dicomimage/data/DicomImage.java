@@ -1,10 +1,10 @@
-package features.dicomImage.data;
+package features.dicomimage.data;
 
 
-import core.data.medImage.MedImage;
-import core.data.medImage.MedImageAttribute;
-import core.data.medImage.MirfAttributeCreator;
-import core.data.medImage.MirfAttributes;
+import core.data.medimage.MedImage;
+import core.data.medimage.MedImageAttribute;
+import core.data.medimage.MirfAttributeCreator;
+import core.data.medimage.MirfAttributes;
 
 import java.util.List;
 

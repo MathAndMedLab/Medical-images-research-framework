@@ -1,17 +1,16 @@
-package core.data.medImage;
+package core.data.medimage;
 
 import core.data.Data;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Data about medical image, including both pixels data and metadata.
  *
  * <p>Any particular type of medical image should extend MedImage
  */
-public abstract class MedImage extends Data implements Cloneable{
+public abstract class MedImage extends Data implements Cloneable {
 
     protected List<MedImageAttribute> tags;
 
@@ -21,7 +20,7 @@ public abstract class MedImage extends Data implements Cloneable{
 
 
     //TODO: (avlomakin) replace byte[][] to BufferedImage
-    
+
     public abstract byte[][] getImagePixels();
 
     public abstract void setImagePixels(byte[][] pixels);
@@ -39,6 +38,7 @@ public abstract class MedImage extends Data implements Cloneable{
 
     /**
      * Adds custom attribute to the {@link MedImage}
+     *
      * @param attribute attribute to be added
      */
     public abstract void addAttribute(MedImageAttribute attribute);
@@ -50,12 +50,14 @@ public abstract class MedImage extends Data implements Cloneable{
 
     /**
      * Checks if image was processed by threshold Algorithm
+     *
      * @return check result
      */
     public abstract boolean isThresholdApplied();
 
     /**
      * Stores information about threshold algorithm applying
+     *
      * @param value
      */
     public abstract void setThresholded(boolean value);

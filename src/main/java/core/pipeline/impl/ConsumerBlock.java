@@ -19,7 +19,7 @@ public class ConsumerBlock extends PipelineBlock<Data, Data> {
     }
 
     @Override
-    public void InputDataReady(PipelineBlock<?, Data> sender, Data data) {
+    public void inputDataReady(PipelineBlock<?, Data> sender, Data data) {
         consumer.accept(data);
     }
 

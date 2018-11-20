@@ -1,4 +1,4 @@
-package core.data.medImage;
+package core.data.medimage;
 
 
 /**

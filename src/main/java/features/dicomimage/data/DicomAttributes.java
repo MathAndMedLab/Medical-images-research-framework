@@ -1,7 +1,7 @@
-package features.dicomImage.data;
+package features.dicomimage.data;
 
-import core.data.medImage.AttributeTagType;
-import core.data.medImage.MedImageAttributeMockup;
+import core.data.medimage.AttributeTagType;
+import core.data.medimage.MedImageAttributeMockup;
 
 /**
  * Stores {@link MedImageAttributeMockup} for all well-known DICOM data attributes

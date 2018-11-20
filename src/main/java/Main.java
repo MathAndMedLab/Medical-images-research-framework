@@ -1,10 +1,10 @@
 import core.pipeline.impl.ConsumerBlock;
 import core.pipeline.impl.SequentialPipeline;
 import features.repository.LocalDirectoryRepository;
-import features.imageFilters.ImageSeriesThresholdBlock;
-import features.numInfoFromImage.ImageSeriesVoxelVolumeCalcAlg;
-import features.repositoryAccessors.RepoImageSeriesAccessor;
-import features.repositoryAccessors.data.RepoRequest;
+import features.imagefilters.ImageSeriesThresholdBlock;
+import features.numinfofromimage.ImageSeriesVoxelVolumeCalcAlg;
+import features.repositoryaccessors.RepoImageSeriesAccessor;
+import features.repositoryaccessors.data.RepoRequest;
 
 import java.nio.file.Paths;
 
