@@ -1,10 +1,9 @@
-package features.dicomImage.util;
+package features.dicomimage.util;
 
 import com.pixelmed.dicom.Attribute;
 import com.pixelmed.dicom.AttributeList;
 import com.pixelmed.dicom.AttributeTag;
 import com.pixelmed.dicom.TagFromName;
-import features.dicomImage.util.DicomReader;
 import org.junit.Assert;
 import org.junit.Test;
 

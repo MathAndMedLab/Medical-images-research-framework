@@ -1,4 +1,4 @@
-package features.dicomImage.util;
+package features.dicomimage.util;
 
 import com.pixelmed.dicom.AttributeList;
 import com.pixelmed.display.ConsumerFormatImageMaker;
