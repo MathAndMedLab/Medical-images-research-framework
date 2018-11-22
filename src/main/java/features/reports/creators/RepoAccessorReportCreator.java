@@ -2,16 +2,13 @@ package features.reports.creators;
 
 import core.algorithm.Algorithm;
 import core.data.DataTable;
-import core.data.medImage.ImageSeries;
-import core.data.medImage.MedImage;
-import core.data.medImage.MirfAttributes;
+import core.data.medimage.ImageSeries;
+import core.data.medimage.MirfAttributes;
 import core.data.report.AlgorithmReport;
 import core.data.report.DataTableAlgorithmReport;
 import core.repository.RepositoryInfo;
-import features.reports.PdfElementData;
-import features.repositoryAccessors.RepoAccessorsAttributes;
-import features.repositoryAccessors.RepositoryRequestInfo;
-import features.repositoryAccessors.data.RepoRequest;
+import features.repositoryaccessors.RepoAccessorsAttributes;
+import features.repositoryaccessors.RepositoryRequestInfo;
 
 import java.util.ArrayList;
 import java.util.Dictionary;

@@ -1,6 +1,6 @@
 package core.repository;
 
-import core.data.medImage.ImageSeries;
+import core.data.medimage.ImageSeries;
 
 /**
  * Provides method for repository interaction. To access your data storage,

@@ -1,9 +1,12 @@
 package features.repository;
 
-import core.data.medImage.*;
+import core.data.medimage.ImageSeries;
+import core.data.medimage.MedImage;
+import core.data.medimage.MirfAttribute;
+import core.data.medimage.MirfAttributeCreator;
 import core.repository.Repository;
-import features.dicomImage.data.DicomAttributes;
-import features.dicomImage.data.DicomImage;
+import features.dicomimage.data.DicomAttributes;
+import features.dicomimage.data.DicomImage;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,7 +22,6 @@ public class LocalDirectoryRepository implements Repository {
      *
      * @param link path to the directory
      * @return collected ImageSeries
-     * //
      */
     //TODO: (avlomakin) implement on next iteration
     @Override

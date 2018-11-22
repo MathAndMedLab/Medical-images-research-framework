@@ -6,10 +6,10 @@ import features.reports.creators.RepoAccessorReportCreator;
 import features.reports.pdf.MirfReportToPdfElementConverter;
 import features.reports.pdf.PdfElementsAccumulator;
 import features.repository.LocalDirectoryRepository;
-import features.repositoryAccessors.RepoFileSaver;
-import features.repositoryAccessors.RepoImageSeriesAccessor;
-import features.repositoryAccessors.RepositoryAccessorBlock;
-import features.repositoryAccessors.data.RepoRequest;
+import features.repositoryaccessors.RepoFileSaver;
+import features.repositoryaccessors.RepoImageSeriesAccessor;
+import features.repositoryaccessors.RepositoryAccessorBlock;
+import features.repositoryaccessors.data.RepoRequest;
 
 import java.nio.file.Paths;
 

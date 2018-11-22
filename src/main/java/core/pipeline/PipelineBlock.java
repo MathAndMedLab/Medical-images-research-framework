@@ -22,14 +22,14 @@ public abstract class PipelineBlock<TInput extends Data, TOutput extends Data> {
         this.listeners = new ArrayList<>();
     }
 
-    public abstract void InputDataReady(PipelineBlock<?, TInput> sender, TInput input);
+    public abstract void inputDataReady(PipelineBlock<?, TInput> sender, TInput input);
 
     public void addListener(PipelineBlock<TOutput, ?> listener) {
         this.listeners.add(listener);
     }
 
     public void notifyListeners(PipelineBlock<?, TOutput> sender, TOutput data) {
-        listeners.forEach(pipelineBlock -> pipelineBlock.InputDataReady(sender, data));
+        listeners.forEach(pipelineBlock -> pipelineBlock.inputDataReady(sender, data));
     }
 
     //TODO: (avlomakin) smt like protected cacheData(TInput data) method that will manage cache based on memory policy

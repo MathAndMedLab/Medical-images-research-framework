@@ -24,7 +24,8 @@ public class AccumulatorWithAlgBlock<Input extends Data, Output extends Data> ex
         inputs = new ArrayList<>();
     }
 
-    public void InputDataReady(PipelineBlock<?, Input> sender, Input input) {
+    @Override
+    public void inputDataReady(PipelineBlock<?, Input> sender, Input input) {
         if (enabled) {
             inputs.add(input);
             if(inputs.size() == connections){

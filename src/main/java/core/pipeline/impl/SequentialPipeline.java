@@ -19,7 +19,7 @@ public class SequentialPipeline {
     private List<PipelineBlock> blocks;
 
     public void run(Data initialData) {
-        blocks.get(0).InputDataReady(null, initialData);
+        blocks.get(0).inputDataReady(null, initialData);
     }
 
     /**
