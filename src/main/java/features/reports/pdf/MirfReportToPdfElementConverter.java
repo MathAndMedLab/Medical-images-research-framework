@@ -18,16 +18,16 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Dictionary;
 
-public class MirfReportToPdfElementConverter<Input extends Data> implements Algorithm<Input, PdfElementData> {
+public class MirfReportToPdfElementConverter<I extends Data> implements Algorithm<I, PdfElementData> {
 
-    private Algorithm<Input, AlgorithmReport> reportCreator;
+    private Algorithm<I, AlgorithmReport> reportCreator;
 
-    public MirfReportToPdfElementConverter(Algorithm<Input, AlgorithmReport> reportCreator) {
+    public MirfReportToPdfElementConverter(Algorithm<I, AlgorithmReport> reportCreator) {
         this.reportCreator = reportCreator;
     }
 
     @Override
-    public PdfElementData execute(Input input) {
+    public PdfElementData execute(I input) {
         AlgorithmReport report = reportCreator.execute(input);
         return new PdfElementData(execute(report));
     }

@@ -9,5 +9,5 @@ import core.data.medimage.ImageSeries;
 public interface Repository {
     ImageSeries getImageSeries(String link);
 
-    void SaveFile(byte[] file, String link, String filename);
+    void saveFile(byte[] file, String link, String filename);
 }

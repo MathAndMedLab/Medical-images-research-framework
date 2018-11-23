@@ -8,16 +8,16 @@ import features.reports.pdf.CollectionData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccumulatorWithAlgBlock<Input extends Data, Output extends Data> extends PipelineBlock<Input, Output> {
+public class AccumulatorWithAlgBlock<I extends Data, O extends Data> extends PipelineBlock<I, O> {
 
-    protected Algorithm<CollectionData<Input>, Output> algorithm;
+    protected Algorithm<CollectionData<I>, O> algorithm;
 
     public boolean enabled = true;
 
     private int connections;
-    private List<Input> inputs;
+    private List<I> inputs;
 
-    public AccumulatorWithAlgBlock(Algorithm<CollectionData<Input>, Output> algorithm, int connections) {
+    public AccumulatorWithAlgBlock(Algorithm<CollectionData<I>, O> algorithm, int connections) {
         super();
         this.algorithm = algorithm;
         this.connections = connections;
@@ -25,16 +25,16 @@ public class AccumulatorWithAlgBlock<Input extends Data, Output extends Data> ex
     }
 
     @Override
-    public void inputDataReady(PipelineBlock<?, Input> sender, Input input) {
+    public void inputDataReady(PipelineBlock<?, I> sender, I input) {
         if (enabled) {
             inputs.add(input);
             if(inputs.size() == connections){
-                CollectionData<Input> collectionData = new CollectionData<>(inputs);
+                CollectionData<I> collectionData = new CollectionData<>(inputs);
 
                 //TODO:(avlomakin) if !cacheEnabled {inputs = new ()} to prevent memory leaking
                 inputs = new ArrayList<>();
 
-                Output result =  algorithm.execute(collectionData);
+                O result =  algorithm.execute(collectionData);
                 notifyListeners(this, result);
             }
         }

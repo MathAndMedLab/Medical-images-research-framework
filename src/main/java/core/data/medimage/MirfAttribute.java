@@ -3,18 +3,18 @@ package core.data.medimage;
 /**
  * Stores a single tag that is part of metadata of medical images.
  */
-public class MirfAttribute {
+public class MirfAttribute<T> {
 
     public final String name;
 
     //TODO: (avlomakin) string for now, mb change to UUID
     public final String tag;
 
-    public final Object value;
+    public final T value;
 
     public String description;
 
-    public MirfAttribute(String name, String tag, Object value) {
+    public MirfAttribute(String name, String tag, T value) {
         this.name = name;
         this.tag = tag;
         this.value = value;

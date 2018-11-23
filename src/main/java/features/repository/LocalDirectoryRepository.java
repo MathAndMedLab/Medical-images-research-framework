@@ -17,6 +17,22 @@ import java.util.ArrayList;
  */
 public class LocalDirectoryRepository implements Repository {
 
+    private static final ImageSeries DummySeries;
+
+    static {
+        ArrayList<MirfAttribute> tags = new ArrayList<MirfAttribute>() {{
+            add(MirfAttributeCreator.createFromMock(DicomAttributes.ONE_PIXEL_VOLUME, 2.0));
+        }};
+
+        ArrayList<MedImage> dicoms = new ArrayList<MedImage>() {{
+            add(new DicomImage(tags, new byte[][]{
+                    {1, 2},
+                    {3, 4}
+            }));
+        }};
+
+        DummySeries = new ImageSeries(null, dicoms);
+    }
     /**
      * Reads all medical images from directory
      *
@@ -30,29 +46,12 @@ public class LocalDirectoryRepository implements Repository {
     }
 
     @Override
-    public void SaveFile(byte[] file, String link, String filename) {
+    public void saveFile(byte[] file, String link, String filename) {
         try {
             FileOutputStream stream = new FileOutputStream(link + "/" + filename);
             stream.write(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private static final ImageSeries DummySeries = createDummy();
-
-    private static ImageSeries createDummy() {
-        ArrayList<MirfAttribute> tags = new ArrayList<MirfAttribute>() {{
-            add(MirfAttributeCreator.createFromMock(DicomAttributes.ONE_PIXEL_VOLUME, 2.0));
-        }};
-
-        ArrayList<MedImage> dicoms = new ArrayList<MedImage>() {{
-            add(new DicomImage(tags, new byte[][]{
-                    {1, 2},
-                    {3, 4}
-            }));
-        }};
-
-        return new ImageSeries(null, dicoms);
     }
 }

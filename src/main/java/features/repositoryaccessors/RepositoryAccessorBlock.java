@@ -6,24 +6,24 @@ import core.pipeline.PipelineBlock;
 import core.repository.Repository;
 import features.repositoryaccessors.data.RepoRequest;
 
-public class RepositoryAccessorBlock<Input extends Data, Output extends Data> extends PipelineBlock<Input,Output> {
+public class RepositoryAccessorBlock<I extends Data, O extends Data> extends PipelineBlock<I, O> {
 
     private Repository repo;
-    private Algorithm<RepoRequest, Output> algorithm;
+    private Algorithm<RepoRequest, O> algorithm;
 
     public boolean enabled = true;
     private String link;
 
-    public RepositoryAccessorBlock(Repository repo, Algorithm<RepoRequest, Output> algorithm, String link) {
+    public RepositoryAccessorBlock(Repository repo, Algorithm<RepoRequest, O> algorithm, String link) {
         this.repo = repo;
         this.algorithm = algorithm;
         this.link = link;
     }
 
     @Override
-    public void inputDataReady(PipelineBlock<?, Input> sender, Input input) {
+    public void inputDataReady(PipelineBlock<?, I> sender, I input) {
         if(enabled) {
-            Output result = algorithm.execute(new RepoRequest(link, repo){{bundle = input;}});
+            O result = algorithm.execute(new RepoRequest(link, repo){{bundle = input;}});
             notifyListeners(this, result);
         }
     }

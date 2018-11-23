@@ -5,7 +5,7 @@ package core.data.medimage;
  * Class to store information about {@link MirfAttribute} signature, define how the attribute looks like.
  * Can be used to create a concrete {@link MirfAttribute} by calling {@link MirfAttributeCreator#createFromMock(MirfAttributeMockup, Object)}
  */
-public class MirfAttributeMockup<ValueType> {
+public class MirfAttributeMockup<T> {
     public final String name;
     public final String tag;
     public final AttributeTagType attributeTagType;
@@ -16,8 +16,8 @@ public class MirfAttributeMockup<ValueType> {
         this.attributeTagType = attributeTagType;
     }
 
-    public MirfAttribute createAttribute(ValueType value)
+    public MirfAttribute createAttribute(T value)
     {
-        return new MirfAttribute(name, tag, value);
+        return new MirfAttribute<>(name, tag, value);
     }
 }
