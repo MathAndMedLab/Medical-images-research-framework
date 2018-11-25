@@ -8,6 +8,11 @@ import features.reports.pdf.CollectionData;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@link PipelineBlock} that accumulates inputs of the same type
+ * @param <I> input type
+ * @param <O> output type
+ */
 public class AccumulatorWithAlgBlock<I extends Data, O extends Data> extends PipelineBlock<I, O> {
 
     protected Algorithm<CollectionData<I>, O> algorithm;

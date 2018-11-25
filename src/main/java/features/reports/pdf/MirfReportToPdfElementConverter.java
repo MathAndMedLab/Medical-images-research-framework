@@ -18,6 +18,10 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Dictionary;
 
+/**
+ * {@link Algorithm} that decorates report creator and generates {@link PdfElementData} from decorated {@link Algorithm} output
+ * @param <I> Inner {@link Algorithm} input
+ */
 public class MirfReportToPdfElementConverter<I extends Data> implements Algorithm<I, PdfElementData> {
 
     private Algorithm<I, AlgorithmReport> reportCreator;
@@ -32,7 +36,7 @@ public class MirfReportToPdfElementConverter<I extends Data> implements Algorith
         return new PdfElementData(execute(report));
     }
 
-    public IBlockElement execute(AlgorithmReport report) {
+    private IBlockElement execute(AlgorithmReport report) {
         IBlockElement generatedReport;
 
         //TODO: (avlomakin) implement IBlockElement generation for other types of reports

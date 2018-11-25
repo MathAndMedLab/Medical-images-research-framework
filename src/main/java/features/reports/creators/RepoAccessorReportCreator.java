@@ -15,6 +15,9 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
+/**
+ * {@link AlgorithmReport} creator for RepositoryAccessors
+ */
 public class RepoAccessorReportCreator implements Algorithm<ImageSeries, AlgorithmReport> {
 
     //TODO: (avlomakin) replace constants with resource variables

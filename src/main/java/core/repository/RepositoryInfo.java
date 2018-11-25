@@ -1,5 +1,8 @@
 package core.repository;
 
+/**
+ * Info about {@link RepositoryCommander}. Used for reports generation
+ */
 public class RepositoryInfo {
     public final String repositoryName;
     public final String username;

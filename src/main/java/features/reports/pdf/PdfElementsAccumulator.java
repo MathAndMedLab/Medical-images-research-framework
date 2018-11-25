@@ -10,7 +10,7 @@ import features.reports.PdfElementData;
 import java.io.ByteArrayOutputStream;
 
 /**
- * Common pdf generator for MIRF report types
+ * {@link Algorithm} that puts all {@link PdfElementData} from input to PDF document and returns {@link FileData} with generated PDF
  */
 public class PdfElementsAccumulator implements Algorithm<CollectionData<PdfElementData>, FileData> {
 

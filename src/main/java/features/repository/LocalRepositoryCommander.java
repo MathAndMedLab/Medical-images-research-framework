@@ -4,7 +4,7 @@ import core.data.medimage.ImageSeries;
 import core.data.medimage.MedImage;
 import core.data.medimage.MirfAttribute;
 import core.data.medimage.MirfAttributeCreator;
-import core.repository.Repository;
+import core.repository.RepositoryCommander;
 import features.dicomimage.data.DicomAttributes;
 import features.dicomimage.data.DicomImage;
 
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * Local file system commander, Link = path on a filesystem
  */
-public class LocalDirectoryRepository implements Repository {
+public class LocalRepositoryCommander implements RepositoryCommander {
 
     private static final ImageSeries DummySeries;
 
@@ -33,12 +33,7 @@ public class LocalDirectoryRepository implements Repository {
 
         DummySeries = new ImageSeries(null, dicoms);
     }
-    /**
-     * Reads all medical images from directory
-     *
-     * @param link path to the directory
-     * @return collected ImageSeries
-     */
+
     //TODO: (avlomakin) implement on next iteration
     @Override
     public ImageSeries getImageSeries(String link) {

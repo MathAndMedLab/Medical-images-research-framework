@@ -4,7 +4,7 @@ import core.pipeline.impl.ConsumerBlock;
 import core.pipeline.impl.SequentialPipeline;
 import features.imagefilters.ImageSeriesThresholdBlock;
 import features.numinfofromimage.ImageSeriesVoxelVolumeCalcAlg;
-import features.repository.LocalDirectoryRepository;
+import features.repository.LocalRepositoryCommander;
 import features.repositoryaccessors.RepoImageSeriesAccessor;
 import features.repositoryaccessors.data.RepoRequest;
 
@@ -19,7 +19,7 @@ public class LocalImageThresholdVolume {
         pipe.add(new ImageSeriesVoxelVolumeCalcAlg());
         pipe.add(new ConsumerBlock(x -> System.out.println(x.data.toString())));
 
-        RepoRequest init = new RepoRequest(Paths.get("c:", "src","data").toString(), new LocalDirectoryRepository());
+        RepoRequest init = new RepoRequest(Paths.get("c:", "src","data").toString(), new LocalRepositoryCommander());
 
         pipe.run(init);
         System.out.println ("Pipeline finished");

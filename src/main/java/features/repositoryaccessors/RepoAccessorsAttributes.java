@@ -3,6 +3,9 @@ package features.repositoryaccessors;
 import core.data.medimage.AttributeTagType;
 import core.data.medimage.MirfAttributeMockup;
 
+/**
+ * Stores {@link MirfAttributeMockup} for all well-known repository accessors data attributes
+ */
 public final class RepoAccessorsAttributes {
 
     public static final MirfAttributeMockup<RepositoryRequestInfo> REPOSITORY_REQUEST_INFO =

@@ -14,14 +14,14 @@ public class RepoImageSeriesAccessor implements Algorithm<RepoRequest, ImageSeri
 
     @Override
     public ImageSeries execute(RepoRequest repoRequest) {
-        ImageSeries images = repoRequest.getRepository().getImageSeries(repoRequest.getLink());
+        ImageSeries images = repoRequest.getRepositoryCommander().getImageSeries(repoRequest.getLink());
 
-        RepositoryInfo repositoryInfo = new RepositoryInfo(repoRequest.getRepository().getClass().getSimpleName(), "TODO: (avlomakin)");
+        RepositoryInfo repositoryInfo = new RepositoryInfo(repoRequest.getRepositoryCommander().getClass().getSimpleName(), "TODO: (avlomakin)");
         images.addAttribute(MirfAttributes.REPO_INFO.createAttribute(repositoryInfo));
 
         RepositoryRequestInfo requestInfo = new RepositoryRequestInfo(repoRequest.getLink(), RepositoryRequestType.GET);
         images.addAttribute(RepoAccessorsAttributes.REPOSITORY_REQUEST_INFO.createAttribute(requestInfo));
 
-        return repoRequest.getRepository().getImageSeries(repoRequest.getLink());
+        return repoRequest.getRepositoryCommander().getImageSeries(repoRequest.getLink());
     }
 }

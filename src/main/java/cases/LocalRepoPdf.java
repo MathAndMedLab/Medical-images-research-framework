@@ -5,7 +5,7 @@ import core.pipeline.impl.SequentialPipeline;
 import features.reports.creators.RepoAccessorReportCreator;
 import features.reports.pdf.MirfReportToPdfElementConverter;
 import features.reports.pdf.PdfElementsAccumulator;
-import features.repository.LocalDirectoryRepository;
+import features.repository.LocalRepositoryCommander;
 import features.repositoryaccessors.RepoFileSaver;
 import features.repositoryaccessors.RepoImageSeriesAccessor;
 import features.repositoryaccessors.RepositoryAccessorBlock;
@@ -24,11 +24,11 @@ public class LocalRepoPdf {
         AccumulatorWithAlgBlock pdfBlock = new AccumulatorWithAlgBlock<>(new PdfElementsAccumulator("report"),1 );
         pipe.add(pdfBlock);
 
-        RepositoryAccessorBlock repoBlock = new RepositoryAccessorBlock<>(new LocalDirectoryRepository(),
+        RepositoryAccessorBlock repoBlock = new RepositoryAccessorBlock<>(new LocalRepositoryCommander(),
                 new RepoFileSaver(), "c:\\src\\reports");
         pipe.add(repoBlock);
 
-        RepoRequest init = new RepoRequest(Paths.get("c:", "src","data").toString(), new LocalDirectoryRepository());
+        RepoRequest init = new RepoRequest(Paths.get("c:", "src","data").toString(), new LocalRepositoryCommander());
 
         pipe.run(init);
         System.out.println ("Pipeline finished");
