@@ -12,9 +12,9 @@ import java.util.Optional;
  */
 public abstract class MedImage extends Data implements Cloneable {
 
-    protected List<MirfAttribute> tags;
+    protected List<DataAttribute> tags;
 
-    public MedImage(List<MirfAttribute> tags) {
+    public MedImage(List<DataAttribute> tags) {
         this.tags = tags;
     }
 
@@ -25,10 +25,10 @@ public abstract class MedImage extends Data implements Cloneable {
 
     public abstract void setImagePixels(byte[][] pixels);
 
-    protected MirfAttribute findTag(String tag) {
+    protected DataAttribute findTag(String tag) {
 
         //TODO: (avlomakin) read more about java streams (LINQ C#)
-        Optional<MirfAttribute> result = tags.stream().filter(x -> x.tag.equals(tag)).findFirst();
+        Optional<DataAttribute> result = tags.stream().filter(x -> x.tag.equals(tag)).findFirst();
         return result.orElse(null);
     }
 
@@ -41,7 +41,7 @@ public abstract class MedImage extends Data implements Cloneable {
      *
      * @param attribute attribute to be added
      */
-    public abstract void addAttribute(MirfAttribute attribute);
+    public abstract void addAttribute(DataAttribute attribute);
 
     /**
      * @return volume of one pixel

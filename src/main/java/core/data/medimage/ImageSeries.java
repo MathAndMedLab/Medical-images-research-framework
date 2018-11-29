@@ -10,10 +10,10 @@ import java.util.*;
 public class ImageSeries extends Data implements Iterable<MedImage>, Cloneable {
 
     //TODO: manage access to the fields after image model is chosen
-    public List<MirfAttribute> attributes;
+    public List<DataAttribute> attributes;
     public List<MedImage> images;
 
-    public ImageSeries(List<MirfAttribute> attributes, List<MedImage> images) {
+    public ImageSeries(List<DataAttribute> attributes, List<MedImage> images) {
 
         this.attributes = new ArrayList<>();
 
@@ -28,13 +28,13 @@ public class ImageSeries extends Data implements Iterable<MedImage>, Cloneable {
      * @param attributeTag tag of the requested attribute
      * @return found attribute or null
      */
-    public MirfAttribute findAttribute(String attributeTag) {
-        Optional<MirfAttribute> result = attributes.stream().filter(x -> x.tag.equals(attributeTag)).findFirst();
+    public DataAttribute findAttribute(String attributeTag) {
+        Optional<DataAttribute> result = attributes.stream().filter(x -> x.tag.equals(attributeTag)).findFirst();
         return result.orElse(null);
     }
 
     public <T> T findAttributeValue(String attributeTag){
-        MirfAttribute attribute = findAttribute(attributeTag);
+        DataAttribute attribute = findAttribute(attributeTag);
         if(attribute == null)
             return null;
 
@@ -54,7 +54,7 @@ public class ImageSeries extends Data implements Iterable<MedImage>, Cloneable {
     }
 
     //TODO: (avlomakin) consider move method up to Data class
-    public void addAttribute(MirfAttribute attribute) {
+    public void addAttribute(DataAttribute attribute) {
         attributes.add(attribute);
     }
 }

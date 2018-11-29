@@ -2,8 +2,8 @@ package features.repository;
 
 import core.data.medimage.ImageSeries;
 import core.data.medimage.MedImage;
-import core.data.medimage.MirfAttribute;
-import core.data.medimage.MirfAttributeCreator;
+import core.data.medimage.DataAttribute;
+import core.data.medimage.DataAttributeCreator;
 import core.repository.RepositoryCommander;
 import features.dicomimage.data.DicomAttributes;
 import features.dicomimage.data.DicomImage;
@@ -20,8 +20,8 @@ public class LocalRepositoryCommander implements RepositoryCommander {
     private static final ImageSeries DummySeries;
 
     static {
-        ArrayList<MirfAttribute> tags = new ArrayList<MirfAttribute>() {{
-            add(MirfAttributeCreator.createFromMock(DicomAttributes.ONE_PIXEL_VOLUME, 2.0));
+        ArrayList<DataAttribute> tags = new ArrayList<DataAttribute>() {{
+            add(DataAttributeCreator.createFromMock(DicomAttributes.ONE_PIXEL_VOLUME, 2.0));
         }};
 
         ArrayList<MedImage> dicoms = new ArrayList<MedImage>() {{

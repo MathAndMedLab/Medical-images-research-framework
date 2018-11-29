@@ -1,6 +1,6 @@
 package features.dicomimage;
 
-import core.data.medimage.MirfAttribute;
+import core.data.medimage.DataAttribute;
 
 /**
  * Manages DICOM attributes creation
@@ -18,12 +18,12 @@ public final class DicomAttributeCreator {
      * @param value attribute value
      * @return created attribute for Dicom format
      */
-    public static MirfAttribute createDicomAttribute(String tag, String name, Object value)
+    public static DataAttribute createDicomAttribute(String tag, String name, Object value)
     {
         if(!isDicomTag(tag))
             throw new IllegalArgumentException("tag");
 
-        return new MirfAttribute(name, tag, value);
+        return new DataAttribute(name, tag, value);
     }
 
 

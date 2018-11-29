@@ -3,9 +3,9 @@ package core.data.medimage;
 /**
  * Manages framework attributes creation
  */
-public final class MirfAttributeCreator {
+public final class DataAttributeCreator {
 
-    private MirfAttributeCreator() {
+    private DataAttributeCreator() {
     }
 
     /**
@@ -15,28 +15,28 @@ public final class MirfAttributeCreator {
      * @param value attribute value
      * @return created attribute
      */
-    public static MirfAttribute createMirfAttribute(String tag, String name, Object value)
+    public static DataAttribute createDataAttribute(String tag, String name, Object value)
     {
         if(!tag.matches("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}"))
             throw new IllegalArgumentException("tag");
 
-        return new MirfAttribute(name, tag, value);
+        return new DataAttribute(name, tag, value);
     }
 
     /**
-     * Creates {@link MirfAttribute} from {@link MirfAttributeMockup}
+     * Creates {@link DataAttribute} from {@link DataAttributeMockup}
      * @param mockup mockup to be used
      * @param value attribute value
      * @return created attribute
      */
-    public static MirfAttribute createFromMock(MirfAttributeMockup mockup, Object value){
+    public static DataAttribute createFromMock(DataAttributeMockup mockup, Object value){
         if(!isMockupValid(mockup))
             throw new IllegalArgumentException("mockup");
 
-        return new MirfAttribute(mockup.name, mockup.tag, value);
+        return new DataAttribute(mockup.name, mockup.tag, value);
     }
 
-    private static boolean isMockupValid(MirfAttributeMockup mockup) {
+    private static boolean isMockupValid(DataAttributeMockup mockup) {
         //TODO: (avlomakin) implement
         return true;
     }
