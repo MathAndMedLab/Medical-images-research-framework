@@ -1,4 +1,4 @@
-package cases;
+package playground;
 
 import core.pipeline.impl.AccumulatorWithAlgBlock;
 import core.pipeline.impl.SequentialPipeline;

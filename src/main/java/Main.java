@@ -1,5 +1,5 @@
 
-import cases.LocalRepoPdf;
+import playground.LocalRepoPdf;
 
 public class Main {
 
