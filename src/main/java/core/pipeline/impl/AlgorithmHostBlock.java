@@ -16,9 +16,11 @@ import core.pipeline.PipelineBlock;
  */
 public class AlgorithmHostBlock<I extends Data, O extends Data> extends PipelineBlock<I, O> {
 
-    private Algorithm<I, O> algorithm;
+    protected Algorithm<I, O> algorithm;
 
     public boolean enabled = true;
+    protected I cachedInput;
+    protected O cachedOutput;
 
     public AlgorithmHostBlock(Algorithm<I, O> algorithm) {
         super();
@@ -28,8 +30,9 @@ public class AlgorithmHostBlock<I extends Data, O extends Data> extends Pipeline
     @Override
     public void inputDataReady(PipelineBlock<?, I> sender, I tInput) {
         if (enabled) {
-            O result = algorithm.execute(tInput);
-            notifyListeners(this, result);
+            cachedInput = tInput;
+            cachedOutput = algorithm.execute(tInput);
+            notifyListeners(this, cachedOutput);
         }
     }
 }

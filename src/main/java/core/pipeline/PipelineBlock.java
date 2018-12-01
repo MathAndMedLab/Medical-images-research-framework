@@ -10,25 +10,25 @@ import java.util.List;
  *
  * <p> Pipeline consists of different blocks that are sending data to each other.
  *
- * @param <TInput>  input that is expected in a block to be received from other PipelineBlocks in the pipeline
- * @param <TOutput> output that is produced by PipelineBlock and propagated to listening blocks in pipeline.
+ * @param <I>  input that is expected in a block to be received from other PipelineBlocks in the pipeline
+ * @param <O> output that is produced by PipelineBlock and propagated to listening blocks in pipeline.
  */
-public abstract class PipelineBlock<TInput extends Data, TOutput extends Data> {
+public abstract class PipelineBlock<I extends Data, O extends Data> {
 
 
-    protected List<PipelineBlock<TOutput, ?>> listeners;
+    protected List<PipelineBlock<O, ?>> listeners;
 
     public PipelineBlock() {
         this.listeners = new ArrayList<>();
     }
 
-    public abstract void inputDataReady(PipelineBlock<?, TInput> sender, TInput input);
+    public abstract void inputDataReady(PipelineBlock<?, I> sender, I input);
 
-    public void addListener(PipelineBlock<TOutput, ?> listener) {
+    public void addListener(PipelineBlock<O, ?> listener) {
         this.listeners.add(listener);
     }
 
-    public void notifyListeners(PipelineBlock<?, TOutput> sender, TOutput data) {
+    public void notifyListeners(PipelineBlock<?, O> sender, O data) {
         listeners.forEach(pipelineBlock -> pipelineBlock.inputDataReady(sender, data));
     }
 

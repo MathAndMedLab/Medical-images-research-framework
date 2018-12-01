@@ -1,6 +1,7 @@
 package core.data.medimage;
 
 import core.data.Data;
+import core.data.attribute.DataAttribute;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +13,9 @@ import java.util.Optional;
  */
 public abstract class MedImage extends Data implements Cloneable {
 
-    protected List<MedImageAttribute> tags;
+    protected List<DataAttribute> tags;
 
-    public MedImage(List<MedImageAttribute> tags) {
+    public MedImage(List<DataAttribute> tags) {
         this.tags = tags;
     }
 
@@ -25,10 +26,10 @@ public abstract class MedImage extends Data implements Cloneable {
 
     public abstract void setImagePixels(byte[][] pixels);
 
-    protected MedImageAttribute findTag(String tag) {
+    protected DataAttribute findTag(String tag) {
 
         //TODO: (avlomakin) read more about java streams (LINQ C#)
-        Optional<MedImageAttribute> result = tags.stream().filter(x -> x.tag.equals(tag)).findFirst();
+        Optional<DataAttribute> result = tags.stream().filter(x -> x.tag.equals(tag)).findFirst();
         return result.orElse(null);
     }
 
@@ -41,7 +42,7 @@ public abstract class MedImage extends Data implements Cloneable {
      *
      * @param attribute attribute to be added
      */
-    public abstract void addAttribute(MedImageAttribute attribute);
+    public abstract void addAttribute(DataAttribute attribute);
 
     /**
      * @return volume of one pixel
@@ -61,4 +62,10 @@ public abstract class MedImage extends Data implements Cloneable {
      * @param value
      */
     public abstract void setThresholded(boolean value);
+
+    /**
+     * Retrieves file extension of MedImage
+     * @return extension
+     */
+    public abstract String getExtension();
 }

@@ -1,6 +1,7 @@
 package core.data.medimage;
 
 import core.data.Data;
+import core.data.attribute.DataAttribute;
 
 import java.util.*;
 
@@ -10,10 +11,10 @@ import java.util.*;
 public class ImageSeries extends Data implements Iterable<MedImage>, Cloneable {
 
     //TODO: manage access to the fields after image model is chosen
-    public List<MedImageAttribute> attributes;
+    public List<DataAttribute> attributes;
     public List<MedImage> images;
 
-    public ImageSeries(List<MedImageAttribute> attributes, List<MedImage> images) {
+    public ImageSeries(List<DataAttribute> attributes, List<MedImage> images) {
 
         this.attributes = new ArrayList<>();
 
@@ -24,13 +25,22 @@ public class ImageSeries extends Data implements Iterable<MedImage>, Cloneable {
     }
 
     /**
-     * Finds ImageSeries attribute by tag
-     * @param tag tag of the requested attribute
+     * Finds ImageSeries attribute by attributeTag
+     * @param attributeTag tag of the requested attribute
      * @return found attribute or null
      */
-    public MedImageAttribute findTag(String tag) {
-        Optional<MedImageAttribute> result = attributes.stream().filter(x -> x.tag.equals(tag)).findFirst();
+    public DataAttribute findAttribute(String attributeTag) {
+        Optional<DataAttribute> result = attributes.stream().filter(x -> x.tag.equals(attributeTag)).findFirst();
         return result.orElse(null);
+    }
+
+    public <T> T findAttributeValue(String attributeTag){
+        DataAttribute attribute = findAttribute(attributeTag);
+        if(attribute == null)
+            return null;
+
+        //TODO: (avlomakin) make safe cast or provide method with meaningful exception
+        return (T)attribute.value;
     }
 
     @Override
@@ -42,5 +52,10 @@ public class ImageSeries extends Data implements Iterable<MedImage>, Cloneable {
     protected Object clone() {
         //TODO: (avlomakin) read about java deep copy (.clone() is protected)
         return new ImageSeries(new ArrayList<>(attributes), new ArrayList<>(images));
+    }
+
+    //TODO: (avlomakin) consider move method up to Data class
+    public void addAttribute(DataAttribute attribute) {
+        attributes.add(attribute);
     }
 }

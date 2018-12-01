@@ -1,20 +1,20 @@
-package core.data.medimage;
+package core.data.attribute;
 
 /**
  * Stores a single tag that is part of metadata of medical images.
  */
-public class MedImageAttribute {
+public class DataAttribute<T> {
 
     public final String name;
 
     //TODO: (avlomakin) string for now, mb change to UUID
     public final String tag;
 
-    public final Object value;
+    public final T value;
 
     public String description;
 
-    public MedImageAttribute(String name, String tag, Object value) {
+    public DataAttribute(String name, String tag, T value) {
         this.name = name;
         this.tag = tag;
         this.value = value;

@@ -12,11 +12,11 @@ import java.util.List;
  */
 public class SequentialPipeline {
 
+    private List<PipelineBlock> blocks;
+    
     public SequentialPipeline() {
         this.blocks = new ArrayList<>();
     }
-
-    private List<PipelineBlock> blocks;
 
     public void run(Data initialData) {
         blocks.get(0).inputDataReady(null, initialData);
