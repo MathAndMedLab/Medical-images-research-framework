@@ -1,7 +1,7 @@
 package features.repositoryaccessors;
 
-import core.data.medimage.AttributeTagType;
-import core.data.medimage.DataAttributeMockup;
+import core.data.attribute.AttributeTagType;
+import core.data.attribute.DataAttributeMockup;
 
 /**
  * Stores {@link DataAttributeMockup} for all well-known repository accessors data attributes

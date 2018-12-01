@@ -1,6 +1,7 @@
 package features.dicomimage;
 
-import core.data.medimage.DataAttribute;
+import core.data.attribute.AttributeCreationException;
+import core.data.attribute.DataAttribute;
 
 /**
  * Manages DICOM attributes creation
@@ -18,10 +19,9 @@ public final class DicomAttributeCreator {
      * @param value attribute value
      * @return created attribute for Dicom format
      */
-    public static DataAttribute createDicomAttribute(String tag, String name, Object value)
-    {
+    public static DataAttribute createDicomAttribute(String tag, String name, Object value) throws AttributeCreationException {
         if(!isDicomTag(tag))
-            throw new IllegalArgumentException("tag");
+            throw new AttributeCreationException("invalid tag shape: (XXXX, XXXX) required");
 
         return new DataAttribute(name, tag, value);
     }

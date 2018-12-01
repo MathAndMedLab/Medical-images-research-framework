@@ -1,4 +1,4 @@
-package core.data.medimage;
+package core.data.attribute;
 
 /**
  *

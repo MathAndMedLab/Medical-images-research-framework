@@ -2,7 +2,7 @@ package features.repositoryaccessors;
 
 import core.algorithm.Algorithm;
 import core.data.medimage.ImageSeries;
-import core.data.medimage.MirfAttributes;
+import core.data.attribute.MirfAttributes;
 import core.pipeline.impl.AlgorithmHostBlock;
 import core.repository.RepositoryInfo;
 import features.repositoryaccessors.data.RepoRequest;

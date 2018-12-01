@@ -2,9 +2,9 @@ package features.dicomimage.data;
 
 
 import core.data.medimage.MedImage;
-import core.data.medimage.DataAttribute;
-import core.data.medimage.DataAttributeCreator;
-import core.data.medimage.MirfAttributes;
+import core.data.attribute.DataAttribute;
+import core.data.attribute.DataAttributeCreator;
+import core.data.attribute.MirfAttributes;
 
 import java.util.List;
 

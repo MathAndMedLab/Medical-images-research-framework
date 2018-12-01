@@ -2,8 +2,8 @@ package features.repository;
 
 import core.data.medimage.ImageSeries;
 import core.data.medimage.MedImage;
-import core.data.medimage.DataAttribute;
-import core.data.medimage.DataAttributeCreator;
+import core.data.attribute.DataAttribute;
+import core.data.attribute.DataAttributeCreator;
 import core.repository.RepositoryCommander;
 import features.dicomimage.data.DicomAttributes;
 import features.dicomimage.data.DicomImage;

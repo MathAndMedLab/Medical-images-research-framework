@@ -1,4 +1,4 @@
-package core.data.medimage;
+package core.data.attribute;
 
 /**
  * Stores a single tag that is part of metadata of medical images.

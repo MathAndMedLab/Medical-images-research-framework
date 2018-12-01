@@ -1,6 +1,7 @@
 package core.data.medimage;
 
 import core.data.Data;
+import core.data.attribute.DataAttribute;
 
 import java.util.*;
 

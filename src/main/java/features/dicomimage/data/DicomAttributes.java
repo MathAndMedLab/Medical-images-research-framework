@@ -1,13 +1,12 @@
 package features.dicomimage.data;
 
-import core.data.medimage.AttributeTagType;
-import core.data.medimage.DataAttributeMockup;
+import core.data.attribute.AttributeTagType;
+import core.data.attribute.DataAttributeMockup;
 
 /**
  * Stores {@link DataAttributeMockup} for all well-known DICOM data attributes
  */
 public final class DicomAttributes{
-
 
     /**
      * todo: (avlomakin) add link to doc
@@ -16,6 +15,5 @@ public final class DicomAttributes{
             AttributeTagType.Dicom);
 
     private DicomAttributes() {}
-
 }
 

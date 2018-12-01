@@ -3,7 +3,7 @@ package features.reports.creators;
 import core.algorithm.Algorithm;
 import core.data.DataTable;
 import core.data.medimage.ImageSeries;
-import core.data.medimage.MirfAttributes;
+import core.data.attribute.MirfAttributes;
 import core.data.report.AlgorithmReport;
 import core.data.report.DataTableAlgorithmReport;
 import core.repository.RepositoryInfo;

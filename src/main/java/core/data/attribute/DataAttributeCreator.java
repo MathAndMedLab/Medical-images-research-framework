@@ -1,4 +1,4 @@
-package core.data.medimage;
+package core.data.attribute;
 
 /**
  * Manages framework attributes creation
@@ -15,12 +15,12 @@ public final class DataAttributeCreator {
      * @param value attribute value
      * @return created attribute
      */
-    public static DataAttribute createDataAttribute(String tag, String name, Object value)
-    {
-        if(!tag.matches("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}"))
-            throw new IllegalArgumentException("tag");
+    public static <T> DataAttribute createDataAttribute(String tag, String name, T value) throws AttributeCreationException {
 
-        return new DataAttribute(name, tag, value);
+        if(!tag.matches("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[34][0-9a-fA-F]{3}-[89ab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}"))
+            throw new AttributeCreationException("Invalid tag shape: UUID required");
+
+        return new DataAttribute<>(name, tag, value);
     }
 
     /**
@@ -29,11 +29,11 @@ public final class DataAttributeCreator {
      * @param value attribute value
      * @return created attribute
      */
-    public static DataAttribute createFromMock(DataAttributeMockup mockup, Object value){
+    public static <T> DataAttribute createFromMock(DataAttributeMockup mockup, T value) {
         if(!isMockupValid(mockup))
-            throw new IllegalArgumentException("mockup");
+            throw new IllegalArgumentException("Invalid mockup");
 
-        return new DataAttribute(mockup.name, mockup.tag, value);
+        return new DataAttribute<>(mockup.name, mockup.tag, value);
     }
 
     private static boolean isMockupValid(DataAttributeMockup mockup) {
