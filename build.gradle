@@ -16,6 +16,7 @@ jar {
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
@@ -23,6 +24,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit-dep', version: '4.11'
     testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '1.9.+'
+    compile 'com.github.micheljung:nocatch:1.1'
     compile fileTree(dir: 'libs', include: '*.jar')
     compile fileTree(dir: 'libs/itext', include: '*.jar')
     compile fileTree(dir: 'libs/slf4j', include: '*.jar')

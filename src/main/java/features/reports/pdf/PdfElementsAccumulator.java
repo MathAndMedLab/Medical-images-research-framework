@@ -5,6 +5,8 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import core.algorithm.Algorithm;
+import core.data.CollectionData;
+import core.data.FileData;
 import features.reports.PdfElementData;
 
 import java.io.ByteArrayOutputStream;

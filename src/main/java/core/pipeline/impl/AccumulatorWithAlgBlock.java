@@ -3,7 +3,7 @@ package core.pipeline.impl;
 import core.algorithm.Algorithm;
 import core.data.Data;
 import core.pipeline.PipelineBlock;
-import features.reports.pdf.CollectionData;
+import core.data.CollectionData;
 
 import java.util.ArrayList;
 import java.util.List;

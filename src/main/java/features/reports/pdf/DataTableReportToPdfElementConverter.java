@@ -22,11 +22,11 @@ import java.util.Dictionary;
  * {@link Algorithm} that decorates report creator and generates {@link PdfElementData} from decorated {@link Algorithm} output
  * @param <I> Inner {@link Algorithm} input
  */
-public class MirfReportToPdfElementConverter<I extends Data> implements Algorithm<I, PdfElementData> {
+public class DataTableReportToPdfElementConverter<I extends Data> implements Algorithm<I, PdfElementData> {
 
     private Algorithm<I, AlgorithmReport> reportCreator;
 
-    public MirfReportToPdfElementConverter(Algorithm<I, AlgorithmReport> reportCreator) {
+    public DataTableReportToPdfElementConverter(Algorithm<I, AlgorithmReport> reportCreator) {
         this.reportCreator = reportCreator;
     }
 
@@ -39,14 +39,10 @@ public class MirfReportToPdfElementConverter<I extends Data> implements Algorith
     private IBlockElement execute(AlgorithmReport report) {
         IBlockElement generatedReport;
 
-        //TODO: (avlomakin) implement IBlockElement generation for other types of reports
         switch (report.mirfReportType) {
             case DataTable:
                 generatedReport = generatePdfForTableReport((DataTableAlgorithmReport) report);
                 break;
-            case Unknown:
-            case Extension:
-                throw new RuntimeException(String.format("Cannot generate report for %s", report.mirfReportType));
             default:
                 throw new RuntimeException(String.format("Cannot generate report for %s", report.mirfReportType));
         }
@@ -66,7 +62,7 @@ public class MirfReportToPdfElementConverter<I extends Data> implements Algorith
 
         Table table = new Table(report.table.columns.size());
 
-        table.setWidth(UnitValue.createPercentValue(70));
+        table.setWidth(UnitValue.createPercentValue(100));
 
         addHeaders(table, report.table.columns, bold);
         for (Dictionary<String, String> row : report.table.rows)

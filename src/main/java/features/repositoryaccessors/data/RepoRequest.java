@@ -15,6 +15,7 @@ public class RepoRequest extends Data {
     public Object bundle;
 
     public RepoRequest(String link, RepositoryCommander repositoryCommander) {
+        super();
         this.link = link;
         this.repositoryCommander = repositoryCommander;
     }

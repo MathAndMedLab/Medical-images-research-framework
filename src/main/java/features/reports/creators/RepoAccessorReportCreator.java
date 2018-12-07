@@ -2,7 +2,7 @@ package features.reports.creators;
 
 import core.algorithm.Algorithm;
 import core.data.DataTable;
-import core.data.medimage.ImageSeries;
+import core.data.medimage.ImageSeriesData;
 import core.data.attribute.MirfAttributes;
 import core.data.report.AlgorithmReport;
 import core.data.report.DataTableAlgorithmReport;
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * {@link AlgorithmReport} creator for RepositoryAccessors
  */
-public class RepoAccessorReportCreator implements Algorithm<ImageSeries, AlgorithmReport> {
+public class RepoAccessorReportCreator implements Algorithm<ImageSeriesData, AlgorithmReport> {
 
     //TODO: (avlomakin) replace constants with resource variables
     private static final String REPOSITORY_HEADER = "Repository";
@@ -27,10 +27,10 @@ public class RepoAccessorReportCreator implements Algorithm<ImageSeries, Algorit
     private static final String IMAGE_TYPE_HEADER = "Image type";
 
 
-    private List<Dictionary<String, String>> getRows(ImageSeries medImages) {
+    private List<Dictionary<String, String>> getRows(ImageSeriesData medImages) {
 
-        RepositoryInfo repositoryInfo = medImages.findAttributeValue(MirfAttributes.REPO_INFO.tag);
-        RepositoryRequestInfo requestInfo = medImages.findAttributeValue(RepoAccessorsAttributes.REPOSITORY_REQUEST_INFO.tag);
+        RepositoryInfo repositoryInfo = medImages.attributes.findAttributeValue(MirfAttributes.REPO_INFO.tag);
+        RepositoryRequestInfo requestInfo = medImages.attributes.findAttributeValue(RepoAccessorsAttributes.REPOSITORY_REQUEST_INFO.tag);
 
         String totalLoaded = String.valueOf(medImages.images.size());
 
@@ -53,7 +53,7 @@ public class RepoAccessorReportCreator implements Algorithm<ImageSeries, Algorit
     }
 
     @Override
-    public AlgorithmReport execute(ImageSeries medImages) {
+    public AlgorithmReport execute(ImageSeriesData medImages) {
         DataTable reportTable = new DataTable();
         reportTable.columns.addAll(getHeaders());
         reportTable.rows.addAll(getRows(medImages));
