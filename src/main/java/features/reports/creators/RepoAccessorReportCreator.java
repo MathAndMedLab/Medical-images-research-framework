@@ -6,9 +6,7 @@ import core.data.medimage.ImageSeriesData;
 import core.data.attribute.MirfAttributes;
 import core.data.report.AlgorithmReport;
 import core.data.report.DataTableAlgorithmReport;
-import core.repository.RepositoryInfo;
 import features.repositoryaccessors.RepoAccessorsAttributes;
-import features.repositoryaccessors.RepositoryRequestInfo;
 
 import java.util.ArrayList;
 import java.util.Dictionary;

@@ -7,9 +7,6 @@ import com.pixelmed.dicom.TagFromName;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.awt.image.BufferedImage;
-import java.util.List;
-
 public class DicomReaderTest {
 
     @Test

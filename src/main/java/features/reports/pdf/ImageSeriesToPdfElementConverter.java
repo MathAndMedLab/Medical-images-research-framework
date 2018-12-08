@@ -12,8 +12,6 @@ import features.reports.PdfElementData;
 import features.repositoryaccessors.AlgorithmExecutionException;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class ImageSeriesToPdfElementConverter implements Algorithm<ImageSeriesData, PdfElementData> {

@@ -4,10 +4,7 @@ import core.algorithm.Algorithm;
 import core.data.ParametrizedData;
 import core.data.attribute.MirfAttributes;
 import core.data.medimage.ImageSeriesData;
-import core.data.medimage.MedImage;
 import features.dicomimage.data.DicomAttributes;
-
-import java.awt.image.BufferedImage;
 
 /**
  * Calculates the volume of the given {@link ImageSeriesData}.

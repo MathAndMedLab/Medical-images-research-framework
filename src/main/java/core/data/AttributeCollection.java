@@ -4,7 +4,6 @@ import core.data.attribute.DataAttribute;
 import core.data.attribute.DataAttributeMockup;
 
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 //TODO: (avlomakin) implements Collection<DataAttribute>

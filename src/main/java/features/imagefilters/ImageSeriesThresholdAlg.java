@@ -6,8 +6,6 @@ import core.data.attribute.Switch;
 import core.data.medimage.ImageSeriesData;
 import core.data.medimage.MedImage;
 
-import java.awt.image.BufferedImage;
-
 /**
  * Filters the pixels of all images provided in {@link ImageSeriesData} to be within specified boundaries.
  */

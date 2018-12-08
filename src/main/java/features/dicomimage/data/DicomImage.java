@@ -3,12 +3,8 @@ package features.dicomimage.data;
 
 import core.data.AttributeCollection;
 import core.data.medimage.MedImage;
-import core.data.attribute.DataAttribute;
-import core.data.attribute.DataAttributeCreator;
-import core.data.attribute.MirfAttributes;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 /**
  * Dummy implementation of dicom image

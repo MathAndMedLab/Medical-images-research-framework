@@ -7,7 +7,6 @@ import features.dicomimage.data.DicomAttributes;
 import features.dicomimage.data.DicomImage;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
