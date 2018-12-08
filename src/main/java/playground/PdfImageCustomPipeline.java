@@ -33,7 +33,7 @@ public class PdfImageCustomPipeline {
 
         pdfBlock.addListener(repoBlock);
 
-        RepoRequest init = new RepoRequest("c:\\src\\dicoms", new LocalRepositoryCommander());
+        var init = new RepoRequest("c:\\src\\dicoms", new LocalRepositoryCommander());
 
         dicomReader.inputDataReady(null, init);
 

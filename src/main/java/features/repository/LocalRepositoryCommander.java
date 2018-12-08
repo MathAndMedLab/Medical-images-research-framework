@@ -18,7 +18,7 @@ public class LocalRepositoryCommander implements RepositoryCommander {
 
     @Override
     public byte[] getFile(String path) throws RepositoryCommanderException {
-        Path filePath = Paths.get(path);
+        var filePath = Paths.get(path);
         try {
             return Files.readAllBytes(filePath);
         } catch (IOException e) {
@@ -35,7 +35,7 @@ public class LocalRepositoryCommander implements RepositoryCommander {
     @Override
     public void saveFile(byte[] file, String link, String filename) throws RepositoryCommanderException {
         try {
-            FileOutputStream stream = new FileOutputStream(link + "/" + filename);
+            var stream = new FileOutputStream(link + "/" + filename);
             stream.write(file);
         } catch (IOException e) {
             throw new RepositoryCommanderException("Failed to write file bytes", e);

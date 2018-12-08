@@ -4,7 +4,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 mainClassName = "Main"
 
-sourceCompatibility = 8
+sourceCompatibility = 11
 
 jar {
     manifest {

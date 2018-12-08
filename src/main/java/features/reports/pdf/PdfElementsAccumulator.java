@@ -25,16 +25,16 @@ public class PdfElementsAccumulator implements Algorithm<CollectionData<PdfEleme
 
     @Override
     public FileData execute(CollectionData<PdfElementData> elements) {
-        ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-        PdfWriter writer = new PdfWriter(resultStream);
+        var resultStream = new ByteArrayOutputStream();
+        var writer = new PdfWriter(resultStream);
 
-        PdfDocument pdf = new PdfDocument(writer);
+        var pdf = new PdfDocument(writer);
 
-        Document document = new Document(pdf, PageSize.A4);
+        var document = new Document(pdf, PageSize.A4);
 
         document.setMargins(10, 10, 10, 10);
 
-        for (PdfElementData element : elements.collection)
+        for (var element : elements.collection)
             document.add(element.pdfElement);
 
         document.close();

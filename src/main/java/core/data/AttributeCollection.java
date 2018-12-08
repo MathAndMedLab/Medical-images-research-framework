@@ -48,12 +48,12 @@ public class AttributeCollection implements Cloneable{
      * @return found attribute or null
      */
     public DataAttribute find(String attributeTag) {
-        Optional<DataAttribute> result = attributes.stream().filter(x -> x.tag.equals(attributeTag)).findFirst();
+        var result = attributes.stream().filter(x -> x.tag.equals(attributeTag)).findFirst();
         return result.orElse(null);
     }
 
     public <T> T findAttributeValue(String attributeTag){
-        DataAttribute attribute = find(attributeTag);
+        var attribute = find(attributeTag);
 
         if(attribute == null)
             return null;

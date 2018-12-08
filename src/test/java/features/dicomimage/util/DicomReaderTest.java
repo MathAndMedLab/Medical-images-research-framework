@@ -14,9 +14,9 @@ public class DicomReaderTest {
 
     @Test
     public void readDicomImageAttributesFromLocalFile_localDicom_readsWithoutErrors() {
-        String dicomInputFile = "src/test/resources/exampleDicom.dcm";
-        DicomReader dicomReader = new DicomReader();
-        AttributeList list = dicomReader.readDicomImageAttributesFromLocalFile(dicomInputFile);
+        var dicomInputFile = "src/test/resources/exampleDicom.dcm";
+        var dicomReader = new DicomReader();
+        var list = dicomReader.readDicomImageAttributesFromLocalFile(dicomInputFile);
 
         // Assert that tags are in correspondence with what is expected from file
         Assert.assertEquals("1.2.840.10008.1.2.1", getTagInformation(list, TagFromName.TransferSyntaxUID));
@@ -26,9 +26,9 @@ public class DicomReaderTest {
 
     @Test
     public void readDicomImagePixelDataFromLocalFile_localDicom_readsWithoutErrors() {
-        String dicomInputFile = "src/test/resources/exampleDicom.dcm";
-        DicomReader dicomReader = new DicomReader();
-        List<BufferedImage> bufferedImages = DicomReader.readDicomImagePixelDataFromLocalFile(dicomInputFile);
+        var dicomInputFile = "src/test/resources/exampleDicom.dcm";
+        var dicomReader = new DicomReader();
+        var bufferedImages = DicomReader.readDicomImagePixelDataFromLocalFile(dicomInputFile);
 
         // Just check the size of images array
         Assert.assertEquals(16, bufferedImages.size());

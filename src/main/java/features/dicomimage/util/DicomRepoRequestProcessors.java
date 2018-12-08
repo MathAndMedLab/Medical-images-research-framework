@@ -29,22 +29,22 @@ public final class DicomRepoRequestProcessors {
     //TODO: (avlomakin) rewrite it!
     private static ImageSeriesData readDicomImageSeries(RepoRequest request){
         try {
-            String[] files = request.getRepositoryCommander().getSeriesFileLinks(request.getLink());
+            var files = request.getRepositoryCommander().getSeriesFileLinks(request.getLink());
 
             List<MedImage> images = Arrays.stream(files).parallel().map(file ->
             {
-                byte[] bytes = noCatch(() -> request.getRepositoryCommander().getFile(file));
+                var bytes = noCatch(() -> request.getRepositoryCommander().getFile(file));
                 InputStream stream = new ByteArrayInputStream(bytes);
 
                 return DicomReader.readDicomImage(stream);
             }).collect(Collectors.toList());
 
-            ImageSeriesData result = new ImageSeriesData(images);
+            var result = new ImageSeriesData(images);
 
-            RepositoryInfo repositoryInfo = new RepositoryInfo(request.getRepositoryCommander().getClass().getSimpleName(), "TODO: (avlomakin)");
+            var repositoryInfo = new RepositoryInfo(request.getRepositoryCommander().getClass().getSimpleName(), "TODO: (avlomakin)");
             result.attributes.add(MirfAttributes.REPO_INFO, repositoryInfo);
 
-            RepositoryRequestInfo requestInfo = new RepositoryRequestInfo(request.getLink(), RepositoryRequestType.GET);
+            var requestInfo = new RepositoryRequestInfo(request.getLink(), RepositoryRequestType.GET);
             result.attributes.add(RepoAccessorsAttributes.REPOSITORY_REQUEST_INFO, requestInfo);
 
             return result;

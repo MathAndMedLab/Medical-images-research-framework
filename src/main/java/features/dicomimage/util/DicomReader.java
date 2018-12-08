@@ -27,7 +27,7 @@ public class DicomReader {
      * @return list with dicom attributes;
      */
     public static AttributeList readDicomImageAttributesFromLocalFile(String dicomInputFile) {
-        AttributeList dicomAttributes = new AttributeList();
+        var dicomAttributes = new AttributeList();
         try {
             dicomAttributes.read(dicomInputFile);
         } catch (Exception e) {
@@ -40,13 +40,13 @@ public class DicomReader {
     {
         //TODO: (avlomakin) rewrite it!!!!!!!!!!!!!!!!!!
         try {
-            DicomInputStream dicomStream = new DicomInputStream(input);
-            AttributeList dicomAttributes = new AttributeList();
+            var dicomStream = new DicomInputStream(input);
+            var dicomAttributes = new AttributeList();
 
             dicomAttributes.read(dicomStream);
-            List<BufferedImage> images = readDicomImagePixelDataFromAttributeList(dicomAttributes);
+            var images = readDicomImagePixelDataFromAttributeList(dicomAttributes);
 
-            DicomImage image = new DicomImage(images.get(0));
+            var image = new DicomImage(images.get(0));
             image.attributes.add(DicomAttributes.ONE_PIXEL_VOLUME, 2.0);
 
             return image;
@@ -65,7 +65,7 @@ public class DicomReader {
     public static List<BufferedImage> readDicomImagePixelDataFromAttributeList(AttributeList attributeList) {
         ArrayList<BufferedImage> pixelData = new ArrayList<>();
         try {
-            BufferedImage[] imgs = ConsumerFormatImageMaker.makeEightBitImages(attributeList);
+            var imgs = ConsumerFormatImageMaker.makeEightBitImages(attributeList);
             pixelData = new ArrayList<>(Arrays.asList(imgs));
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,7 +80,7 @@ public class DicomReader {
      * @return list with pixel data, e.g. list of slices in dicom image.
      */
     public static List<BufferedImage> readDicomImagePixelDataFromLocalFile(String dicomInputFile) {
-        AttributeList attributeList = readDicomImageAttributesFromLocalFile(dicomInputFile);
+        var attributeList = readDicomImageAttributesFromLocalFile(dicomInputFile);
         return readDicomImagePixelDataFromAttributeList(attributeList);
     }
 

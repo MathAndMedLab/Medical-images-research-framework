@@ -33,10 +33,10 @@ public class ImageSeriesThresholdAlg implements Algorithm<ImageSeriesData, Image
 
         //TODO: (avlomakin) add MedImage cloning if required
 
-        BufferedImage img = medImage.getImage();
+        var img = medImage.getImage();
 
-        int[] raw = img.getRaster().getPixels(img.getMinX(), img.getMinY(), img.getWidth(), img.getHeight(), (int[]) null);
-        for (int i = 0; i < raw.length; i++)
+        var raw = img.getRaster().getPixels(img.getMinX(), img.getMinY(), img.getWidth(), img.getHeight(), (int[]) null);
+        for (var i = 0; i < raw.length; i++)
                 raw[i] = ((raw[i] >= lowerBound) && (raw[i] <= upperBound)) ? raw[i] : 0;
 
         img.getRaster().setPixels(img.getMinX(), img.getMinY(), img.getWidth(), img.getHeight(), raw);

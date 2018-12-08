@@ -21,14 +21,14 @@ public class ImageSeriesToPdfElementConverter implements Algorithm<ImageSeriesDa
     @Override
     public PdfElementData execute(ImageSeriesData input) {
 
-        List<BufferedImage> images = input.images.stream().map(MedImage::getImage).collect(Collectors.toList());
-        Paragraph result = new Paragraph();
+        var images = input.images.stream().map(MedImage::getImage).collect(Collectors.toList());
+        var result = new Paragraph();
         try {
-            for (BufferedImage image : images) {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            for (var image : images) {
+                var stream = new ByteArrayOutputStream();
                 ImageIO.write(image, "jpg", stream);
 
-                Image pdfImage = new Image(ImageDataFactory.create(stream.toByteArray()));
+                var pdfImage = new Image(ImageDataFactory.create(stream.toByteArray()));
                 pdfImage.setWidth(UnitValue.createPercentValue(50));
                 pdfImage.setMargins(10,10,10,10);
                 pdfImage.setHeight(UnitValue.createPercentValue(50));

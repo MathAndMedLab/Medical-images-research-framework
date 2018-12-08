@@ -31,7 +31,7 @@ public class SequentialPipeline {
      */
     public <TIn extends Data, TOut extends Data> void add(Algorithm<TIn, TOut> algorithm)
     {
-        AlgorithmHostBlock<TIn, TOut> block = new AlgorithmHostBlock<>(algorithm);
+        var block = new AlgorithmHostBlock<>(algorithm);
         add(block);
     }
 

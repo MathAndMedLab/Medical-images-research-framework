@@ -17,7 +17,7 @@ public class RepoFileSaver implements Algorithm<RepoRequest, Data> {
         if(!(input.bundle instanceof FileData))
             throw new RuntimeException("invalid request: FileData parse error");
 
-        FileData data = (FileData)input.bundle;
+        var data = (FileData)input.bundle;
 
         try {
             input.getRepositoryCommander().saveFile(data.fileBytes, input.getLink(), data.name + data.extension);
