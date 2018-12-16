@@ -3,9 +3,10 @@ package core.data;
 /**
  * Data is storing some piece of information that is used and transmitted throughout framework.
  */
-public class Data {
+public abstract class Data {
 
-    public static final Data empty = new Data();
+    public static final Data empty = new Data() {
+    };
 
     public final AttributeCollection attributes;
 
@@ -17,5 +18,6 @@ public class Data {
     {
         this.attributes = attributes;
     }
+
 }
 

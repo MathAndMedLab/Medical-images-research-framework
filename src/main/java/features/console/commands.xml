@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<root>
+    <Command Name="help" Description = "provides Help information for MIRF console commands" Action = "PrintHelp">
+        <Shortcuts>
+            help, h
+        </Shortcuts>
+    </Command>
+    <Command Name="add" Description = "adds block to the pipeline" Action = "AddBlockToPipeline">
+        <Shortcuts>
+            help, h
+        </Shortcuts>
+    </Command>
+
+</root>
