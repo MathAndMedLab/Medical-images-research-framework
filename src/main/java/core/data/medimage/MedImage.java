@@ -1,10 +1,9 @@
 package core.data.medimage;
 
+import core.data.AttributeCollection;
 import core.data.Data;
-import core.data.attribute.DataAttribute;
 
-import java.util.List;
-import java.util.Optional;
+import java.awt.image.BufferedImage;
 
 /**
  * Data about medical image, including both pixels data and metadata.
@@ -13,59 +12,22 @@ import java.util.Optional;
  */
 public abstract class MedImage extends Data implements Cloneable {
 
-    protected List<DataAttribute> tags;
+    public abstract BufferedImage getImage();
 
-    public MedImage(List<DataAttribute> tags) {
-        this.tags = tags;
+    protected MedImage() {
     }
 
-
-    //TODO: (avlomakin) replace byte[][] to BufferedImage
-
-    public abstract byte[][] getImagePixels();
-
-    public abstract void setImagePixels(byte[][] pixels);
-
-    protected DataAttribute findTag(String tag) {
-
-        //TODO: (avlomakin) read more about java streams (LINQ C#)
-        Optional<DataAttribute> result = tags.stream().filter(x -> x.tag.equals(tag)).findFirst();
-        return result.orElse(null);
+    protected MedImage(AttributeCollection attributes) {
+        super(attributes);
     }
 
-    //TODO: (avlomakin) check clone patterns in java
-    @Override
-    public abstract MedImage clone();
-
-    /**
-     * Adds custom attribute to the {@link MedImage}
-     *
-     * @param attribute attribute to be added
-     */
-    public abstract void addAttribute(DataAttribute attribute);
-
-    /**
-     * @return volume of one pixel
-     */
-    public abstract double getOnePixelVolume();
-
-    /**
-     * Checks if image was processed by threshold Algorithm
-     *
-     * @return check result
-     */
-    public abstract boolean isThresholdApplied();
-
-    /**
-     * Stores information about threshold algorithm applying
-     *
-     * @param value
-     */
-    public abstract void setThresholded(boolean value);
+    public abstract void setImage(BufferedImage pixels);
 
     /**
      * Retrieves file extension of MedImage
      * @return extension
      */
     public abstract String getExtension();
+
+    public abstract MedImage clone();
 }

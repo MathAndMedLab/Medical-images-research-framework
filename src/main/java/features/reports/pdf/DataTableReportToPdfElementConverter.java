@@ -22,31 +22,27 @@ import java.util.Dictionary;
  * {@link Algorithm} that decorates report creator and generates {@link PdfElementData} from decorated {@link Algorithm} output
  * @param <I> Inner {@link Algorithm} input
  */
-public class MirfReportToPdfElementConverter<I extends Data> implements Algorithm<I, PdfElementData> {
+public class DataTableReportToPdfElementConverter<I extends Data> implements Algorithm<I, PdfElementData> {
 
     private Algorithm<I, AlgorithmReport> reportCreator;
 
-    public MirfReportToPdfElementConverter(Algorithm<I, AlgorithmReport> reportCreator) {
+    public DataTableReportToPdfElementConverter(Algorithm<I, AlgorithmReport> reportCreator) {
         this.reportCreator = reportCreator;
     }
 
     @Override
     public PdfElementData execute(I input) {
-        AlgorithmReport report = reportCreator.execute(input);
+        var report = reportCreator.execute(input);
         return new PdfElementData(execute(report));
     }
 
     private IBlockElement execute(AlgorithmReport report) {
         IBlockElement generatedReport;
 
-        //TODO: (avlomakin) implement IBlockElement generation for other types of reports
         switch (report.mirfReportType) {
             case DataTable:
                 generatedReport = generatePdfForTableReport((DataTableAlgorithmReport) report);
                 break;
-            case Unknown:
-            case Extension:
-                throw new RuntimeException(String.format("Cannot generate report for %s", report.mirfReportType));
             default:
                 throw new RuntimeException(String.format("Cannot generate report for %s", report.mirfReportType));
         }
@@ -64,24 +60,24 @@ public class MirfReportToPdfElementConverter<I extends Data> implements Algorith
             e.printStackTrace();
         }
 
-        Table table = new Table(report.table.columns.size());
+        var table = new Table(report.table.columns.size());
 
-        table.setWidth(UnitValue.createPercentValue(70));
+        table.setWidth(UnitValue.createPercentValue(100));
 
         addHeaders(table, report.table.columns, bold);
-        for (Dictionary<String, String> row : report.table.rows)
+        for (var row : report.table.rows)
             addRow(table, row, font, report.table.columns);
 
         return table;
     }
 
     private void addRow(Table table, Dictionary<String, String> items, PdfFont font, Collection<String> headers) {
-        for (String header : headers)
+        for (var header : headers)
             table.addCell(new Cell().add(new Paragraph(items.get(header)).setFont(font)));
     }
 
     private void addHeaders(Table table, Collection<String> items, PdfFont font) {
-        for (String item : items)
+        for (var item : items)
             table.addHeaderCell(new Cell().add(new Paragraph(item).setFont(font)));
     }
 }

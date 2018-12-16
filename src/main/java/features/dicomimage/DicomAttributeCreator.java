@@ -32,7 +32,7 @@ public final class DicomAttributeCreator {
         if (tag == null || tag.isEmpty())
             return false;
 
-        String pattern = "^[(][0-9a-fA-F]{4}[,][0-9a-fA-F]{4}[)]$";
+        var pattern = "^[(][0-9a-fA-F]{4}[,][0-9a-fA-F]{4}[)]$";
         return tag.matches(pattern);
     }
 

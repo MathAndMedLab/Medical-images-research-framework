@@ -3,7 +3,7 @@ package core.data.attribute;
 /**
  * Stores a single tag that is part of metadata of medical images.
  */
-public class DataAttribute<T> {
+public class DataAttribute<T> implements Cloneable {
 
     public final String name;
 
@@ -18,6 +18,11 @@ public class DataAttribute<T> {
         this.name = name;
         this.tag = tag;
         this.value = value;
+    }
+
+    @Override
+    public DataAttribute<T> clone() {
+        return new DataAttribute<>(name, tag, value);
     }
 
     @Override

@@ -1,52 +1,43 @@
 package features.repository;
 
-import core.data.medimage.ImageSeries;
-import core.data.medimage.MedImage;
-import core.data.attribute.DataAttribute;
-import core.data.attribute.DataAttributeCreator;
 import core.repository.RepositoryCommander;
-import features.dicomimage.data.DicomAttributes;
-import features.dicomimage.data.DicomImage;
+import core.repository.RepositoryCommanderException;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
 
 /**
  * Local file system commander, Link = path on a filesystem
  */
 public class LocalRepositoryCommander implements RepositoryCommander {
 
-    private static final ImageSeries DummySeries;
-
-    static {
-        ArrayList<DataAttribute> tags = new ArrayList<DataAttribute>() {{
-            add(DataAttributeCreator.createFromMock(DicomAttributes.ONE_PIXEL_VOLUME, 2.0));
-        }};
-
-        ArrayList<MedImage> dicoms = new ArrayList<MedImage>() {{
-            add(new DicomImage(tags, new byte[][]{
-                    {1, 2},
-                    {3, 4}
-            }));
-        }};
-
-        DummySeries = new ImageSeries(null, dicoms);
-    }
-
-    //TODO: (avlomakin) implement on next iteration
     @Override
-    public ImageSeries getImageSeries(String link) {
-        return DummySeries;
-    }
-
-    @Override
-    public void saveFile(byte[] file, String link, String filename) {
+    public byte[] getFile(String path) throws RepositoryCommanderException {
+        var filePath = Paths.get(path);
         try {
-            FileOutputStream stream = new FileOutputStream(link + "/" + filename);
+            return Files.readAllBytes(filePath);
+        } catch (IOException e) {
+            throw new RepositoryCommanderException("Failed to read file bytes", e);
+        }
+    }
+
+    @Override
+    public String[] getSeriesFileLinks(String link) {
+        return Arrays.stream(new File(link).listFiles()).filter(File::isFile).map(File::getPath).toArray(String[]::new);
+    }
+
+
+    @Override
+    public void saveFile(byte[] file, String link, String filename) throws RepositoryCommanderException {
+        try {
+            var stream = new FileOutputStream(link + "/" + filename);
             stream.write(file);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RepositoryCommanderException("Failed to write file bytes", e);
         }
     }
 }

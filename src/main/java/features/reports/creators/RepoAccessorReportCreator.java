@@ -2,13 +2,11 @@ package features.reports.creators;
 
 import core.algorithm.Algorithm;
 import core.data.DataTable;
-import core.data.medimage.ImageSeries;
+import core.data.medimage.ImageSeriesData;
 import core.data.attribute.MirfAttributes;
 import core.data.report.AlgorithmReport;
 import core.data.report.DataTableAlgorithmReport;
-import core.repository.RepositoryInfo;
 import features.repositoryaccessors.RepoAccessorsAttributes;
-import features.repositoryaccessors.RepositoryRequestInfo;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -18,7 +16,7 @@ import java.util.List;
 /**
  * {@link AlgorithmReport} creator for RepositoryAccessors
  */
-public class RepoAccessorReportCreator implements Algorithm<ImageSeries, AlgorithmReport> {
+public class RepoAccessorReportCreator implements Algorithm<ImageSeriesData, AlgorithmReport> {
 
     //TODO: (avlomakin) replace constants with resource variables
     private static final String REPOSITORY_HEADER = "Repository";
@@ -27,12 +25,13 @@ public class RepoAccessorReportCreator implements Algorithm<ImageSeries, Algorit
     private static final String IMAGE_TYPE_HEADER = "Image type";
 
 
-    private List<Dictionary<String, String>> getRows(ImageSeries medImages) {
+    private List<Dictionary<String, String>> getRows(ImageSeriesData medImages) {
 
-        RepositoryInfo repositoryInfo = medImages.findAttributeValue(MirfAttributes.REPO_INFO.tag);
-        RepositoryRequestInfo requestInfo = medImages.findAttributeValue(RepoAccessorsAttributes.REPOSITORY_REQUEST_INFO.tag);
+        var repositoryInfo = medImages.attributes.findAttributeValue(MirfAttributes.REPO_INFO);
 
-        String totalLoaded = String.valueOf(medImages.images.size());
+        var requestInfo = medImages.attributes.findAttributeValue(RepoAccessorsAttributes.REPOSITORY_REQUEST_INFO);
+
+        var totalLoaded = String.valueOf(medImages.images.size());
 
         Dictionary<String, String> row = new Hashtable<>();
         row.put(REPOSITORY_HEADER, repositoryInfo.repositoryName);
@@ -53,12 +52,12 @@ public class RepoAccessorReportCreator implements Algorithm<ImageSeries, Algorit
     }
 
     @Override
-    public AlgorithmReport execute(ImageSeries medImages) {
-        DataTable reportTable = new DataTable();
+    public AlgorithmReport execute(ImageSeriesData medImages) {
+        var reportTable = new DataTable();
         reportTable.columns.addAll(getHeaders());
         reportTable.rows.addAll(getRows(medImages));
 
-        DataTableAlgorithmReport report = new DataTableAlgorithmReport(reportTable);
+        var report = new DataTableAlgorithmReport(reportTable);
         return report;
     }
 }

@@ -1,6 +1,4 @@
-package features.reports.pdf;
-
-import core.data.Data;
+package core.data;
 
 import java.util.Collection;
 
@@ -14,6 +12,7 @@ public class CollectionData<T extends Data> extends Data {
     public final Collection<T> collection;
 
     public CollectionData(Collection<T> collection) {
+        super();
         this.collection = collection;
     }
 }

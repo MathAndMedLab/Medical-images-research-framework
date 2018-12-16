@@ -1,4 +1,4 @@
-package features.reports.pdf;
+package core.data;
 
 import core.data.Data;
 

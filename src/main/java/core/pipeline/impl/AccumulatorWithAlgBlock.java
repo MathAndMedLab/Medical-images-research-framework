@@ -3,7 +3,7 @@ package core.pipeline.impl;
 import core.algorithm.Algorithm;
 import core.data.Data;
 import core.pipeline.PipelineBlock;
-import features.reports.pdf.CollectionData;
+import core.data.CollectionData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +34,12 @@ public class AccumulatorWithAlgBlock<I extends Data, O extends Data> extends Pip
         if (enabled) {
             inputs.add(input);
             if(inputs.size() == connections){
-                CollectionData<I> collectionData = new CollectionData<>(inputs);
+                var collectionData = new CollectionData<>(inputs);
 
                 //TODO:(avlomakin) if !cacheEnabled {inputs = new ()} to prevent memory leaking
                 inputs = new ArrayList<>();
 
-                O result =  algorithm.execute(collectionData);
+                var result =  algorithm.execute(collectionData);
                 notifyListeners(this, result);
             }
         }

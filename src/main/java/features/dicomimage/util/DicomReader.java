@@ -1,9 +1,13 @@
 package features.dicomimage.util;
 
 import com.pixelmed.dicom.AttributeList;
+import com.pixelmed.dicom.DicomInputStream;
 import com.pixelmed.display.ConsumerFormatImageMaker;
+import features.dicomimage.data.DicomAttributes;
+import features.dicomimage.data.DicomImage;
 
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,13 +26,33 @@ public class DicomReader {
      * @return list with dicom attributes;
      */
     public static AttributeList readDicomImageAttributesFromLocalFile(String dicomInputFile) {
-        AttributeList dicomAttributes = new AttributeList();
+        var dicomAttributes = new AttributeList();
         try {
             dicomAttributes.read(dicomInputFile);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return dicomAttributes;
+    }
+
+    public static DicomImage readDicomImage(InputStream input)
+    {
+        //TODO: (avlomakin) rewrite it!!!!!!!!!!!!!!!!!!
+        try {
+            var dicomStream = new DicomInputStream(input);
+            var dicomAttributes = new AttributeList();
+
+            dicomAttributes.read(dicomStream);
+            var images = readDicomImagePixelDataFromAttributeList(dicomAttributes);
+
+            var image = new DicomImage(images.get(0));
+            image.attributes.add(DicomAttributes.ONE_PIXEL_VOLUME, 2.0);
+
+            return image;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -38,9 +62,9 @@ public class DicomReader {
      * @return list with pixel data, e.g. list of slices in dicom image.
      */
     public static List<BufferedImage> readDicomImagePixelDataFromAttributeList(AttributeList attributeList) {
-        ArrayList pixelData = new ArrayList();
+        ArrayList<BufferedImage> pixelData = new ArrayList<>();
         try {
-            BufferedImage[] imgs = ConsumerFormatImageMaker.makeEightBitImages(attributeList);
+            var imgs = ConsumerFormatImageMaker.makeEightBitImages(attributeList);
             pixelData = new ArrayList<>(Arrays.asList(imgs));
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,7 +79,7 @@ public class DicomReader {
      * @return list with pixel data, e.g. list of slices in dicom image.
      */
     public static List<BufferedImage> readDicomImagePixelDataFromLocalFile(String dicomInputFile) {
-        AttributeList attributeList = readDicomImageAttributesFromLocalFile(dicomInputFile);
+        var attributeList = readDicomImageAttributesFromLocalFile(dicomInputFile);
         return readDicomImagePixelDataFromAttributeList(attributeList);
     }
 

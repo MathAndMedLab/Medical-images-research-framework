@@ -7,16 +7,16 @@
 ##############################################################################
 
 # Attempt to set APP_HOME
-# Resolve links: $0 may be a connectionString
+# Resolve links: $0 may be a link
 PRG="$0"
 # Need this for relative symlinks.
 while [ -h "$PRG" ] ; do
     ls=`ls -ld "$PRG"`
-    connectionString=`expr "$ls" : '.*-> \(.*\)$'`
-    if expr "$connectionString" : '/.*' > /dev/null; then
-        PRG="$connectionString"
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+        PRG="$link"
     else
-        PRG=`dirname "$PRG"`"/$connectionString"
+        PRG=`dirname "$PRG"`"/$link"
     fi
 done
 SAVED="`pwd`"
@@ -116,7 +116,7 @@ if $cygwin ; then
     JAVACMD=`cygpath --unix "$JAVACMD"`
 
     # We build the pattern for arguments to be converted via cygpath
-    ROOTDIRSRAW=`find -L / -maxdepth 1 -mindepth 1 -tag d 2>/dev/null`
+    ROOTDIRSRAW=`find -L / -maxdepth 1 -mindepth 1 -type d 2>/dev/null`
     SEP=""
     for dir in $ROOTDIRSRAW ; do
         ROOTDIRS="$ROOTDIRS$SEP$dir"

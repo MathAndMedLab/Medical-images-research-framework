@@ -29,7 +29,7 @@ public class RepositoryAccessorBlock<I extends Data, O extends Data> extends Pip
     @Override
     public void inputDataReady(PipelineBlock<?, I> sender, I input) {
         if(enabled) {
-            O result = algorithm.execute(new RepoRequest(connectionString, repo){{bundle = input;}});
+            var result = algorithm.execute(new RepoRequest(connectionString, repo){{bundle = input;}});
             notifyListeners(this, result);
         }
     }
