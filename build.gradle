@@ -7,7 +7,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 mainClassName = "Main"
 
-sourceCompatibility = 11
+sourceCompatibility = 1.8
 
 jar {
     manifest {
