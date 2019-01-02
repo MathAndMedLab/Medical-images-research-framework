@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id="med_sample" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="" external.system.module.version="1.0-SNAPSHOT" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="kotlin-language" name="Kotlin">
+      <configuration version="3" platform="JVM 1.8" useProjectSettings="false">
+        <compilerSettings />
+        <compilerArguments>
+          <option name="destination" value="$MODULE_DIR$/../../build/classes/kotlin/main" />
+          <option name="classpath" value="$MODULE_DIR$/../../libs/aiviewer.jar;C:/src/Medical-images-research-framework/libs/commons-codec-1.3.jar;C:/src/Medical-images-research-framework/libs/commons-compress-1.12.jar;C:/src/Medical-images-research-framework/libs/commons-net-ftp-2.0.jar;C:/src/Medical-images-research-framework/libs/guava-27.0-jre.jar;C:/src/Medical-images-research-framework/libs/hsqldb.jar;C:/src/Medical-images-research-framework/libs/javax.json-1.0.4.jar;C:/src/Medical-images-research-framework/libs/javax.json-api-1.0.jar;C:/src/Medical-images-research-framework/libs/jmdns.jar;C:/src/Medical-images-research-framework/libs/pixelmed.jar;C:/src/Medical-images-research-framework/libs/pixelmed_codec.jar;C:/src/Medical-images-research-framework/libs/pixelmed_imageio.jar;C:/src/Medical-images-research-framework/libs/vecmath1.2-1.14.jar;C:/src/Medical-images-research-framework/libs/itext/io-7.1.2.jar;C:/src/Medical-images-research-framework/libs/itext/kernel-7.1.2.jar;C:/src/Medical-images-research-framework/libs/itext/layout-7.1.2.jar;C:/src/Medical-images-research-framework/libs/slf4j/slf4j-api-1.7.13.jar;C:/src/Medical-images-research-framework/libs/slf4j/slf4j-simple-1.7.13.jar;C:/Users/Alom2_000/.gradle/caches/modules-2/files-2.1/com.github.micheljung/nocatch/1.1/7b321fcabe0678cf568250c7c1ef878bd8f23acc/nocatch-1.1.jar;C:/Users/Alom2_000/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.2.71/5470d1f752cd342edb77e1062bac07e838d2cea4/kotlin-stdlib-jdk8-1.2.71.jar;C:/Users/Alom2_000/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/1.1.0/20274ba816d8938fdb4d7a3806719691db60fa1e/kotlinx-coroutines-core-1.1.0.jar;C:/Users/Alom2_000/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.2.71/4ce93f539e2133f172f1167291a911f83400a5d0/kotlin-stdlib-jdk7-1.2.71.jar;C:/Users/Alom2_000/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.11/4cbc5922a54376018307a731162ccaf3ef851a39/kotlin-stdlib-1.3.11.jar;C:/Users/Alom2_000/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-common/1.1.0/d81cc72afd6e49f5270db24bae935f9bfcfd859e/kotlinx-coroutines-core-common-1.1.0.jar;C:/Users/Alom2_000/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.11/d8b8e746e279f1c4f5e08bc14a96b82e6bb1de02/kotlin-stdlib-common-1.3.11.jar;C:/Users/Alom2_000/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
+          <option name="moduleName" value="med_sample" />
+          <option name="jvmTarget" value="1.8" />
+          <option name="addCompilerBuiltIns" value="true" />
+          <option name="loadBuiltInsFromDependencies" value="true" />
+          <option name="languageVersion" value="1.2" />
+          <option name="apiVersion" value="1.2" />
+          <option name="pluginOptions">
+            <array />
+          </option>
+          <option name="pluginClasspaths">
+            <array />
+          </option>
+          <option name="coroutinesState" value="warn" />
+        </compilerArguments>
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/../../out/production/classes" />
     <output-test url="file://$MODULE_DIR$/../../out/test/classes" />
@@ -15,6 +41,13 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: com.github.micheljung:nocatch:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.71" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.71" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.3.11" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.11" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="module-library">
       <library name="Gradle: aiviewer">
         <CLASSES>
