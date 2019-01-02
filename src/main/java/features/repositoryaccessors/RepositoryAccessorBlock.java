@@ -33,4 +33,9 @@ public class RepositoryAccessorBlock<I extends Data, O extends Data> extends Pip
             notifyListeners(this, result);
         }
     }
+
+    @Override
+    public void flush() {
+
+    }
 }

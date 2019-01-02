@@ -1,4 +1,4 @@
-package core.utils;
+package features.console.utils;
 
 import java.util.*;
 import org.w3c.dom.*;

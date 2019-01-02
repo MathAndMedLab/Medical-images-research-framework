@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static core.utils.XmlUtil.asList;
+import static features.console.utils.XmlUtil.asList;
 
 public final class CommandParser {
 

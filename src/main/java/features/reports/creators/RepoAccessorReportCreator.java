@@ -34,7 +34,7 @@ public class RepoAccessorReportCreator implements Algorithm<ImageSeriesData, Alg
         var totalLoaded = String.valueOf(medImages.getImages().size());
 
         Dictionary<String, String> row = new Hashtable<>();
-        row.put(REPOSITORY_HEADER, repositoryInfo.repositoryName);
+        row.put(REPOSITORY_HEADER, repositoryInfo.getRepositoryName());
         row.put(LINK_HEADER, requestInfo.link);
         row.put(TOTAL_LOADED, totalLoaded);
         row.put(IMAGE_TYPE_HEADER, medImages.getImages().get(0).getExtension());
