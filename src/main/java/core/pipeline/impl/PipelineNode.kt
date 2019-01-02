@@ -1,6 +1,7 @@
 package core.pipeline.impl
 
 import core.algorithm.Algorithm
+import core.algorithm.SimpleAlg
 import core.data.Data
 import core.pipeline.PipelineBlock
 
@@ -33,5 +34,9 @@ class PipelineNode<I: Data, O : Data> (private var value: PipelineBlock<I, O>) {
             s += " {" + children.map { it.toString() } + " }"
         }
         return s
+    }
+
+    fun <T : Data> addListener(listener: (O) -> T): PipelineNode<O, T>{
+        return addListener(SimpleAlg(listener))
     }
 }

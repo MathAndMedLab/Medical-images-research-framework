@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage
  */
 abstract class MedImage : Data, Cloneable {
 
-    abstract var image: BufferedImage
+    abstract var image: BufferedImage?
 
     /**
      * Retrieves file extension of MedImage

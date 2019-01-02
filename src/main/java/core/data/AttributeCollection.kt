@@ -51,4 +51,8 @@ class AttributeCollection constructor(list : Collection<DataAttribute<*>> = Arra
     fun <T> findAttributeValue(attribute: DataAttributeMockup<T>): T? {
         return findAttributeValue<T>(attribute.tag)
     }
+
+    fun addRange(range: Collection<DataAttribute<*>>) {
+        range.forEach { x -> add(x) }
+    }
 }
