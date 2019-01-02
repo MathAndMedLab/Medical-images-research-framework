@@ -46,7 +46,7 @@ public class DicomReader {
             var images = readDicomImagePixelDataFromAttributeList(dicomAttributes);
 
             var image = new DicomImage(images.get(0));
-            image.attributes.add(DicomAttributes.ONE_PIXEL_VOLUME, 2.0);
+            image.getAttributes().add(DicomAttributes.ONE_PIXEL_VOLUME, 2.0);
 
             return image;
         } catch (Exception e) {

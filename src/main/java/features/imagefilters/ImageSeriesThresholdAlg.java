@@ -21,7 +21,7 @@ public class ImageSeriesThresholdAlg implements Algorithm<ImageSeriesData, Image
     @Override
     public ImageSeriesData execute(ImageSeriesData input) {
 
-        input.images.forEach(this::thresholdImage);
+        input.getImages().forEach(this::thresholdImage);
         //List<MedImage> newImages = input.images.stream().map(this::thresholdImage).collect(Collectors.toList());
 
         return input;
@@ -39,7 +39,7 @@ public class ImageSeriesThresholdAlg implements Algorithm<ImageSeriesData, Image
 
         img.getRaster().setPixels(img.getMinX(), img.getMinY(), img.getWidth(), img.getHeight(), raw);
 
-        medImage.attributes.add(MirfAttributes.THRESHOLDED, Switch.instance);
+        medImage.getAttributes().add(MirfAttributes.INSTANCE.getTHRESHOLDED(), Switch.INSTANCE.get());
 
         return medImage;
     }

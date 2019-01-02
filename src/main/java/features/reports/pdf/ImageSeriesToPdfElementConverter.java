@@ -19,7 +19,7 @@ public class ImageSeriesToPdfElementConverter implements Algorithm<ImageSeriesDa
     @Override
     public PdfElementData execute(ImageSeriesData input) {
 
-        var images = input.images.stream().map(MedImage::getImage).collect(Collectors.toList());
+        var images = input.getImages().stream().map(MedImage::getImage).collect(Collectors.toList());
         var result = new Paragraph();
         try {
             for (var image : images) {

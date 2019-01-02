@@ -36,7 +36,7 @@ public class DicomImage extends MedImage {
 
     @Override
     public DicomImage clone() {
-        return new DicomImage(attributes.clone(), pixelData);
+        return new DicomImage(getAttributes().clone(), pixelData);
     }
 
     @Override

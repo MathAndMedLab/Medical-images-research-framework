@@ -16,12 +16,12 @@ public class ImageSeriesVoxelVolumeCalcAlg implements Algorithm<ImageSeriesData,
 
         double result = 0;
 
-        for (var image : input.images) {
+        for (var image : input.getImages()) {
             //TODO: (avlomakin) replace with Log.Warning
-            if (!image.attributes.hasAttribute(MirfAttributes.THRESHOLDED))
+            if (!image.getAttributes().hasAttribute(MirfAttributes.INSTANCE.getTHRESHOLDED()))
                 System.out.println("Warning, performing volume calculation on non-thresholded image, possible unexpected result");
 
-            double onePixelVolume = image.attributes.findAttributeValue(DicomAttributes.ONE_PIXEL_VOLUME);
+            double onePixelVolume = image.getAttributes().findAttributeValue(DicomAttributes.ONE_PIXEL_VOLUME);
 
             var img = image.getImage();
             var raw = img.getRaster().getPixels(img.getMinX(), img.getMinY(), img.getWidth(), img.getHeight(), (int[]) null);

@@ -39,12 +39,12 @@ public class DataTableReportToPdfElementConverter<I extends Data> implements Alg
     private IBlockElement execute(AlgorithmReport report) {
         IBlockElement generatedReport;
 
-        switch (report.mirfReportType) {
+        switch (report.getMirfReportType()) {
             case DataTable:
                 generatedReport = generatePdfForTableReport((DataTableAlgorithmReport) report);
                 break;
             default:
-                throw new RuntimeException(String.format("Cannot generate report for %s", report.mirfReportType));
+                throw new RuntimeException(String.format("Cannot generate report for %s", report.getMirfReportType()));
         }
         return generatedReport;
     }
@@ -60,13 +60,13 @@ public class DataTableReportToPdfElementConverter<I extends Data> implements Alg
             e.printStackTrace();
         }
 
-        var table = new Table(report.table.columns.size());
+        var table = new Table(report.getTable().getColumns().size());
 
         table.setWidth(UnitValue.createPercentValue(100));
 
-        addHeaders(table, report.table.columns, bold);
-        for (var row : report.table.rows)
-            addRow(table, row, font, report.table.columns);
+        addHeaders(table, report.getTable().getColumns(), bold);
+        for (var row : report.getTable().getRows())
+            addRow(table, row, font, report.getTable().getColumns());
 
         return table;
     }

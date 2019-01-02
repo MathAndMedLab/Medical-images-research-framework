@@ -34,7 +34,7 @@ public class PdfElementsAccumulator implements Algorithm<CollectionData<PdfEleme
 
         document.setMargins(10, 10, 10, 10);
 
-        for (var element : elements.collection)
+        for (var element : elements.getCollection())
             document.add(element.pdfElement);
 
         document.close();

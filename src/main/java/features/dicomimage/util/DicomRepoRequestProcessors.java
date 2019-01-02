@@ -42,10 +42,10 @@ public final class DicomRepoRequestProcessors {
             var result = new ImageSeriesData(images);
 
             var repositoryInfo = new RepositoryInfo(request.getRepositoryCommander().getClass().getSimpleName(), "TODO: (avlomakin)");
-            result.attributes.add(MirfAttributes.REPO_INFO, repositoryInfo);
+            result.getAttributes().add(MirfAttributes.INSTANCE.getREPO_INFO(), repositoryInfo);
 
             var requestInfo = new RepositoryRequestInfo(request.getLink(), RepositoryRequestType.GET);
-            result.attributes.add(RepoAccessorsAttributes.REPOSITORY_REQUEST_INFO, requestInfo);
+            result.getAttributes().add(RepoAccessorsAttributes.REPOSITORY_REQUEST_INFO, requestInfo);
 
             return result;
 

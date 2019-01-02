@@ -1,9 +1,9 @@
-package core.data.report;
+package core.data.report
 
 /**
  * Report type, custom types will be recognized as Unknown
  */
-public enum MirfReportType {
+enum class MirfReportType {
     Unknown,
     DataTable,
     Extension

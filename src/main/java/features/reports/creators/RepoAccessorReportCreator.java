@@ -27,17 +27,17 @@ public class RepoAccessorReportCreator implements Algorithm<ImageSeriesData, Alg
 
     private List<Dictionary<String, String>> getRows(ImageSeriesData medImages) {
 
-        var repositoryInfo = medImages.attributes.findAttributeValue(MirfAttributes.REPO_INFO);
+        var repositoryInfo = medImages.getAttributes().findAttributeValue(MirfAttributes.INSTANCE.getREPO_INFO());
 
-        var requestInfo = medImages.attributes.findAttributeValue(RepoAccessorsAttributes.REPOSITORY_REQUEST_INFO);
+        var requestInfo = medImages.getAttributes().findAttributeValue(RepoAccessorsAttributes.REPOSITORY_REQUEST_INFO);
 
-        var totalLoaded = String.valueOf(medImages.images.size());
+        var totalLoaded = String.valueOf(medImages.getImages().size());
 
         Dictionary<String, String> row = new Hashtable<>();
         row.put(REPOSITORY_HEADER, repositoryInfo.repositoryName);
         row.put(LINK_HEADER, requestInfo.link);
         row.put(TOTAL_LOADED, totalLoaded);
-        row.put(IMAGE_TYPE_HEADER, medImages.images.get(0).getExtension());
+        row.put(IMAGE_TYPE_HEADER, medImages.getImages().get(0).getExtension());
 
         return new ArrayList<Dictionary<String, String>>(){{add(row);}};
     }
@@ -54,8 +54,8 @@ public class RepoAccessorReportCreator implements Algorithm<ImageSeriesData, Alg
     @Override
     public AlgorithmReport execute(ImageSeriesData medImages) {
         var reportTable = new DataTable();
-        reportTable.columns.addAll(getHeaders());
-        reportTable.rows.addAll(getRows(medImages));
+        reportTable.getColumns().addAll(getHeaders());
+        reportTable.getRows().addAll(getRows(medImages));
 
         var report = new DataTableAlgorithmReport(reportTable);
         return report;

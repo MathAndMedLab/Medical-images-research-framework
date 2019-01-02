@@ -19,11 +19,11 @@ public class RepoFileSaver implements Algorithm<RepoRequest, Data> {
         var data = (FileData)input.bundle;
 
         try {
-            input.getRepositoryCommander().saveFile(data.fileBytes, input.getLink(), data.name + data.extension);
+            input.getRepositoryCommander().saveFile(data.getFileBytes(), input.getLink(), data.getName() + data.getExtension());
         } catch (Exception e) {
             throw new AlgorithmExecutionException("Unable to save file", e);
         }
 
-        return Data.empty;
+        return Data.Companion.getEmpty();
     }
 }
