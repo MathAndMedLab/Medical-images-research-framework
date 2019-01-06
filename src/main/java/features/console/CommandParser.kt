@@ -1,6 +1,6 @@
 package features.console
 
-import core.pipeline.impl.PipelineNode
+import core.pipeline.PipelineBlock
 import org.xml.sax.SAXException
 
 import javax.xml.parsers.DocumentBuilderFactory
@@ -43,7 +43,7 @@ object CommandParser {
         return result
     }
 
-    fun tryExecute(commandString: String, pipeline: PipelineNode<*,*>?) {
+    fun tryExecute(commandString: String, pipeline: PipelineBlock<*, *>?) {
         val args = commandString.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val command = commands.first { x -> x.name == args[0] }
 

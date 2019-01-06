@@ -6,7 +6,6 @@ import core.repository.RepositoryCommander
 /**
  * Class used by Repository accessors. Contains information about repository and link for request
  */
-open class RepoRequest(val link: String, val repositoryCommander: RepositoryCommander) : Data() {
-
-    var bundle: Any? = null
-}
+open class RepoRequest(val link: String,
+                       val repositoryCommander: RepositoryCommander,
+                       var bundle: Any? = null) : Data()
