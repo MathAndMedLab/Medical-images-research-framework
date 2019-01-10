@@ -19,6 +19,7 @@ import javax.imageio.ImageIO
 
 
 //----------------------------------------------------------------------------------------------------------
+
 fun DataTableAlgorithmReport.asPdfElementData() : PdfElementData{
     val font: PdfFont? = PdfFontFactory.createFont(StandardFonts.HELVETICA)
     val bold: PdfFont? = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)
