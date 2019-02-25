@@ -1,6 +1,7 @@
 package core.algorithm
 
 import core.data.Data
+import core.log.MirfLogFactory
 
 /**
  * Any algorithm that may be executed by `Block`
@@ -13,6 +14,7 @@ import core.data.Data
  * @param <O> is the type returned by the algorithm
 </O></I> */
 interface Algorithm<I : Data, O : Data> {
+
     /**
      * Runs the algorithms on the given input and produces the result,
      * that should be used by other algorithms in pipeline

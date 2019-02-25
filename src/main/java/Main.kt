@@ -1,11 +1,11 @@
-import playground.PdfImageCustomPipeline
+import playground.DicomImageCircleMaskApplier
 
 object Main {
 
     @JvmStatic
     fun main(args: Array<String>) {
 
-        PdfImageCustomPipeline.exec()
+        DicomImageCircleMaskApplier().exec()
     }
 
 }

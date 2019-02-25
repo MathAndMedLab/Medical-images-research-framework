@@ -2,32 +2,39 @@ package core.data
 
 import core.data.attribute.DataAttribute
 import core.data.attribute.DataAttributeMockup
+import core.log.MirfLogFactory
+import org.slf4j.LoggerFactory
 
 import kotlin.collections.ArrayList
 
 //TODO: (avlomakin) implements Collection<DataAttribute>
-class AttributeCollection constructor(list : Collection<DataAttribute<*>> = ArrayList()) : Cloneable {
+open class AttributeCollection constructor(list : Collection<DataAttribute<*>> = ArrayList()) : Cloneable {
 
-    private val attributes: ArrayList<DataAttribute<*>> = ArrayList(list)
+    protected open val log = MirfLogFactory.currentLogger
 
-    fun hasAttribute(mockup: DataAttributeMockup<*>): Boolean {
-        return hasAttribute(mockup.tag)
+    private var _version = 0
+    open val version = _version
+
+    protected open val attributes: ArrayList<DataAttribute<*>> = ArrayList(list)
+
+    fun hasAttribute(mockup: DataAttributeMockup<*>) = hasAttribute(mockup.tag)
+
+    fun hasAttribute(attributeTag: String) = attributes.any { x -> x.tag == attributeTag }
+
+    fun add(attribute: DataAttribute<*>) = this.internalAdd(attribute)
+
+    fun <T> add(attributeMockup: DataAttributeMockup<T>, value: T) {
+        val attribute =attributeMockup.createAttribute(value)
+        internalAdd(attribute)
     }
 
-    fun hasAttribute(attributeTag: String): Boolean {
-        return attributes.any { x -> x.tag == attributeTag }
-    }
-
-    fun add(attribute: DataAttribute<*>) {
+    private fun internalAdd(attribute: DataAttribute<*>){
+        _version++
         attributes.add(attribute)
     }
 
-    fun <T> add(attributeMockup: DataAttributeMockup<T>, value: T) {
-        attributes.add(attributeMockup.createAttribute(value))
-    }
-
     public override fun clone(): AttributeCollection {
-        val clonedAttributes = attributes.map {it -> it.clone()}
+        val clonedAttributes = attributes.map { it.copy()}
         return AttributeCollection(clonedAttributes)
     }
 
@@ -36,11 +43,11 @@ class AttributeCollection constructor(list : Collection<DataAttribute<*>> = Arra
      * @param attributeTag tag of the requested attribute
      * @return found attribute or null
      */
-    fun find(attributeTag: String): DataAttribute<*>? {
-        return attributes.first { x -> x.tag == attributeTag }
+    open fun find(attributeTag: String): DataAttribute<*>? {
+        return attributes.firstOrNull { x -> x.tag == attributeTag }
     }
 
-    fun <T> findAttributeValue(attributeTag: String): T? {
+    open fun <T> findAttributeValue(attributeTag: String): T? {
         val attribute = find(attributeTag) ?: return null
 
 
@@ -52,7 +59,16 @@ class AttributeCollection constructor(list : Collection<DataAttribute<*>> = Arra
         return findAttributeValue<T>(attribute.tag)
     }
 
+    fun <T> getAttributeValue(attribute: DataAttributeMockup<T>): T {
+        return findAttributeValue<T>(attribute.tag) ?: throw AttributeException("Attribute ${attribute.name} not found")
+    }
+
     fun addRange(range: Collection<DataAttribute<*>>) {
         range.forEach { x -> add(x) }
+    }
+
+    open operator fun <R> get(mockup: DataAttributeMockup<R>): R {
+        val resultGen = find(mockup.tag) ?: throw AttributeException("attribute ${mockup.name} doesn't presented in the attribute collection")
+        return (resultGen as DataAttribute<R>).value
     }
 }

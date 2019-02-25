@@ -3,7 +3,7 @@ package features.dicomimage.util
 import com.pixelmed.dicom.AttributeList
 import com.pixelmed.dicom.DicomInputStream
 import com.pixelmed.display.ConsumerFormatImageMaker
-import features.dicomimage.data.DicomAttributes
+import features.dicomimage.data.DicomAttributeCollection
 import features.dicomimage.data.DicomImage
 
 import java.awt.image.BufferedImage
@@ -36,17 +36,12 @@ object DicomReader {
     }
 
     fun readDicomImage(input: InputStream): DicomImage {
-        //TODO: (avlomakin) rewrite it!!!!!!!!!!!!!!!!!!
         val dicomStream = DicomInputStream(input)
         val dicomAttributes = AttributeList()
 
         dicomAttributes.read(dicomStream)
-        val images = readDicomImagePixelDataFromAttributeList(dicomAttributes)
 
-        val image = DicomImage(images[0])
-        image.attributes.add(DicomAttributes.ONE_PIXEL_VOLUME, 2.0)
-
-        return image
+        return DicomImage(DicomAttributeCollection(dicomAttributes))
     }
 
     /**

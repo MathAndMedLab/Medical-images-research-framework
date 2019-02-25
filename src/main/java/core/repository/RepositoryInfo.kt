@@ -3,4 +3,9 @@ package core.repository
 /**
  * Info about [RepositoryCommander]. Used for reports generation
  */
-class RepositoryInfo(val repositoryName: String, val username: String)
+data class RepositoryInfo(val repositoryName: String, val username: String){
+
+        fun copy(): RepositoryInfo{
+            return RepositoryInfo(repositoryName, username)
+        }
+}
