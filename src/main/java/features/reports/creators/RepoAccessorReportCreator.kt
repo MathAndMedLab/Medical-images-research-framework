@@ -2,7 +2,7 @@ package features.reports.creators
 
 import core.algorithm.Algorithm
 import core.data.DataTable
-import core.data.medimage.ImageSeriesData
+import core.data.medimage.ImageSeries
 import core.data.attribute.MirfAttributes
 import core.data.report.AlgorithmReport
 import core.data.report.DataTableAlgorithmReport
@@ -15,7 +15,7 @@ import java.util.Hashtable
 /**
  * [AlgorithmReport] creator for RepositoryAccessors
  */
-class RepoAccessorReportCreator : Algorithm<ImageSeriesData, AlgorithmReport> {
+class RepoAccessorReportCreator : Algorithm<ImageSeries, AlgorithmReport> {
 
     private val headers: ArrayList<String>
         get() = object : ArrayList<String>() {
@@ -27,7 +27,7 @@ class RepoAccessorReportCreator : Algorithm<ImageSeriesData, AlgorithmReport> {
             }
         }
 
-    private fun getRows(medImages: ImageSeriesData): List<Dictionary<String, String>> {
+    private fun getRows(medImages: ImageSeries): List<Dictionary<String, String>> {
 
         val repositoryInfo = medImages.attributes.findAttributeValue(MirfAttributes.REPO_INFO)
 
@@ -48,7 +48,7 @@ class RepoAccessorReportCreator : Algorithm<ImageSeriesData, AlgorithmReport> {
         }
     }
 
-    override fun execute(input: ImageSeriesData): DataTableAlgorithmReport {
+    override fun execute(input: ImageSeries): DataTableAlgorithmReport {
         val reportTable = DataTable()
         reportTable.columns.addAll(headers)
         reportTable.rows.addAll(getRows(input))

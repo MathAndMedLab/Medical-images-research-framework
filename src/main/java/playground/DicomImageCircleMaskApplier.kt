@@ -3,7 +3,7 @@ package playground
 import core.algorithm.asImageSeriesAlg
 import core.data.Data
 import core.data.FileData
-import core.data.medimage.ImageSeriesData
+import core.data.medimage.ImageSeries
 import core.pipeline.AccumulatorWithAlgBlock
 import core.pipeline.AlgorithmHostBlock
 import core.pipeline.Pipeline
@@ -26,7 +26,7 @@ class DicomImageCircleMaskApplier {
 
         //initializing blocks
         val seriesReaderBlock = AlgorithmHostBlock(
-                DicomRepoRequestProcessors.ReadDicomImageSeriesAlg,
+                DicomRepoRequestProcessors.readDicomImageSeriesAlg,
                 pipelineKeeper = pipe)
 
         val addMaskBlock = AlgorithmHostBlock(
@@ -37,11 +37,11 @@ class DicomImageCircleMaskApplier {
                 SegmentationMaskApplicator(ImageTransformMode.GenerateNew).asImageSeriesAlg(true),
                 pipelineKeeper = pipe)
 
-        val imageBeforeReporter = AlgorithmHostBlock<ImageSeriesData, PdfElementData>(
+        val imageBeforeReporter = AlgorithmHostBlock<ImageSeries, PdfElementData>(
                 {x -> x.asPdfElementData()},
                 "image before", pipe)
 
-        val imageAfterReporter = AlgorithmHostBlock<ImageSeriesData, PdfElementData>(
+        val imageAfterReporter = AlgorithmHostBlock<ImageSeries, PdfElementData>(
                 {x -> x.asPdfElementData()},
                 "image after", pipe)
 

@@ -3,20 +3,19 @@ package features.numinfofromimage
 import core.algorithm.Algorithm
 import core.data.ParametrizedData
 import core.data.attribute.MirfAttributes
-import core.data.medimage.ImageSeriesData
+import core.data.medimage.ImageSeries
 import core.log.MirfLogFactory
 import features.dicomimage.data.DicomAttributes
 import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 /**
- * Calculates the volume of the given [ImageSeriesData].
+ * Calculates the volume of the given [ImageSeries].
  */
-class ImageSeriesVoxelVolumeCalcAlg : Algorithm<ImageSeriesData, ParametrizedData<*>> {
+class ImageSeriesVoxelVolumeCalcAlg : Algorithm<ImageSeries, ParametrizedData<*>> {
 
     private val log : Logger = MirfLogFactory.currentLogger
 
-    override fun execute(input: ImageSeriesData): ParametrizedData<*> {
+    override fun execute(input: ImageSeries): ParametrizedData<*> {
 
         var result = 0.0
 

@@ -3,8 +3,7 @@ package features.dicomimage.util
 import core.algorithm.Algorithm
 import core.algorithm.SimpleAlg
 import core.data.attribute.MirfAttributes
-import core.data.medimage.ImageSeriesData
-import core.data.medimage.MedImage
+import core.data.medimage.ImageSeries
 import core.repository.RepositoryInfo
 import features.repositoryaccessors.AlgorithmExecutionException
 import features.repositoryaccessors.RepoAccessorsAttributes
@@ -23,10 +22,10 @@ import kotlin.streams.toList
  * Class that stores all algorithms to interact with [core.repository.RepositoryCommander]
  */
 object DicomRepoRequestProcessors {
-    var ReadDicomImageSeriesAlg: Algorithm<RepoRequest, ImageSeriesData> = SimpleAlg { request: RepoRequest -> readDicomImageSeries(request) }
+    var readDicomImageSeriesAlg: Algorithm<RepoRequest, ImageSeries> = SimpleAlg { request: RepoRequest -> readDicomImageSeries(request) }
 
     //TODO: (avlomakin) rewrite it!
-    private fun readDicomImageSeries(request: RepoRequest): ImageSeriesData {
+    private fun readDicomImageSeries(request: RepoRequest): ImageSeries {
         try {
             val files = request.repositoryCommander.getSeriesFileLinks(request.link)
 
@@ -37,7 +36,7 @@ object DicomRepoRequestProcessors {
                 DicomReader.readDicomImage(stream)
             }.toList()
 
-            val result = ImageSeriesData(images)
+            val result = ImageSeries(images)
             result.attributes.addRange(getMetadata(request))
 
             return result

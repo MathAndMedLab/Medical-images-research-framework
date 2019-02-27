@@ -2,7 +2,7 @@ package playground
 
 import core.data.Data
 import core.data.FileData
-import core.data.medimage.ImageSeriesData
+import core.data.medimage.ImageSeries
 import core.pipeline.AccumulatorWithAlgBlock
 import core.pipeline.AlgorithmHostBlock
 import features.dicomimage.util.DicomRepoRequestProcessors
@@ -25,14 +25,14 @@ object PdfImageCustomPipeline {
 
         //initializing blocks
         val seriesReaderBlock = AlgorithmHostBlock(
-                DicomRepoRequestProcessors.ReadDicomImageSeriesAlg,
+                DicomRepoRequestProcessors.readDicomImageSeriesAlg,
                 pipelineKeeper = pipe)
 
-        val tableReportBlock = AlgorithmHostBlock<ImageSeriesData, PdfElementData>(
+        val tableReportBlock = AlgorithmHostBlock<ImageSeries, PdfElementData>(
                 { x -> RepoAccessorReportCreator().execute(x).asPdfElementData() },
                 "Table reporter", pipe)
 
-        val imageReporter = AlgorithmHostBlock<ImageSeriesData, PdfElementData>(
+        val imageReporter = AlgorithmHostBlock<ImageSeries, PdfElementData>(
                 {x -> x.asPdfElementData()},
                 "image reporter", pipe)
 

@@ -6,4 +6,4 @@ import core.data.Data
 /**
  * ImageSeries stores a list of [MedImage]
  */
-class ImageSeriesData(var images: List<MedImage>, attributes: AttributeCollection = AttributeCollection()) : Data(attributes)
+class ImageSeries(var images: List<MedImage>, attributes: AttributeCollection = AttributeCollection()) : Data(attributes)

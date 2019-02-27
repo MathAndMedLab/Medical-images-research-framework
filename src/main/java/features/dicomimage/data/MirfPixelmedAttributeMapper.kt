@@ -1,66 +1,54 @@
 package features.dicomimage.data
 
-import com.pixelmed.dicom.Attribute
-import com.pixelmed.dicom.AttributeTag
-import com.pixelmed.dicom.OtherWordAttribute
-import com.pixelmed.dicom.TagFromName
-import core.array.composeValuesToShortArray
-import core.array.expandToByteArray
+import com.pixelmed.dicom.*
 import core.data.attribute.DataAttribute
 import core.data.attribute.DataAttributeMockup
 import core.data.attribute.MirfAttributes
+import core.data.medimage.ImagingData
+import java.awt.image.BufferedImage
 
 object MirfPixelmedAttributeMapper {
 
-    private val mirfToPixelmedPairs : Array<Pair<String, AttributeTag>> = arrayOf(
-            Pair(MirfAttributes.IMAGE_ROW_DATA.tag, TagFromName.PixelData)
-    )
+    private val supportedMirfAttributes : HashSet<DataAttributeMockup<*>> = hashSetOf(MirfAttributes.IMAGING_DATA)
 
-    private val mirfToPixelmedMap : HashMap<String, AttributeTag> = hashMapOf(*mirfToPixelmedPairs)
+    fun canMap(mockup: DataAttributeMockup<*>) = supportedMirfAttributes.contains(mockup)
+    fun canMap(attribute: DataAttribute<*>) = canMap(attribute.tag)
+    fun canMap(attributeTag: String) = supportedMirfAttributes.any{it.tag == attributeTag}
 
-    private val pixelmedToMirfMap : HashMap<AttributeTag, String> = hashMapOf(*(mirfToPixelmedPairs.map{Pair(it.second, it.first)}.toTypedArray()))
-
-    fun DataAttributeMockup<*>.toPixelMedForm() : AttributeTag {
-        val attributeTag =mirfToPixelmedMap[this.tag]
-        checkNotNull(attributeTag) {throw MirfDicomException("No such attribute")}
-        return attributeTag
+    fun createImagingData(pixelmedAttributes: AttributeList) : ImagingData<BufferedImage>{
+        val rows = pixelmedAttributes.get(TagFromName.Rows)
+        val columns = pixelmedAttributes.get(TagFromName.Columns)
+        val rawPixels = pixelmedAttributes.get(TagFromName.PixelData)
+        return ImagingDataFactory.create(rawPixels.shortValues, rows.getSingleIntegerValueOrDefault(0), columns.getSingleIntegerValueOrDefault(0))
     }
 
-    fun getPixelmedAnalogue(mirfAttributeTag: String ) : AttributeTag {
-        val attributeTag = findPixelmedAnalogue(mirfAttributeTag)
-        checkNotNull(attributeTag) {throw MirfDicomException("No such attribute")}
-        return attributeTag
+    private fun syncImagingData(attributes: AttributeList, mirfAttribute: DataAttribute<ImagingData<BufferedImage>>) {
+        val pixelData = OtherWordAttribute(TagFromName.PixelData)
+        pixelData.setValues(mirfAttribute.value.getImageDataAsShortArray())
+        attributes.put(pixelData)
+
+        val rows = UnsignedShortAttribute(TagFromName.Rows)
+        rows.setValue(mirfAttribute.value.height.toShort())
+        attributes.put(rows)
+
+        val columns = UnsignedShortAttribute(TagFromName.Columns)
+        columns.setValue(mirfAttribute.value.width.toShort())
+        attributes.put(columns)
     }
 
-    fun findPixelmedAnalogue(mirfAttributeTag: String ): AttributeTag?{
-        return mirfToPixelmedMap[mirfAttributeTag]
-    }
-
-    fun hasPixelmedAnalogue(mirfAttributeTag: String ) = mirfToPixelmedMap[mirfAttributeTag] != null
-
-    fun pixelDataToRowImageData(pixelData: OtherWordAttribute) : DataAttribute<ByteArray>{
-        val data = pixelData.shortValues.expandToByteArray()
-        return MirfAttributes.IMAGE_ROW_DATA.createAttribute(data)
-    }
-
-    fun rowImageDataToPixelData(rowImageData: DataAttribute<ByteArray>) : OtherWordAttribute{
-        val data = rowImageData.value.composeValuesToShortArray()
-        val attr = OtherWordAttribute(TagFromName.PixelData)
-        attr.setValues(data)
-        return attr
-    }
-
-    fun transofrmPixelmedAttributeToMirf(attr: Attribute) : DataAttribute<*>{
-        when(attr.tag){
-            TagFromName.PixelData -> return pixelDataToRowImageData(attr as OtherWordAttribute)
-            else -> throw MirfDicomException("failed to transform attribute: no transformer found")
+    fun CreateMirfAttribute(mirfAttrTag: String, attributes: AttributeList): DataAttribute<*>{
+        return when(mirfAttrTag){
+            MirfAttributes.IMAGING_DATA.tag -> MirfAttributes.IMAGING_DATA.createAttribute(createImagingData(attributes))
+            else -> throw MirfDicomException("Failed to create mirf attribute: No transform method")
         }
     }
 
-    fun transformMirfAttributeToPixelmed(attr: DataAttribute<*>) : Attribute{
-        return when (attr.tag){
-            MirfAttributes.IMAGE_ROW_DATA.tag -> rowImageDataToPixelData(attr as DataAttribute<ByteArray>)
-            else ->  throw MirfDicomException("failed to transform ${attr.name}")
+    /**
+     * Updates all [Attribute] related to [mirfAttribute] in [attributes]
+     */
+    fun syncPixelmedAttributes(attributes : AttributeList, mirfAttribute: DataAttribute<*>){
+        when(mirfAttribute.tag){
+            MirfAttributes.IMAGING_DATA.tag -> syncImagingData(attributes, mirfAttribute as DataAttribute<ImagingData<BufferedImage>>)
         }
     }
 }

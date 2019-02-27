@@ -39,3 +39,20 @@ fun ByteArray.composeValuesToShortArray(): ShortArray{
     }
     return result
 }
+
+fun Array<ShortArray>.to1D() : ShortArray{
+    return this.flatMap { x -> x.toList() }.toShortArray()
+}
+
+fun Array<ByteArray>.deepCopy() : Array<ByteArray>{
+    return this.clone().map{ y -> y.clone()}.toTypedArray()
+}
+
+fun Array<IntArray>.deepCopy() : Array<IntArray>{
+    return this.clone().map{ y -> y.clone()}.toTypedArray()
+}
+
+fun Array<ShortArray>.deepCopy() : Array<ShortArray>{
+    return this.clone().map{ y -> y.clone()}.toTypedArray()
+}
+

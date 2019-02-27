@@ -10,7 +10,7 @@ import com.itextpdf.layout.element.Image
 import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.element.Table
 import com.itextpdf.layout.property.UnitValue
-import core.data.medimage.ImageSeriesData
+import core.data.medimage.ImageSeries
 import core.data.report.DataTableAlgorithmReport
 import features.reports.PdfElementData
 import features.repositoryaccessors.AlgorithmExecutionException
@@ -47,7 +47,7 @@ private fun addHeaders(table: Table, items: Collection<String>, font: PdfFont?) 
 
 //----------------------------------------------------------------------------------------------------------
 
-fun ImageSeriesData.asPdfElementData() : PdfElementData{
+fun ImageSeries.asPdfElementData() : PdfElementData{
     val images = this.images.map { x -> x.image}
 
     val result = Paragraph()

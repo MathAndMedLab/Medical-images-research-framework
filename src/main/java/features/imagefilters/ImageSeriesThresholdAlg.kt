@@ -3,15 +3,15 @@ package features.imagefilters
 import core.algorithm.Algorithm
 import core.data.attribute.MirfAttributes
 import core.data.attribute.Switch
-import core.data.medimage.ImageSeriesData
+import core.data.medimage.ImageSeries
 import core.data.medimage.MedImage
 
 /**
- * Filters the pixels of all images provided in [ImageSeriesData] to be within specified boundaries.
+ * Filters the pixels of all images provided in [ImageSeries] to be within specified boundaries.
  */
-class ImageSeriesThresholdAlg(private val lowerBound: Byte, private val upperBound: Byte) : Algorithm<ImageSeriesData, ImageSeriesData> {
+class ImageSeriesThresholdAlg(private val lowerBound: Byte, private val upperBound: Byte) : Algorithm<ImageSeries, ImageSeries> {
 
-    override fun execute(input: ImageSeriesData): ImageSeriesData {
+    override fun execute(input: ImageSeries): ImageSeries {
         input.images.parallelStream().forEach{ this.thresholdImage(it) }
         return input
     }

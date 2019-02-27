@@ -3,12 +3,9 @@ package features.dicomimage.alg
 import core.algorithm.Algorithm
 import core.algorithm.AlgorithmException
 import core.array.multiplyElementwise
-import core.data.AttributeCollection
 import core.data.MirfException
 import core.data.attribute.MirfAttributes
-import core.data.medimage.ImageSeriesData
 import core.data.medimage.MedImage
-import features.dicomimage.data.DicomImage
 
 class SegmentationMaskApplicator(
         private val applicationMode: ImageTransformMode)
@@ -28,12 +25,12 @@ class SegmentationMaskApplicator(
 
         return when (applicationMode){
             ImageTransformMode.Update -> {
-                input.attributes[MirfAttributes.IMAGE_ROW_DATA].multiplyElementwise(flatMask)
+                input.attributes[MirfAttributes.IMAGING_DATA].applyMask(flatMask)
                 input
             }
             ImageTransformMode.GenerateNew ->{
                 val result = input.clone()
-                result.attributes[MirfAttributes.IMAGE_ROW_DATA].multiplyElementwise(flatMask)
+                result.attributes[MirfAttributes.IMAGING_DATA].applyMask(flatMask)
 
                 return result
             }
