@@ -5,9 +5,9 @@ import java.util.function.Consumer
 object ActionResolver {
 
     fun getAction(action: CommandAction): Consumer<ConsoleContext> {
-        when (action) {
-            CommandAction.PrintHelp -> return Consumer { printHelp(it) }
-            CommandAction.AddBlockToPipeline -> return Consumer { addBlock(it) }
+        return when (action) {
+            CommandAction.PrintHelp -> Consumer { printHelp(it) }
+            CommandAction.AddBlockToPipeline -> Consumer { addBlock(it) }
             else -> throw ConsoleException(String.format("Action: %s not supported", action))
         }
     }

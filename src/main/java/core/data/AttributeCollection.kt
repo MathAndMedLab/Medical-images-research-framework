@@ -3,9 +3,6 @@ package core.data
 import core.data.attribute.DataAttribute
 import core.data.attribute.DataAttributeMockup
 import core.log.MirfLogFactory
-import org.slf4j.LoggerFactory
-
-import kotlin.collections.ArrayList
 
 //TODO: (avlomakin) implements Collection<DataAttribute>
 open class AttributeCollection constructor(list : Collection<DataAttribute<*>> = ArrayList()) : Cloneable {

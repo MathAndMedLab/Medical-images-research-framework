@@ -3,7 +3,7 @@ package core.pipeline
 import core.data.Data
 import java.time.LocalDateTime
 
-class Pipeline (val name: String, val creationTime: LocalDateTime = LocalDateTime.now()) : PipelineKeeper {
+class Pipeline(val name: String, val creationTime: LocalDateTime = LocalDateTime.now()) : PipelineKeeper {
 
     private var _session: PipelineSession = PipelineSession()
 
@@ -16,12 +16,11 @@ class Pipeline (val name: String, val creationTime: LocalDateTime = LocalDateTim
         if (rootBlock != null) {
             //TODO: (avlomakin) check if there is better way to call method of out-projected class
             (rootBlock as PipelineBlock<*, *>)::inputReady.call(this, initialData)
-        }
-        else
+        } else
             throw PipelineException("root node is not initialized")
     }
 
-    fun flush(){
+    fun flush() {
         _session = PipelineSession()
     }
 

@@ -7,5 +7,4 @@ object Main {
 
         DicomImageCircleMaskApplier().exec()
     }
-
 }

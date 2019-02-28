@@ -1,38 +1,29 @@
 package core.data.medimage
 
+import core.array.BooleanArray2D
+import core.array.ShortArray2D
 import core.array.deepCopy
 import core.array.to1D
 import core.data.MirfException
 import java.awt.image.BufferedImage
 
-class ShortImagingData(rawPixels: Array<ShortArray>, rawPixelTransformer: RawPixelToRgbTransformer): ImagingData<BufferedImage> {
+class ShortImagingData(
+        val rawPixels: ShortArray2D,
+        val rawPixelTransformer: RawPixelToRgbTransformer) : ImagingData<BufferedImage> {
 
-    override fun applyMask(mask: Array<ByteArray>) {
-        if()
+    override fun applyMask(mask: BooleanArray2D) {
+        for (i in 0 until rawPixels.rows)
+            for (j in 0 until rawPixels.columns)
+                rawPixels[i][j] = if (mask[i][j]) rawPixels[i][j] else 0
     }
 
-    val rawPixels: Array<ShortArray>
-    val rawPixelTransformer : RawPixelToRgbTransformer
-    override val width: Int
-    override val height: Int
-
-    init {
-        if(!isPixelsValid(rawPixels))
-            throw MirfException("failed to create image data: array is in invalid state")
-
-        this.rawPixels = rawPixels
-        this.width = rawPixels[0].size
-        this.height = rawPixels.size
-        this.rawPixelTransformer = rawPixelTransformer
-    }
+    override val width: Int = rawPixels.columns
+    override val height: Int = rawPixels.rows
 
     override fun copy(): ImagingData<BufferedImage> {
         return ShortImagingData(rawPixels.deepCopy(), rawPixelTransformer.copy())
     }
 
-    private fun isPixelsValid(pixels: Array<ShortArray>) : Boolean {
-        return pixels.maxBy{x -> x.size}?.size == pixels.minBy { x -> x.size }?.size
-    }
 
     override fun getImage(): BufferedImage {
         TODO("not implemented")
