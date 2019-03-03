@@ -43,12 +43,15 @@ fun ByteArray.composeValuesToShortArray(): ShortArray {
 fun Array<ShortArray>.to1D(): ShortArray {
     return this.flatMap { x -> x.toList() }.toShortArray()
 }
+
 fun Array<ByteArray>.to1D(): ByteArray {
     return this.flatMap { x -> x.toList() }.toByteArray()
 }
+
 fun Array<IntArray>.to1D(): IntArray {
     return this.flatMap { x -> x.toList() }.toIntArray()
 }
+
 fun Array<BooleanArray>.to1D(): BooleanArray {
     return this.flatMap { x -> x.toList() }.toBooleanArray()
 }
@@ -68,4 +71,9 @@ fun Array<BooleanArray>.deepCopy(): Array<BooleanArray> {
 fun Array<ShortArray>.deepCopy(): Array<ShortArray> {
     return this.clone().map { y -> y.clone() }.toTypedArray()
 }
+
+fun BooleanArray2D.logSize(): String = "${this.rows} x ${this.columns}"
+fun ByteArray2D.logSize(): String = "${this.rows} x ${this.columns}"
+fun ShortArray2D.logSize(): String = "${this.rows} x ${this.columns}"
+fun IntArray2D.logSize(): String = "${this.rows} x ${this.columns}"
 

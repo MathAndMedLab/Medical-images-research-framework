@@ -1,9 +1,15 @@
 package playground
 
+import com.itextpdf.io.image.ImageDataFactory
+import com.itextpdf.io.source.ByteArrayOutputStream
+import com.itextpdf.layout.element.Image
+import com.itextpdf.layout.element.Paragraph
+import com.itextpdf.layout.property.UnitValue
 import core.algorithm.asImageSeriesAlg
 import core.data.Data
 import core.data.FileData
 import core.data.medimage.ImageSeries
+import core.data.medimage.getImageWithHighlightedSegmentation
 import core.pipeline.AccumulatorWithAlgBlock
 import core.pipeline.AlgorithmHostBlock
 import core.pipeline.Pipeline
@@ -14,13 +20,15 @@ import features.reports.PdfElementData
 import features.reports.pdf.PdfElementsAccumulator
 import features.reports.pdf.asPdfElementData
 import features.repository.LocalRepositoryCommander
+import features.repositoryaccessors.AlgorithmExecutionException
 import features.repositoryaccessors.RepoFileSaver
 import features.repositoryaccessors.RepositoryAccessorBlock
 import features.repositoryaccessors.data.RepoRequest
+import javax.imageio.ImageIO
 
 class DicomImageCircleMaskApplier {
 
-    fun exec(){
+    fun exec() {
         //Creating pipeline
         val pipe = Pipeline("apply circle mask to dicom")
 
@@ -38,11 +46,11 @@ class DicomImageCircleMaskApplier {
                 pipelineKeeper = pipe)
 
         val imageBeforeReporter = AlgorithmHostBlock<ImageSeries, PdfElementData>(
-                {x -> x.asPdfElementData()},
+                { x -> x.asPdfElementData() },
                 "image before", pipe)
 
         val imageAfterReporter = AlgorithmHostBlock<ImageSeries, PdfElementData>(
-                {x -> x.asPdfElementData()},
+                { x -> createHighlightedImages(x) },
                 "image after", pipe)
 
         val pdfBlock = AccumulatorWithAlgBlock(PdfElementsAccumulator(
@@ -58,8 +66,7 @@ class DicomImageCircleMaskApplier {
         seriesReaderBlock.dataReady += addMaskBlock::inputReady
         seriesReaderBlock.dataReady += imageBeforeReporter::inputReady
 
-        addMaskBlock.dataReady += applyMaskBlock::inputReady
-        applyMaskBlock.dataReady += imageAfterReporter::inputReady
+        addMaskBlock.dataReady += imageAfterReporter::inputReady
 
         imageBeforeReporter.dataReady += pdfBlock::inputReady
         imageAfterReporter.dataReady += pdfBlock::inputReady
@@ -77,6 +84,28 @@ class DicomImageCircleMaskApplier {
         pipe.run(init)
     }
 
+    fun createHighlightedImages(series: ImageSeries): PdfElementData {
+        val images = series.images.map { x -> x.getImageWithHighlightedSegmentation() }
+
+        val result = Paragraph()
+        try {
+            for (image in images) {
+                val stream = ByteArrayOutputStream()
+                ImageIO.write(image, "jpg", stream)
+
+                val pdfImage = Image(ImageDataFactory.create(stream.toByteArray()))
+                pdfImage.width = UnitValue.createPercentValue(50f)
+                pdfImage.setMargins(10f, 10f, 10f, 10f)
+                pdfImage.setHeight(UnitValue.createPercentValue(50f))
+
+                result.add(pdfImage)
+            }
+        } catch (e: Exception) {
+            throw AlgorithmExecutionException(e)
+        }
+
+        return PdfElementData(result)
+    }
 }
 
 

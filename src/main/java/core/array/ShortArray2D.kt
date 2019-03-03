@@ -47,7 +47,7 @@ class ShortArray2D private constructor(
             if (sourceArray.size < rows * columns)
                 throw MirfException("Not enough elements in source array. Presented ${sourceArray.size}, required ${columns * rows}")
 
-            val array = Array(rows) { x -> sourceArray.copyOfRange(x * columns, (x + 1) * columns - 1) }
+            val array = Array(rows) { x -> sourceArray.copyOfRange(x * columns, (x + 1) * columns) }
             return ShortArray2D(array, rows, columns)
         }
     }

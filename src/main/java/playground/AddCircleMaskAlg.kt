@@ -20,20 +20,24 @@ class AddCircleMaskAlg : Algorithm<MedImage, MedImage> {
     }
 
     private fun createCircleMask(width: Int, height: Int): BooleanArray2D {
-        val result = BooleanArray2D.create(height, width * 2)
+        val result = BooleanArray2D.create(height, width)
 
-        val a: Float = (height / 2f)
-        val b: Float = (width / 2f)
+        val coef = 1 / 3f
 
+        val a: Float = (height / 2f) * coef
+        val b: Float = (width / 2f) * coef
+
+        val centerX = width / 2
+        val centerY = height / 2
         //(x/b) ^ 2 + (y/a)^2 = 1 - ellipse
 
-        for (i in 0 until height / 2) {
+        for (i in 0 until a.toInt()) {
             val y = a - i
             val x = sqrt((1 - (y / a) * (y / a)) * b * b)
-            val from = 2 * ((b - x).toInt())
-            val to = 2 * ((x + b).toInt())
-            result[i].fill(true, from, to)
-            result[height - i - 1].fill(true, from, to)
+            val from = ((centerX - x).toInt())
+            val to = ((centerX + x).toInt())
+            result[centerY - y.toInt()].fill(true, from, to)
+            result[centerY + y.toInt() - 1].fill(true, from, to)
         }
 
         //log.info("\n${result.flatMap { x -> listOf(*x.map{ "$it" }.toTypedArray(), "\n" )}}")
