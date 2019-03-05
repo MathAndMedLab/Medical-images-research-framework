@@ -28,8 +28,7 @@ import javax.imageio.ImageIO
 
 class DicomImageCircleMaskApplier {
 
-    fun exec() {
-        //Creating pipeline
+    fun exec(dicomFolderLink: String, resultFolderLink: String) {
         val pipe = Pipeline("apply circle mask to dicom")
 
         //initializing blocks
@@ -39,10 +38,6 @@ class DicomImageCircleMaskApplier {
 
         val addMaskBlock = AlgorithmHostBlock(
                 AddCircleMaskAlg().asImageSeriesAlg(),
-                pipelineKeeper = pipe)
-
-        val applyMaskBlock = AlgorithmHostBlock(
-                SegmentationMaskApplicator(ImageTransformMode.GenerateNew).asImageSeriesAlg(true),
                 pipelineKeeper = pipe)
 
         val imageBeforeReporter = AlgorithmHostBlock<ImageSeries, PdfElementData>(
@@ -60,7 +55,7 @@ class DicomImageCircleMaskApplier {
                 pipe)
 
         val reportSaverBlock = RepositoryAccessorBlock<FileData, Data>(LocalRepositoryCommander(),
-                RepoFileSaver(), "c:\\src\\reports")
+                RepoFileSaver(), resultFolderLink)
 
         //making connections
         seriesReaderBlock.dataReady += addMaskBlock::inputReady
@@ -74,17 +69,17 @@ class DicomImageCircleMaskApplier {
         pdfBlock.dataReady += reportSaverBlock::inputReady
 
         //create initial data
-        val init = RepoRequest("c:\\src\\dicoms", LocalRepositoryCommander())
+        val init = RepoRequest(dicomFolderLink, LocalRepositoryCommander())
 
         //print every new session record
         pipe.session.newRecord += { _, b -> println(b) }
 
-        //initialize root block and run
+        //run
         pipe.rootBlock = seriesReaderBlock
         pipe.run(init)
     }
 
-    fun createHighlightedImages(series: ImageSeries): PdfElementData {
+    private fun createHighlightedImages(series: ImageSeries): PdfElementData {
         val images = series.images.map { x -> x.getImageWithHighlightedSegmentation() }
 
         val result = Paragraph()
