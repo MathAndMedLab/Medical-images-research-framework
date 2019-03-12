@@ -16,7 +16,8 @@ object Main {
 
     fun runNifti(){
         val niftiFile = javaClass.getResource("/nifti/brain.nii").path
+        val mhd = javaClass.getResource("/raw/brain.mhd").path
         val resultFolder = javaClass.getResource("/reports").path
-        NiftiTest().exec(niftiFile, resultFolder)
+        NiftiTest().exec(niftiFile, mhd, resultFolder)
     }
 }

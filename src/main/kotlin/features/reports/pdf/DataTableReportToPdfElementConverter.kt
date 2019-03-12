@@ -47,7 +47,7 @@ private fun addHeaders(table: Table, items: Collection<String>, font: PdfFont?) 
 
 //----------------------------------------------------------------------------------------------------------
 
-fun ImageSeries.asPdfElementData(range: IntRange = 0 until this.images.size): PdfElementData {
+fun ImageSeries.asPdfElementData(range: Iterable<Int> = 0 until this.images.size): PdfElementData {
     val images = this.images.map { x -> x.image }
 
     val result = Paragraph()
@@ -58,8 +58,8 @@ fun ImageSeries.asPdfElementData(range: IntRange = 0 until this.images.size): Pd
             ImageIO.write(image, "jpg", stream)
 
             val pdfImage = Image(ImageDataFactory.create(stream.toByteArray()))
-            pdfImage.width = UnitValue.createPercentValue(50f)
-            pdfImage.setMargins(10f, 10f, 10f, 10f)
+            pdfImage.width = UnitValue.createPercentValue(33f)
+            pdfImage.setMargins(5f, 5f, 5f, 5f)
             pdfImage.setHeight(UnitValue.createPercentValue(50f))
 
             result.add(pdfImage)

@@ -15,7 +15,7 @@ import core.data.Data
  * @param <I> is an input type of the [Algorithm], hosted by this Block.
  * @param <O> is an output type of the [Algorithm], hosted by this Block.
 </O></I> */
-class AlgorithmHostBlock<I : Data, O : Data>(
+open class AlgorithmHostBlock<I : Data, O : Data>(
         private var algorithm: Algorithm<I, O>,
         name: String = algorithm.toString(),
         pipelineKeeper: PipelineKeeper = DummyPipeKeeper()) : PipelineBlock<I, O>(name, pipelineKeeper) {
