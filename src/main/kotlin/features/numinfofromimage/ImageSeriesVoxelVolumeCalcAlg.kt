@@ -13,8 +13,6 @@ import org.slf4j.Logger
  */
 class ImageSeriesVoxelVolumeCalcAlg : Algorithm<ImageSeries, ParametrizedData<*>> {
 
-    private val log : Logger = MirfLogFactory.currentLogger
-
     override fun execute(input: ImageSeries): ParametrizedData<*> {
 
         var result = 0.0

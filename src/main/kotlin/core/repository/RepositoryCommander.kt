@@ -20,6 +20,8 @@ interface RepositoryCommander {
      * @param filename Name + extension of the file
      */
     @Throws(RepositoryCommanderException::class)
-    fun saveFile(file: ByteArray, link: String, filename: String)
+    fun saveFile(file: ByteArray, link: String, filename: String) : String
+
+    fun generateLink(type: LinkType): String
 }
 

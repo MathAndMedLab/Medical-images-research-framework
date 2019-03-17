@@ -2,6 +2,7 @@ package core.algorithm
 
 import core.data.Data
 import core.log.MirfLogFactory
+import org.slf4j.Logger
 
 /**
  * Any algorithm that may be executed by `Block`
@@ -13,7 +14,7 @@ import core.log.MirfLogFactory
  * @param <I> is the type taken as an input for the algorithm
  * @param <O> is the type returned by the algorithm
 </O></I> */
-interface Algorithm<I : Data, O : Data> {
+interface Algorithm<I, O> {
 
     /**
      * Runs the algorithms on the given input and produces the result,
@@ -23,4 +24,7 @@ interface Algorithm<I : Data, O : Data> {
      * @return algorithm's output of type `B`
      */
     fun execute(input: I): O
+
+    val log: Logger
+        get() = MirfLogFactory.currentLogger
 }

@@ -2,6 +2,8 @@ package core.pipeline
 
 import core.data.Data
 import core.common.EventManager
+import core.log.MirfLogFactory
+import org.slf4j.Logger
 
 /**
  * Block is used as a core part of pipeline.
@@ -15,6 +17,8 @@ import core.common.EventManager
 abstract class PipelineBlock<I : Data, O : Data>(
         val name: String,
         val pipelineKeeper: PipelineKeeper) {
+
+    protected open val log: Logger = MirfLogFactory.currentLogger
 
     protected open val onDataReady : EventManager<O> = EventManager()
 

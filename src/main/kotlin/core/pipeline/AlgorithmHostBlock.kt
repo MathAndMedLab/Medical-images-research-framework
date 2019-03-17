@@ -27,7 +27,7 @@ open class AlgorithmHostBlock<I : Data, O : Data>(
 
     constructor(algorithm: (I) -> O, name: String = "", pipelineKeeper: PipelineKeeper = DummyPipeKeeper()) : this(algorithm.asAlg(), name, pipelineKeeper)
 
-    var enabled = true
+    var enabled: Boolean = true
     private var cachedInput: I? = null
     private var cachedOutput: O? = null
 
