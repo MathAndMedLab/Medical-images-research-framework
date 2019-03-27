@@ -1,3 +1,5 @@
+import core.common.ExternalResourceLoader
+import core.log.MirfLogFactory
 import modules.ms.MsPipeline
 import playground.DicomImageCircleMaskApplier
 import playground.NiftiTest
@@ -6,7 +8,17 @@ object Main {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        runMs()
+        //val props = Properties()
+        //props.load(javaClass.getResourceAsStream("/log4j2.properties"))
+        //PropertyConfigurator.configure(props)
+
+        ExternalResourceLoader().loadExternalResources()
+
+        try {
+            runMs()
+        } catch (e: Exception) {
+            MirfLogFactory.currentLogger.error("ERROR: $e")
+        }
     }
 
     /**

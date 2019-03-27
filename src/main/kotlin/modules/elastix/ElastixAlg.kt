@@ -30,7 +30,7 @@ class ElastixAlg : Algorithm<RegistrationInfo, ImageSeries> {
 
             val command = "\"${Paths.get(elastixDir, "elastix")}\" -f \"$fixedPath\" -m \"$movingPath\" -out \"${commander.getAbsolutePath(tempDir)}\" -p \"${commander.getAbsolutePath(paramFile)}\""
             log.info("$logPrefix generated command - \'$command\'")
-
+            log.info("$ logPrefix running command")
             val terminalManager = TerminalCommandManager(command)
 
             terminalManager.runSync()
@@ -42,8 +42,5 @@ class ElastixAlg : Algorithm<RegistrationInfo, ImageSeries> {
             commander.cleanupSafe()
             throw e
         }
-
     }
-
-
 }

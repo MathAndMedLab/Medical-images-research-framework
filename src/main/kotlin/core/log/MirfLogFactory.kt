@@ -7,6 +7,6 @@ object MirfLogFactory {
 
     val currentLogger : Logger
         get() {
-            return LoggerFactory.getLogger("Default")
+            return LoggerFactory.getLogger("FILE")
         }
 }
