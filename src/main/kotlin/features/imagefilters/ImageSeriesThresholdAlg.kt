@@ -22,7 +22,7 @@ class ImageSeriesThresholdAlg(private val lowerBound: Byte, private val upperBou
 
         val img = medImage.image
 
-        val raw = img.raster.getPixels(img.minX, img.minY, img.width, img.height, null as IntArray?)
+        val raw = img!!.raster.getPixels(img.minX, img.minY, img.width, img.height, null as IntArray?)
         for (i in raw.indices)
             raw[i] = if (raw[i] in lowerBound..upperBound) raw[i] else 0
 

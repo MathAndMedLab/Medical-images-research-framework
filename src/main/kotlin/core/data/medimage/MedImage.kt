@@ -12,20 +12,22 @@ import java.awt.image.BufferedImage
  *
  * Any particular type of medical image should extend MedImage
  */
-abstract class MedImage : MirfData, Cloneable {
+open class MedImage : MirfData, Cloneable {
 
-    abstract val rawImage: RawImageData
-    abstract val image: BufferedImage
+    open val rawImage: RawImageData? = null
+    // Migrate all the code to use RawImageData
+    // make this property not abstract because it is blocking android development
+    open val image: BufferedImage? = null
 
     /**
      * Retrieves file extension of MedImage
      * @return extension
      */
-    abstract val extension: String
+    open val extension: String = ""
 
     protected constructor()
 
     protected constructor(attributes: AttributeCollection) : super(attributes)
 
-    public abstract override fun clone(): MedImage
+    public open override fun clone(): MedImage {return this}
 }

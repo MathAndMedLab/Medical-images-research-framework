@@ -14,7 +14,7 @@ fun MedImage.getImageWithHighlightedSegmentation(highlightColor: Color = Color(0
         throw MirfException("[Segmentation highlighter] image has no segmentation mask")
 
     val bitMask = this.attributes[MirfAttributes.IMAGE_SEGMENTATION_MASK]
-    val image = this.image.convertColorspace(BufferedImage.TYPE_INT_RGB)
+    val image = this.image!!.convertColorspace(BufferedImage.TYPE_INT_RGB)
 
     if (bitMask.rows != image.height || bitMask.columns != image.width)
         throw MirfException("[Segmentation highlighter] image and segmentation mask have different size: " +

@@ -25,7 +25,7 @@ class ImageSeriesVoxelVolumeCalcAlg : Algorithm<ImageSeries, ParametrizedData<*>
             val onePixelVolume = image.attributes.getAttributeValue(DicomAttributes.ONE_PIXEL_VOLUME)
 
             val img = image.image
-            val raw = img.raster.getPixels(img.minX, img.minY, img.width, img.height, null as IntArray?)
+            val raw = img!!.raster.getPixels(img.minX, img.minY, img.width, img.height, null as IntArray?)
 
             for (aLine in raw)
                 result += if (aLine != 0) onePixelVolume else 0.0

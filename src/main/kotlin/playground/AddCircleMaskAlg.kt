@@ -12,7 +12,7 @@ import kotlin.math.sqrt
 class AddCircleMaskAlg : Algorithm<MedImage, MedImage> {
 
     override fun execute(input: MedImage): MedImage {
-        val mask = createCircleMask(input.image.width, input.image.height)
+        val mask = createCircleMask(input.image!!.width, input.image!!.height)
         input.attributes.add(MirfAttributes.IMAGE_SEGMENTATION_MASK, mask)
         return input
     }
