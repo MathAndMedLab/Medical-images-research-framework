@@ -2,6 +2,7 @@ package features.dicomimage.data
 
 import com.pixelmed.dicom.AttributeList
 import core.data.medimage.MedImage
+import core.data.medimage.RawImageData
 import java.awt.image.BufferedImage
 
 /**
@@ -32,6 +33,10 @@ class DicomImage : MedImage {
 
             return _image!!
         }
+
+    // TODO(musatian): make this function instead of image to assit both desktop and Android support
+    override val rawImage: RawImageData
+        get() = TODO("not implemented")
 
     override val extension: String
         get() = "DICOM"

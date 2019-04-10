@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage
  */
 abstract class MedImage : MirfData, Cloneable {
 
+    abstract val rawImage: RawImageData
     abstract val image: BufferedImage
 
     /**
