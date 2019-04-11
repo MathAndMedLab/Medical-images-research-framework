@@ -1,24 +1,27 @@
 package features.deeplearning.tensorflow
 
 
-import org.tensorflow.Graph
-import org.tensorflow.Session
-import org.tensorflow.Tensor
-import org.tensorflow.TensorFlow
-import features.deeplearning.tensorflow.TensorflowInferenceInterface
+import org.tensorflow.*
+import org.tensorflow.op.core.Placeholder.shape
+
+
 
 /**
- * PbImporter is used to load and run .pb files of Tensorflow models
+ * TensorflowModelInterface is used to load and run .pb files of Tensorflow models
+ *
+ * @param modelFile is the String location of the model
+ * @param inputName is the name of the input node in tensorflow model
+ * @param outputName is the name of the output node in tensorflow model
+ * @param outputDims are the output nodes dimensions
  */
-class TensorflowModelInterface (modelFile: String, inputName: String, outputName: String) {
-    //    private static final String TAG = PbImporter.class.getSimpleName();
-    //
+class TensorflowModelInterface (modelFile: String, inputName: String, outputName: String, vararg outputDims: Int) {
     private var modelFile: String? = null
-    private var inputName: String? = null
-    private var outputName: String? = null
-    private var inferenceInterface: TensorflowInferenceInterface? = null
     private var numOfOutputDims: Int = 0
     private var numOfOutputValues: Int = 0
+
+    public var inferenceInterface: TensorflowInferenceInterface? = null
+    public var inputName: String? = null
+    public var outputName: String? = null
 
     init {
         try {
@@ -29,13 +32,11 @@ class TensorflowModelInterface (modelFile: String, inputName: String, outputName
             this.outputName = outputName
             this.numOfOutputDims = inferenceInterface.graph().operation(outputName).output<Any>(0).shape().numDimensions()
             var numOfOutputs = 1
-            for (i in 0 until numOfOutputDims) {
-                numOfOutputs *= inferenceInterface.graph().operation(outputName).output<Any>(0).shape().size(i).toInt()
-                //                Log.e(TAG, "Output for cur size: " + String.valueOf((int) inferenceInterface.graph().operation(outputName).output(0).shape().size(i)));
+            for (el in outputDims) {
+                numOfOutputs *= el.toInt()
             }
             this.numOfOutputValues = numOfOutputs
         } catch (e: UnsatisfiedLinkError) {
-            //            Log.e(TAG, "failed to load Tensorflow model: " + e.getMessage());
         }
 
     }
@@ -60,29 +61,6 @@ class TensorflowModelInterface (modelFile: String, inputName: String, outputName
             inferenceInterface!!.fetch(outputName!!, outputValues)
         } catch (e: Error) {
         }
-
         return outputValues
-    }
-
-    // Check that Tensorflow is working
-    companion object {
-        @Throws(Exception::class)
-        @JvmStatic
-        fun main(args: Array<String>) {
-            Graph().use { g ->
-                val value = "Hello from " + TensorFlow.version()
-
-                // Construct the computation graph with a single operation, a constant
-                // named "MyConst" with a value "value".
-                Tensor.create(value.toByteArray(charset("UTF-8"))).use { t ->
-                    // The Java API doesn't yet include convenience functions for adding operations.
-                    g.opBuilder("Const", "MyConst").setAttr("dtype", t.dataType()).setAttr("value", t).build()
-                }
-
-                // Execute the "MyConst" operation in a Session.
-                Session(g).use { s -> s.runner().fetch("MyConst").run()[0].use { output -> println(String(output.bytesValue())) } }// Generally, there may be multiple output tensors,
-                // all of them must be closed to prevent resource leaks.
-            }
-        }
     }
 }
