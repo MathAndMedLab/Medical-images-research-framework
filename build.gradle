@@ -38,7 +38,6 @@ dependencies {
     compile group: 'org.tensorflow', name: 'tensorflow', version: '1.13.0-rc0'
     compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
-    compile 'org.tensorflow:tensorflow:1.13.1'
     compile group: 'org.tensorflow', name: 'tensorflow', version: '1.13.1'
     compile group: 'org.tensorflow', name: 'libtensorflow', version: '1.13.1'
 
