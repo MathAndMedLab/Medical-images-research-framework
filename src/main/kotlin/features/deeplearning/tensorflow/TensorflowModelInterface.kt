@@ -2,7 +2,6 @@ package features.deeplearning.tensorflow
 
 import java.io.InputStream
 
-
 /**
  * TensorflowModelInterface is used to load and run .pb files of Tensorflow models
  *
