@@ -3,15 +3,10 @@ package core.common
 import core.array.BooleanArray2D
 import java.awt.Color
 import java.awt.image.BufferedImage
-import jdk.nashorn.internal.codegen.ObjectClassGenerator.pack
-import javax.swing.JFrame
 import javax.swing.ImageIcon
+import javax.swing.JFrame
 import javax.swing.JLabel
-import java.io.File
-import javax.imageio.ImageIO
 import javax.swing.JPanel
-
-
 
 
 fun BufferedImage.logSize(): String = "${this.height} x ${this.width}"
