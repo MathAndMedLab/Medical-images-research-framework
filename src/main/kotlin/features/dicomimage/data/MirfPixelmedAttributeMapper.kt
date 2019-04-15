@@ -38,7 +38,7 @@ object MirfPixelmedAttributeMapper {
 
     fun CreateMirfAttribute(mirfAttrTag: String, attributes: AttributeList): DataAttribute<*> {
         return when (mirfAttrTag) {
-            MirfAttributes.IMAGING_DATA.tag -> MirfAttributes.IMAGING_DATA.createAttribute(createImagingData(attributes))
+            MirfAttributes.IMAGING_DATA.tag -> MirfAttributes.IMAGING_DATA.new(createImagingData(attributes))
             else -> throw MirfDicomException("Failed to create mirf attribute: No transform method")
         }
     }

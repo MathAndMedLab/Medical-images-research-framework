@@ -23,7 +23,7 @@ import modules.elastix.ElastixBlock
  */
 class MsPipeline {
 
-    fun exec(baselineImageSeriesPath: String, followupImageSeriesPath: String, resultFolderLink: String) {
+    fun exec(baselineImageSeriesPath: String, followupImageSeriesPath: String, resultFolderLink: String)  {
         val pipe = Pipeline("MS report generator")
 
         //initializing blocks

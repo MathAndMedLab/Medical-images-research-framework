@@ -7,7 +7,7 @@ package core.data.attribute
  */
 data class DataAttributeMockup<T>(val name: String, val tag: String, val attributeTagType: AttributeTagType, val cloneMethod: ((T) -> T)? = null) {
 
-    fun createAttribute(value: T): DataAttribute<T> {
+    fun new(value: T): DataAttribute<T> {
         return DataAttribute(name, tag, value, cloneMethod)
     }
 }

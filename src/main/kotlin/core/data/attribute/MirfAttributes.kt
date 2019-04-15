@@ -15,14 +15,22 @@ object MirfAttributes {
     /**
      * todo: (avlomakin) add link to doc
      */
-    val THRESHOLDED = DataAttributeMockup<Switch.Instance>("Thresholded", "96969da6-e6c2-11e8-9f32-f2801f1b9fd1", AttributeTagType.UUID)
+    val THRESHOLDED: DataAttributeMockup<Switch.Instance> =
+            DataAttributeMockup("Thresholded", "96969da6-e6c2-11e8-9f32-f2801f1b9fd1", AttributeTagType.UUID)
 
-    val REPO_INFO = DataAttributeMockup<RepositoryInfo>("Repository info", "b38d7c64-ecf2-11e8-8eb2-f2801f1b9fd1", AttributeTagType.UUID, RepositoryInfo::copy)
+    val REPO_INFO: DataAttributeMockup<RepositoryInfo> =
+            DataAttributeMockup("Repository info", "b38d7c64-ecf2-11e8-8eb2-f2801f1b9fd1", AttributeTagType.UUID, RepositoryInfo::copy)
 
-    val IMAGE_SEGMENTATION_MASK = DataAttributeMockup<BooleanArray2D>("Segmentation mask", "f0bd93ba-7ce1-4c3a-9532-7683bca128a2", AttributeTagType.UUID) { x -> x.deepCopy() }
+    val IMAGE_SEGMENTATION_MASK: DataAttributeMockup<BooleanArray2D> =
+            DataAttributeMockup("Segmentation mask", "f0bd93ba-7ce1-4c3a-9532-7683bca128a2", AttributeTagType.UUID) { x -> x.deepCopy() }
 
-    val IMAGING_DATA = DataAttributeMockup<ImagingData<*>>("Image raw data", "08028d56-330e-414a-a898-05cd830d6d59", AttributeTagType.UUID) { x -> x.copy() }
+    val IMAGING_DATA: DataAttributeMockup<ImagingData<*>> =
+            DataAttributeMockup("Image raw data", "08028d56-330e-414a-a898-05cd830d6d59", AttributeTagType.UUID) { x -> x.copy() }
 
-    val PATIENT_NAME = DataAttributeMockup<String>("Patient name ", "f77da689-e061-4d48-8335-5902bf3f3a0c", AttributeTagType.UUID) { x -> x }
+    val PATIENT_NAME: DataAttributeMockup<String> =
+            DataAttributeMockup("Patient name ", "f77da689-e061-4d48-8335-5902bf3f3a0c", AttributeTagType.UUID) { x -> x }
+
+    val ATOMIC_ELEMENT_VOLUME_MM3: DataAttributeMockup<Double> =
+            DataAttributeMockup("Atomic element volume", "e305db33-a2c9-49e2-9dd1-135928ff5df1", AttributeTagType.UUID)
 
 }

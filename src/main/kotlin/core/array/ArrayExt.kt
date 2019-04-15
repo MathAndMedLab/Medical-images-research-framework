@@ -72,6 +72,35 @@ fun Array<ShortArray>.deepCopy(): Array<ShortArray> {
     return this.clone().map { y -> y.clone() }.toTypedArray()
 }
 
+fun <R> BooleanArray2D.map2d(transform: (Boolean) -> R): List<R> {
+    val result = mutableListOf<R>()
+    for (i in 0 until this.rows) {
+        result.addAll(this[i].map(transform))
+    }
+    return result
+}
+fun <R> ByteArray2D.map2d(transform: (Byte) -> R): List<R> {
+    val result = mutableListOf<R>()
+    for (i in 0 until this.rows) {
+        result.addAll(this[i].map(transform))
+    }
+    return result
+}
+fun <R> ShortArray2D.map2d(transform: (Short) -> R): List<R> {
+    val result = mutableListOf<R>()
+    for (i in 0 until this.rows) {
+        result.addAll(this[i].map(transform))
+    }
+    return result
+}
+fun <R> IntArray2D.map2d(transform: (Int) -> R): List<R> {
+    val result = mutableListOf<R>()
+    for (i in 0 until this.rows) {
+        result.addAll(this[i].map(transform))
+    }
+    return result
+}
+
 fun BooleanArray2D.logSize(): String = "${this.rows} x ${this.columns}"
 fun ByteArray2D.logSize(): String = "${this.rows} x ${this.columns}"
 fun ShortArray2D.logSize(): String = "${this.rows} x ${this.columns}"

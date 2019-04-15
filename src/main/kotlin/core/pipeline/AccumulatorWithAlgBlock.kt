@@ -27,7 +27,7 @@ class AccumulatorWithAlgBlock<I : Data, O : Data>(
             if (inputs.size == connections) {
 
                 pipelineKeeper.session.addSuccess("[$name] : All connections are ready")
-                val record  = pipelineKeeper.session.addNew("[$name]: algorithm execution")
+                val record = pipelineKeeper.session.addNew("[$name]: algorithm execution")
 
 
                 val collectionData = CollectionData(inputs)
@@ -36,13 +36,13 @@ class AccumulatorWithAlgBlock<I : Data, O : Data>(
                     val result = algorithm.execute(collectionData)
                     onDataReady(this, result)
                     record.setSuccess()
-                }catch (e: PipelineException){
+                } catch (e: PipelineException) {
                     record.setError()
                     throw e
                 }
             }
 
-            if(inputs.size > connections)
+            if (inputs.size > connections)
                 throw Exception("received too many signals. Expected value - $connections")
         }
     }

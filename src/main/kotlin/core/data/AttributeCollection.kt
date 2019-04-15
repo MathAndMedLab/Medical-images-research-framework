@@ -21,7 +21,7 @@ open class AttributeCollection constructor(list : Collection<DataAttribute<*>> =
     fun add(attribute: DataAttribute<*>) = this.internalAdd(attribute)
 
     fun <T> add(attributeMockup: DataAttributeMockup<T>, value: T) {
-        val attribute =attributeMockup.createAttribute(value)
+        val attribute =attributeMockup.new(value)
         internalAdd(attribute)
     }
 

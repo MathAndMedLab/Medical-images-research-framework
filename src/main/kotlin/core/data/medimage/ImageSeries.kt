@@ -9,4 +9,5 @@ interface ImageSeries : Data {
     fun getFileBytes(): ByteArray
 
     fun dumpToRepository(repository: RepositoryCommander) : String
+    fun applyMask(masks: ImageSeries)
 }

@@ -1,15 +1,22 @@
 package features.ij
 
+import core.common.toBicolor
 import core.data.MirfData
+import core.data.attribute.MirfAttributes
 import core.data.medimage.ImageSeries
 import core.data.medimage.MedImage
 import core.repository.RepositoryCommander
 import features.repository.LocalRepositoryCommander
 import ij.ImagePlus
 import java.io.File
-import java.nio.file.Paths
 
 class IjImageSeries(private val image: ImagePlus) : MirfData(), ImageSeries {
+
+    init {
+        val volume = image.fileInfo.pixelWidth * image.fileInfo.pixelHeight * image.fileInfo.pixelDepth
+        attributes.add(MirfAttributes.ATOMIC_ELEMENT_VOLUME_MM3.new(volume))
+    }
+
     override fun dumpToRepository(repository: RepositoryCommander): String {
 
         if (repository is LocalRepositoryCommander) {
@@ -17,6 +24,16 @@ class IjImageSeries(private val image: ImagePlus) : MirfData(), ImageSeries {
             return image.originalFileInfo.fileFullPath
         }
         TODO("Not implemented for non-local systems")
+    }
+
+    override fun applyMask(masks: ImageSeries) {
+        if (images.size != masks.images.size)
+            throw IllegalArgumentException("number of masks doesn't match number of images")
+
+        for (i in 0 until images.size) {
+            val binaryMask = masks.images[i].image!!.toBicolor()
+            images[i].attributes.add(MirfAttributes.IMAGE_SEGMENTATION_MASK.new(binaryMask))
+        }
     }
 
     override fun getFileBytes(): ByteArray {
@@ -35,3 +52,4 @@ class IjImageSeries(private val image: ImagePlus) : MirfData(), ImageSeries {
         get() = _images.value
 
 }
+

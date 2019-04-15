@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage
 open class MedImage : MirfData, Cloneable {
 
     open val rawImage: RawImageData? = null
+
     // Migrate all the code to use RawImageData
     // make this property not abstract because it is blocking android development
     open val image: BufferedImage? = null

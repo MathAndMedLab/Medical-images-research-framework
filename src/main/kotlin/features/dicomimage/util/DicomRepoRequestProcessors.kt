@@ -52,10 +52,10 @@ object DicomRepoRequestProcessors {
         val result = ArrayList<DataAttribute<*>>()
 
         val repositoryInfo = RepositoryInfo(request.repositoryCommander.javaClass.simpleName, "TODO: (avlomakin)")
-        result.add(MirfAttributes.REPO_INFO.createAttribute(repositoryInfo))
+        result.add(MirfAttributes.REPO_INFO.new(repositoryInfo))
 
         val requestInfo = RepositoryRequestInfo(request.link, RepositoryRequestType.GET)
-        result.add(RepoAccessorsAttributes.REPOSITORY_REQUEST_INFO.createAttribute(requestInfo))
+        result.add(RepoAccessorsAttributes.REPOSITORY_REQUEST_INFO.new(requestInfo))
 
         return result;
     }
