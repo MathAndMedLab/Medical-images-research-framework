@@ -1,24 +1,20 @@
 package core.common
 
 
-import core.array.BooleanArray2D
 import core.array.logSize
 import core.array.map2d
 import core.data.attribute.MirfAttributes
 import core.data.attribute.Switch
 import features.ij.asImageSeries
 import features.nifti.util.Nifti1Reader
-import features.numinfofromimage.getVolumeInMm3
-import org.junit.Assert.*
 import org.junit.Test
-import java.awt.Color
 
 class BufferedImageExtKtTest {
 
     @Test
     fun toBicolor() {
-        val masksPath = javaClass.getResource("/msReport/mask.nii").path
-        val masks = Nifti1Reader.read(masksPath).asImageSeries()
+        val masksPath = javaClass.getResource("/msReport/mask1.nii") ?: return
+        val masks = Nifti1Reader.read(masksPath.path).asImageSeries()
         masks.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
 
         val image = masks.images[367].image

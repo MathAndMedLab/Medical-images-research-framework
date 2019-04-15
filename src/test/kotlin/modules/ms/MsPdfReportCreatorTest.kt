@@ -16,6 +16,7 @@ class MsPdfReportCreatorTest {
 
     @Test
     fun checkLayout() {
+        javaClass.getResource("/msReport/mask1.nii") ?: return
 
         val spec = generateLayoutTestSpec()
         val doc = MsPdfReportCreator(spec).createReport()

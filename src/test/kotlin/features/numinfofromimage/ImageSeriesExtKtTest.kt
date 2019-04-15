@@ -11,8 +11,8 @@ class ImageSeriesExtKtTest {
 
     @Test
     fun checkVolume(){
-        val masksPath = javaClass.getResource("/msReport/mask.nii").path
-        val masks = Nifti1Reader.read(masksPath).asImageSeries()
+        val masksPath = javaClass.getResource("/msReport/mask1.nii") ?: return
+        val masks = Nifti1Reader.read(masksPath.path).asImageSeries()
         masks.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
 
         print(masks.getVolumeInMm3())
