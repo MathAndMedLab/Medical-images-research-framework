@@ -1,2 +1,0 @@
-model_checkpoint_path: "/Users/sabrina/Desktop/thesis/Medical-images-research-framework/src/test/kotlin/features/deeplearning/tensorflow/generate_model/xor.tflearn"
-all_model_checkpoint_paths: "/Users/sabrina/Desktop/thesis/Medical-images-research-framework/src/test/kotlin/features/deeplearning/tensorflow/generate_model/xor.tflearn"
