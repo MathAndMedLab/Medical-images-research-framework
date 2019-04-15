@@ -1,6 +1,8 @@
-package features.deeplearning.tensorflow
+package com.example.mirfskincancer
 
 import java.io.InputStream
+import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
+import android.content.res.AssetManager
 
 /**
  * TensorflowModelInterface is used to load and run .pb files of Tensorflow models
@@ -10,18 +12,18 @@ import java.io.InputStream
  * @param outputName is the name of the output node in tensorflow model
  * @param outputDims are the output nodes dimensions
  */
-class TensorflowModelInterface (input: InputStream?, modelFile: String, inputName: String, outputName: String, vararg outputDims: Int){
+class TensorflowModel (input: AssetManager, modelFile: String, inputName: String, outputName: String, vararg outputDims: Int){
     private var modelFile: String? = null
     private var numOfOutputDims: Int = 0
     private var numOfOutputValues: Int = 0
 
-    public var inferenceInterface: TensorflowInferenceInterface? = null
+    public var inferenceInterface: TensorFlowInferenceInterface? = null
     public var inputName: String? = null
     public var outputName: String? = null
 
     init {
         try {
-            val inferenceInterface = TensorflowInferenceInterface(input, modelFile)
+            val inferenceInterface = TensorFlowInferenceInterface(input, modelFile)
             this.inferenceInterface = inferenceInterface
             this.modelFile = modelFile
             this.inputName = inputName
