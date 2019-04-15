@@ -58,6 +58,7 @@ class TensorflowInferenceInterface {
             } catch (e: IOException) {
                 throw RuntimeException("Failed to load model from '$model'", e)
             }
+
         }
 
         try {

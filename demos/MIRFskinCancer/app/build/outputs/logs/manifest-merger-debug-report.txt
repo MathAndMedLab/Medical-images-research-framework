@@ -1,0 +1,181 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:2:1-24:12
+MERGED from [com.android.support:design:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/8abfd7743686f908c3d22593c1399b42/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/f0fce1ed55c414695af9c1e8821bcc9f/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/38573bd0928358102540b535be756ba5/AndroidManifest.xml:2:1-11:12
+MERGED from [org.tensorflow:tensorflow-android:1.13.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/tensorflow-android-1.13.1.aar/5332a8220b12582b31c4ded4f4e875eb/AndroidManifest.xml:2:1-8:12
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/b78dac753d538aa263ebf98f32ba06ea/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/297775da637fdb75a3bd307436c7ac0c/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:recyclerview-v7:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/521048212e78a691cc6999b75873f755/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/d19ad29a2e1bbff528a7320a121762f0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/e44ce85bbfad36cd48656a60b46eef7a/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/0027115576a79c6a6619d9c08a6f0ec0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/477bc601bf1515bac0bbb26690416d18/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/cb41eb5412e9fe5c8ed56e37046068b4/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/f48e0e90c8f425883abf5cc10f2c5029/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/cfba0173704b777c205923d26de3783d/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/d93f062e4d5c214153aff90f1a8d1e46/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/f81e02c9743803c7f06eb432c2460be7/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/6efd4b14df1ae78b561affc168dfe825/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/54128bed3ef7f844178b1c3dd8eba248/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/115f6c22a307485342e58860cb4206c5/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/db7deca64888f548051b502133c83842/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/2a91c0f8a4db0f50b96fb16a91c0d955/AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/8c58a0eca1975e2fcea426c06558c0b0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cardview-v7:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/d712f4aec459c2df12afba34e9e4924a/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/9ba7346dc993a1d2c602a632c75faae7/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:documentfile:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/6af8769344fca9d46d074c6e7e2ff774/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/acc18d7b6462c74239ab719676ac3b4d/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/97f22054e57fb5cc297ef4a39114b2c2/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/9babadb331ede35e07165adbba9eac0d/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/c31a5f0914d9c8ef4b98762e6ed1ba3a/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/103cddcf0c9608014643ad8921faa694/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/86704b4017f68280b9a25891a2675028/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/3897e4d4242c1e2528258b7ffb5174ed/AndroidManifest.xml:17:1-22:12
+INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:2:1-24:12
+INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:2:1-24:12
+	package
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:3:11-47
+		INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:2:1-24:12
+		INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:2:1-24:12
+		INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:2:11-69
+application
+ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:5:5-22:19
+MERGED from [com.android.support:design:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/8abfd7743686f908c3d22593c1399b42/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/8abfd7743686f908c3d22593c1399b42/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/38573bd0928358102540b535be756ba5/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/38573bd0928358102540b535be756ba5/AndroidManifest.xml:9:5-20
+MERGED from [org.tensorflow:tensorflow-android:1.13.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/tensorflow-android-1.13.1.aar/5332a8220b12582b31c4ded4f4e875eb/AndroidManifest.xml:5:5-6:19
+MERGED from [org.tensorflow:tensorflow-android:1.13.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/tensorflow-android-1.13.1.aar/5332a8220b12582b31c4ded4f4e875eb/AndroidManifest.xml:5:5-6:19
+MERGED from [com.android.support:support-compat:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/db7deca64888f548051b502133c83842/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/db7deca64888f548051b502133c83842/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/2a91c0f8a4db0f50b96fb16a91c0d955/AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/2a91c0f8a4db0f50b96fb16a91c0d955/AndroidManifest.xml:22:5-23:19
+	android:appComponentFactory
+		ADDED from [com.android.support:support-compat:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/db7deca64888f548051b502133c83842/AndroidManifest.xml:22:18-91
+	android:supportsRtl
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:10:13-39
+	android:label
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:8:13-45
+	android:roundIcon
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:9:13-58
+	android:icon
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:7:13-47
+	android:allowBackup
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:6:13-39
+	android:theme
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:11:13-44
+activity#com.example.mirfskincancer.MainActivity
+ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:12:9-21:20
+	android:label
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:14:17-49
+	android:theme
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:15:17-60
+	android:name
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:13:17-45
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:16:13-20:29
+action#android.intent.action.MAIN
+ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:17:17-68
+	android:name
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:17:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:19:17-76
+	android:name
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:19:27-74
+uses-sdk
+INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+MERGED from [com.android.support:design:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/8abfd7743686f908c3d22593c1399b42/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/8abfd7743686f908c3d22593c1399b42/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/f0fce1ed55c414695af9c1e8821bcc9f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/f0fce1ed55c414695af9c1e8821bcc9f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/38573bd0928358102540b535be756ba5/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/38573bd0928358102540b535be756ba5/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/b78dac753d538aa263ebf98f32ba06ea/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/b78dac753d538aa263ebf98f32ba06ea/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/297775da637fdb75a3bd307436c7ac0c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/297775da637fdb75a3bd307436c7ac0c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/521048212e78a691cc6999b75873f755/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/521048212e78a691cc6999b75873f755/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/d19ad29a2e1bbff528a7320a121762f0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/d19ad29a2e1bbff528a7320a121762f0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/e44ce85bbfad36cd48656a60b46eef7a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/e44ce85bbfad36cd48656a60b46eef7a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/0027115576a79c6a6619d9c08a6f0ec0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/0027115576a79c6a6619d9c08a6f0ec0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/477bc601bf1515bac0bbb26690416d18/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/477bc601bf1515bac0bbb26690416d18/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/cb41eb5412e9fe5c8ed56e37046068b4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/cb41eb5412e9fe5c8ed56e37046068b4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/f48e0e90c8f425883abf5cc10f2c5029/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/f48e0e90c8f425883abf5cc10f2c5029/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/cfba0173704b777c205923d26de3783d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/cfba0173704b777c205923d26de3783d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/d93f062e4d5c214153aff90f1a8d1e46/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/d93f062e4d5c214153aff90f1a8d1e46/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/f81e02c9743803c7f06eb432c2460be7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/f81e02c9743803c7f06eb432c2460be7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/6efd4b14df1ae78b561affc168dfe825/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/6efd4b14df1ae78b561affc168dfe825/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/54128bed3ef7f844178b1c3dd8eba248/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/54128bed3ef7f844178b1c3dd8eba248/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/115f6c22a307485342e58860cb4206c5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/115f6c22a307485342e58860cb4206c5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/db7deca64888f548051b502133c83842/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/db7deca64888f548051b502133c83842/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/2a91c0f8a4db0f50b96fb16a91c0d955/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/2a91c0f8a4db0f50b96fb16a91c0d955/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/8c58a0eca1975e2fcea426c06558c0b0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/8c58a0eca1975e2fcea426c06558c0b0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/d712f4aec459c2df12afba34e9e4924a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/d712f4aec459c2df12afba34e9e4924a/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/9ba7346dc993a1d2c602a632c75faae7/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/9ba7346dc993a1d2c602a632c75faae7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/6af8769344fca9d46d074c6e7e2ff774/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/6af8769344fca9d46d074c6e7e2ff774/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/acc18d7b6462c74239ab719676ac3b4d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/acc18d7b6462c74239ab719676ac3b4d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/97f22054e57fb5cc297ef4a39114b2c2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/97f22054e57fb5cc297ef4a39114b2c2/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/9babadb331ede35e07165adbba9eac0d/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/9babadb331ede35e07165adbba9eac0d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/c31a5f0914d9c8ef4b98762e6ed1ba3a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/c31a5f0914d9c8ef4b98762e6ed1ba3a/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/103cddcf0c9608014643ad8921faa694/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/103cddcf0c9608014643ad8921faa694/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/86704b4017f68280b9a25891a2675028/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/86704b4017f68280b9a25891a2675028/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/3897e4d4242c1e2528258b7ffb5174ed/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /Users/sabrina/.gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/3897e4d4242c1e2528258b7ffb5174ed/AndroidManifest.xml:20:5-44
+INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+		ADDED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+IMPLIED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:2:1-24:12 reason: tensorflow.contrib.android has a targetSdkVersion < 4
+uses-permission#android.permission.READ_PHONE_STATE
+IMPLIED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:2:1-24:12 reason: tensorflow.contrib.android has a targetSdkVersion < 4
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+IMPLIED from /Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/src/main/AndroidManifest.xml:2:1-24:12 reason: tensorflow.contrib.android requested WRITE_EXTERNAL_STORAGE

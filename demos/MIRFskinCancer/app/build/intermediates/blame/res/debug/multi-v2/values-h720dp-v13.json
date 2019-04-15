@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/sabrina/Desktop/thesis/Medical-images-research-framework/demos/MIRFskinCancer/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-h720dp-v13/values-h720dp-v13.xml",
+            "map": [
+                {
+                    "source": "/Users/sabrina/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/f0fce1ed55c414695af9c1e8821bcc9f/res/values-h720dp-v13/values-h720dp-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "66",
+                        "endOffsets": "117"
+                    }
+                }
+            ]
+        }
+    ]
+}

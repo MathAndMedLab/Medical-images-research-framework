@@ -1,6 +1,9 @@
 package features.deeplearning.tensorflow
 
-import java.io.InputStream
+
+import org.tensorflow.*
+import org.tensorflow.op.core.Placeholder.shape
+
 
 /**
  * TensorflowModelInterface is used to load and run .pb files of Tensorflow models
@@ -10,7 +13,7 @@ import java.io.InputStream
  * @param outputName is the name of the output node in tensorflow model
  * @param outputDims are the output nodes dimensions
  */
-class TensorflowModelInterface (input: InputStream?, modelFile: String, inputName: String, outputName: String, vararg outputDims: Int){
+class TensorflowModelInterface(modelFile: String, inputName: String, outputName: String, vararg outputDims: Int) {
     private var modelFile: String? = null
     private var numOfOutputDims: Int = 0
     private var numOfOutputValues: Int = 0
@@ -21,7 +24,7 @@ class TensorflowModelInterface (input: InputStream?, modelFile: String, inputNam
 
     init {
         try {
-            val inferenceInterface = TensorflowInferenceInterface(input, modelFile)
+            val inferenceInterface = TensorflowInferenceInterface(null, modelFile)
             this.inferenceInterface = inferenceInterface
             this.modelFile = modelFile
             this.inputName = inputName
@@ -32,7 +35,7 @@ class TensorflowModelInterface (input: InputStream?, modelFile: String, inputNam
                 numOfOutputs *= el.toInt()
             }
             this.numOfOutputValues = numOfOutputs
-        } catch (e: Throwable) {
+        } catch (e: UnsatisfiedLinkError) {
         }
 
     }
@@ -56,7 +59,6 @@ class TensorflowModelInterface (input: InputStream?, modelFile: String, inputNam
             // Copy the output Tensor back into the output array.
             inferenceInterface!!.fetch(outputName!!, outputValues)
         } catch (e: Error) {
-
         }
         return outputValues
     }
