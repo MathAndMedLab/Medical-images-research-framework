@@ -1,6 +1,5 @@
 import core.common.ExternalResourceLoader
 import core.log.MirfLogFactory
-import modules.ms.MsPipeline
 import playground.DicomImageCircleMaskApplier
 import playground.NiftiTest
 
@@ -15,20 +14,9 @@ object Main {
         ExternalResourceLoader().loadExternalResources()
 
         try {
-            runMs()
         } catch (e: Exception) {
             MirfLogFactory.currentLogger.error("ERROR: $e")
         }
-    }
-
-    /**
-     * Pipeline for MS report generation
-     */
-    fun runMs() {
-        val baseline = javaClass.getResource("/nifti/test_patient/baseline/T1.nii").path.removePrefix("/")
-        val followup = javaClass.getResource("/nifti/test_patient/followup/T1.nii").path.removePrefix("/")
-        val resultFolder = javaClass.getResource("/reports").path.removePrefix("/")
-        MsPipeline().exec(baseline, followup, resultFolder)
     }
 
     /**
