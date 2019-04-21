@@ -5,6 +5,8 @@ import com.pixelmed.display.ConsumerFormatImageMaker
 import com.mirf.core.data.AttributeCollection
 import com.mirf.core.data.attribute.DataAttribute
 import com.mirf.features.dicomimage.copy
+import com.pixelmed.dicom.Attribute
+import com.pixelmed.dicom.AttributeTag
 import com.pixelmed.dicom.TagFromName
 import java.awt.image.BufferedImage
 
@@ -56,16 +58,16 @@ class DicomAttributeCollection : AttributeCollection {
         }
     }
 
+    fun getAttributeValue(attrTag : AttributeTag) :  String{
+        return Attribute.getDelimitedStringValuesOrEmptyString(dicomAttributes, attrTag);
+    }
+
     /**
      * Checks if internal [attributes] contains newer version of DICOM related attributes, and updates [dicomAttributes] if so.
      * If Attribute is missing from the [attributes], but presented in [dicomAttributes], it will be SKIPPED
      */
     private fun updateMirfAttrByMirfAttr() {
         //TODO:(avlomakin)
-    }
-
-    fun getBitsAllocated() : Int {
-        return Integer.parseInt(dicomAttributes.get(TagFromName.BitsAllocated).toString())
     }
 
     private var cacheRequestedDicomAttributesInMirfCollection: Boolean = true

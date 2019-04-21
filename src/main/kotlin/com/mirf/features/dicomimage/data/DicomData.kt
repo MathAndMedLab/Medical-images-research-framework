@@ -2,13 +2,26 @@ package com.mirf.features.dicomimage.data
 
 import com.mirf.core.array.BooleanArray2D
 import com.mirf.core.data.medimage.ImagingData
+import com.pixelmed.dicom.TagFromName
 import java.awt.image.BufferedImage
 
 class DicomData : ImagingData<BufferedImage> {
+    private var dicomAttributeCollection: DicomAttributeCollection? = null
+    private var bitsAllocated: Int = 0
+    private val byteArray: ByteArray? = null
+    private val shortArray: ShortArray? = null
+    private val intArray: IntArray? = null
 
+
+    constructor(dicomAttributeCollection: DicomAttributeCollection) {
+        this.dicomAttributeCollection = dicomAttributeCollection
+        bitsAllocated = Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.BitsAllocated))
+        analisePixelData()
+
+    }
 
     override fun getImage(): BufferedImage {
-        return dicomAttributeList.buildHumanReadableImage()
+        return dicomAttributeCollection.buildHumanReadableImage()
     }
 
     override fun getImageDataAsShortArray(): ShortArray {
