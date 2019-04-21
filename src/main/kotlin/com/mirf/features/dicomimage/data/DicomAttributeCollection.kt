@@ -1,13 +1,12 @@
 package com.mirf.features.dicomimage.data
 
-import com.pixelmed.dicom.AttributeList
-import com.pixelmed.display.ConsumerFormatImageMaker
 import com.mirf.core.data.AttributeCollection
 import com.mirf.core.data.attribute.DataAttribute
 import com.mirf.features.dicomimage.copy
 import com.pixelmed.dicom.Attribute
+import com.pixelmed.dicom.AttributeList
 import com.pixelmed.dicom.AttributeTag
-import com.pixelmed.dicom.TagFromName
+import com.pixelmed.display.ConsumerFormatImageMaker
 import java.awt.image.BufferedImage
 
 class DicomAttributeCollection : AttributeCollection {
@@ -58,9 +57,20 @@ class DicomAttributeCollection : AttributeCollection {
         }
     }
 
-    fun getAttributeValue(attrTag : AttributeTag) :  String{
+    /**
+     * Get value attribute
+     */
+    fun getAttributeValue(attrTag: AttributeTag): String {
         return Attribute.getDelimitedStringValuesOrEmptyString(dicomAttributes, attrTag);
     }
+
+    /**
+     * Get attribute dicom pixel data
+     */
+    fun getAttributePixelData(): Attribute {
+        return dicomAttributes.pixelData;
+    }
+
 
     /**
      * Checks if internal [attributes] contains newer version of DICOM related attributes, and updates [dicomAttributes] if so.
