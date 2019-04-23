@@ -88,9 +88,29 @@ class DicomData : ImagingData<BufferedImage> {
         return intArray
     }
 
-    private fun shortArrayToByteArray(shortArray: ShortArray): ByteArray? {
-        //grayscale standard display function
-        return null;
+    private fun shortArrayToByteArray(shortArray: ShortArray): ByteArray {
+        val m : Double = 255.0 / Integer.parseInt(dicomAttributeCollection!!.getAttributeValue(TagFromName.WindowWidth))
+        val x1 : Int = Integer.parseInt(dicomAttributeCollection!!.getAttributeValue(TagFromName.WindowCenter)) -
+                Integer.parseInt(dicomAttributeCollection!!.getAttributeValue(TagFromName.WindowCenter)) / 2
+        val b : Int = (- (m * x1)).toInt()
+
+        var lut : ByteArray = ByteArray(Short.MAX_VALUE.toInt()) // length array must be
+        //absolute difference between
+        //the smallest and largest image
+        //data value
+        for (i in lut.indices) {
+            var temp = ((m * i) + b).toInt()
+            if(temp > 127) temp = 127
+            else if (temp < -128) temp = -128
+            lut[i] = temp.toByte()
+        }
+
+        var byteArray : ByteArray = ByteArray(shortArray.size)
+        for (i in lut.indices) {
+            byteArray[i] = lut[shortArray[i].toInt()]
+        }
+
+        return byteArray;
     }
 
     private fun cleanByteArrayPixelDataToShortArray(cleanByteArray : ByteArray): ShortArray {
