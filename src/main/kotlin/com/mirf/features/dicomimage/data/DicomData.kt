@@ -7,15 +7,16 @@ import com.pixelmed.dicom.TagFromName
 import java.awt.image.BufferedImage
 import java.io.File
 import java.io.FileOutputStream
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
 import javax.imageio.stream.FileImageInputStream
 
 class DicomData : ImagingData<BufferedImage> {
     private var dicomAttributeCollection: DicomAttributeCollection? = null
     private var bitsAllocated: Int = 0
-    private val byteArray: ByteArray? = null
-    private val shortArray: ShortArray? = null
-    private val intArray: IntArray? = null
-    private var dirtyByteArrayPixelData: ByteArray? = null
+    private var byteArray: ByteArray? = null
+    private var shortArray: ShortArray? = null
+    private var intArray: IntArray? = null
     private var cleanByteArrayPixelData: ByteArray? = null
 
 
@@ -27,27 +28,120 @@ class DicomData : ImagingData<BufferedImage> {
 
     private fun analisePixelData() {
         pixelDataWriteToFile()
-        readPixelDataFileAndWriteToDirtyByteArray()
-        convertDirtyByteArrayToCleanByteArray()
+        var dirtyByteArrayPixelData: ByteArray? = readPixelDataFileAndWriteToDirtyByteArray()
+        convertDirtyByteArrayToCleanByteArray(dirtyByteArrayPixelData!!)
 
+        if (bitsAllocated == 8) {
+            byteArray = cleanByteArrayPixelData
+            shortArray = byteArrayToShortArray(byteArray!!)
+            intArray = byteArrayToIntArray(byteArray!!)
+        }
 
+        else if (bitsAllocated == 16) {
+            shortArray = cleanByteArrayPixelDataToShortArray(cleanByteArrayPixelData!!)
+            byteArray = shortArrayToByteArray(shortArray!!)
+            intArray = shortArrayToIntArrat(shortArray!!)
+        }
 
-
+        else if (bitsAllocated == 32) {
+            intArray = cleanByteArrayPixelDataToIntArray(cleanByteArrayPixelData!!)
+            byteArray = intArrayToByteArray(intArray!!)
+            shortArray = intArrayToShortArray(intArray!!)
+        }
     }
 
-    private fun convertDirtyByteArrayToCleanByteArray() {
+    private fun intArrayToShortArray(intArray: IntArray): ShortArray? {
+        return null
+    }
+
+    private fun intArrayToByteArray(intArray: IntArray): ByteArray? {
+        return null
+    }
+
+    private fun cleanByteArrayPixelDataToIntArray(cleanByteArrayPixelData: ByteArray): IntArray {
+        val intArray = IntArray(cleanByteArrayPixelData.size / 4)
+        var j = 0
+        var i = 0
+        while (i < cleanByteArrayPixelData.size) {
+            val temp = ByteArray(4)
+            temp[0] = cleanByteArrayPixelData[i]
+            temp[1] = cleanByteArrayPixelData[i + 1]
+            temp[2] = cleanByteArrayPixelData[i + 2]
+            temp[3] = cleanByteArrayPixelData[i + 3]
+            intArray[j] = bytesToInt(temp)
+            j++
+            i += 4
+        }
+        return intArray
+    }
+
+    private fun bytesToInt(bytes: ByteArray): Int {
+        return ByteBuffer.wrap(bytes).order(ByteOrder.BIG_ENDIAN).int
+    }
+
+
+    private fun shortArrayToIntArrat(shortArray: ShortArray): IntArray {
+        val intArray = IntArray(shortArray.size)
+        for (i in intArray.indices) {
+            intArray[i] = shortArray[i].toInt()
+        }
+        return intArray
+    }
+
+    private fun shortArrayToByteArray(shortArray: ShortArray): ByteArray? {
+        //grayscale standard display function
+        return null;
+    }
+
+    private fun cleanByteArrayPixelDataToShortArray(cleanByteArray : ByteArray): ShortArray {
+        val shortArray = ShortArray(cleanByteArray.size / 2)
+        var j = 0
+        var i = 0
+        while (i < cleanByteArray.size) {
+            val temp = ByteArray(2)
+            temp[0] = cleanByteArray[i]
+            temp[1] = cleanByteArray[i + 1]
+            shortArray[j] = bytesToShort(temp)
+            j++
+            i += 2
+        }
+        return shortArray
+    }
+
+    private fun bytesToShort(bytes: ByteArray): Short {
+        return ByteBuffer.wrap(bytes).order(ByteOrder.BIG_ENDIAN).short
+    }
+
+    private fun byteArrayToIntArray(byteArray: ByteArray) : IntArray {
+        val intArray = IntArray(byteArray.size)
+        for (i in intArray.indices) {
+            intArray[i] = byteArray[i].toInt()
+        }
+        return intArray
+    }
+
+    private fun byteArrayToShortArray(byteArray: ByteArray) : ShortArray {
+        val shortArray = ShortArray(byteArray.size)
+        for (i in shortArray.indices) {
+            shortArray[i] = byteArray[i].toShort()
+        }
+        return shortArray
+    }
+
+    private fun convertDirtyByteArrayToCleanByteArray(dirtyByteArrayPixelData: ByteArray) {
         cleanByteArrayPixelData = ByteArray(dirtyByteArrayPixelData!!.size - 144)
         for (i in cleanByteArrayPixelData!!.indices) {
             cleanByteArrayPixelData!![i] = dirtyByteArrayPixelData?.get(i + 144)!!
         }
     }
 
-    private fun readPixelDataFileAndWriteToDirtyByteArray() {
+    private fun readPixelDataFileAndWriteToDirtyByteArray(): ByteArray {
         val file = File("pixeldata.txt")
         val imageInputStream = FileImageInputStream(file)
-        dirtyByteArrayPixelData = ByteArray(file.length().toInt())
+        var dirtyByteArrayPixelData = ByteArray(file.length().toInt())
         imageInputStream.read(dirtyByteArrayPixelData)
         imageInputStream.close()
+        return dirtyByteArrayPixelData!!
     }
 
     private fun pixelDataWriteToFile() {
