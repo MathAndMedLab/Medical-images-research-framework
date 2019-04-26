@@ -1,8 +1,10 @@
 package com.mirf.features.repository
 
+import com.mirf.core.log.MirfLogFactory
 import com.mirf.core.repository.LinkType
 import com.mirf.core.repository.RepositoryCommander
 import com.mirf.core.repository.RepositoryCommanderException
+import org.slf4j.Logger
 
 import java.io.File
 import java.io.FileOutputStream
@@ -12,13 +14,27 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.*
+import java.util.concurrent.ConcurrentHashMap
+import kotlin.collections.HashSet
 
 /**
  * Local file system commander, Link = path on a filesystem
  */
-class LocalRepositoryCommander(val workingDir: String = "") : RepositoryCommander {
+class LocalRepositoryCommander constructor(val workingDir: Path = Paths.get("")) : RepositoryCommander {
 
-    private val tempFiles = HashSet<String>()
+    private val log: Logger = MirfLogFactory.currentLogger
+    private val createdSubCommanders: ConcurrentHashMap<Any, LocalRepositoryCommander> = ConcurrentHashMap()
+
+    init {
+        if (!Files.exists(workingDir)) {
+            log.info("creating $workingDir")
+            Files.createDirectory(workingDir)
+        } else {
+            log.info("directory $workingDir already exists")
+        }
+    }
+
+    private val tempFiles = HashSet<Path>()
 
     override fun generateLink(type: LinkType): String {
         return UUID.randomUUID().toString()
@@ -26,24 +42,27 @@ class LocalRepositoryCommander(val workingDir: String = "") : RepositoryCommande
 
     @Throws(RepositoryCommanderException::class)
     override fun getFile(link: String): ByteArray {
-        val filePath = Paths.get(workingDir, link)
+        val filePath = workingDir.resolve(link)
         try {
             return Files.readAllBytes(filePath)
         } catch (e: IOException) {
             throw RepositoryCommanderException("Failed to read file bytes", e)
         }
+    }
 
+    override fun toString(): String {
+        return workingDir.toString()
     }
 
     override fun getSeriesFileLinks(link: String): Array<String> {
-        val pathUri = Paths.get(workingDir, link).toUri()
+        val pathUri = workingDir.resolve(link).toUri()
         return File(pathUri).listFiles().filter { it.isFile }.map { it.path }.toTypedArray()
     }
 
     @Throws(RepositoryCommanderException::class)
     override fun saveFile(file: ByteArray, link: String, filename: String): String {
         try {
-            val streamLink = Paths.get(workingDir, link, filename).toString()
+            val streamLink = workingDir.resolve(link).resolve(filename).toString()
             val stream = FileOutputStream(streamLink)
             stream.write(file)
             return Paths.get(link, filename).toString()
@@ -56,14 +75,12 @@ class LocalRepositoryCommander(val workingDir: String = "") : RepositoryCommande
      * Creates temp directory
      * @return relative directory path
      */
-    fun createTempDir(): String {
-        val tempDir = UUID.randomUUID().toString()
-        val path = Paths.get(workingDir, tempDir)
-
+    fun createSubDir(): Path {
+        val path = workingDir.resolve(UUID.randomUUID().toString())
         Files.createDirectory(path)
 
-        tempFiles.add(tempDir)
-        return tempDir
+        tempFiles.add(path)
+        return path
     }
 
     /**
@@ -71,15 +88,24 @@ class LocalRepositoryCommander(val workingDir: String = "") : RepositoryCommande
      * If any of the file is in use, it will be skipped
      */
     fun cleanupSafe() {
-        for (fileString in tempFiles) {
+        for (path in tempFiles) {
             try {
-                Files.delete(Paths.get(fileString))
+                Files.delete(path)
             } catch (e: Exception) {
             }
         }
     }
 
+    override fun createRepoCommanderFor(entity: Any): LocalRepositoryCommander {
+
+        val commander = LocalRepositoryCommander(createSubDir())
+        createdSubCommanders[entity] = commander
+
+        return commander
+    }
+
+
     fun getAbsolutePath(path: String): String {
-        return Paths.get(workingDir, path).toString()
+        return workingDir.resolve(path).toString()
     }
 }

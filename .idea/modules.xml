@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/MIRF.iml" filepath="$PROJECT_DIR$/.idea/modules/MIRF.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/MIRF_main.iml" filepath="$PROJECT_DIR$/.idea/modules/MIRF_main.iml" group="MIRF" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/MIRF_test.iml" filepath="$PROJECT_DIR$/.idea/modules/MIRF_test.iml" group="MIRF" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mirf.mirf-ms-service.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mirf.mirf-ms-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.mirf.mirfMs.iml" filepath="$PROJECT_DIR$/.idea/modules/com.mirf.mirfMs.iml" />
     </modules>
   </component>
 </project>

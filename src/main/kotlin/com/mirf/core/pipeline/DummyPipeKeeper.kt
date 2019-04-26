@@ -1,8 +1,13 @@
 package com.mirf.core.pipeline
 
 import com.mirf.core.common.Event
+import com.mirf.core.repository.RepositoryCommander
+import com.mirf.features.repository.LocalRepositoryCommander
 
 class DummyPipeKeeper : PipelineKeeper {
+    override fun getRepositoryCommander(block: PipelineBlock<*, *>): LocalRepositoryCommander {
+        return LocalRepositoryCommander()
+    }
 
     override val session: IPipelineSession
         get() = DummySession

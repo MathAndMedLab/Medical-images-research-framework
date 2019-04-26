@@ -8,6 +8,12 @@ interface ImageSeries : Data {
 
     fun getFileBytes(): ByteArray
 
-    fun dumpToRepository(repository: RepositoryCommander) : String
+    /***
+     * saves series on repository
+     * @param repository target repository
+     * @param name file name without extension. If empty string is passed, image series will use internal file name
+     * @return link to access the saved file(s)
+     */
+    fun dumpToRepository(repository: RepositoryCommander, name: String = ""): String
     fun applyMask(masks: ImageSeries)
 }

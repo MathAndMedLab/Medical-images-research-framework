@@ -2,6 +2,7 @@ package com.mirf.core.data.attribute
 
 
 import com.mirf.core.array.BooleanArray2D
+import com.mirf.core.common.VolumeValue
 import com.mirf.core.data.medimage.ImagingData
 import com.mirf.core.repository.RepositoryInfo
 import java.awt.image.BufferedImage
@@ -29,7 +30,7 @@ object MirfAttributes {
     val PATIENT_NAME: DataAttributeMockup<String> =
             DataAttributeMockup("Patient name ", "f77da689-e061-4d48-8335-5902bf3f3a0c", AttributeTagType.UUID) { x -> x }
 
-    val ATOMIC_ELEMENT_VOLUME_MM3: DataAttributeMockup<Double> =
-            DataAttributeMockup("Atomic element volume", "e305db33-a2c9-49e2-9dd1-135928ff5df1", AttributeTagType.UUID)
+    val ATOMIC_ELEMENT_VOLUME: DataAttributeMockup<VolumeValue> =
+            DataAttributeMockup("Atomic element volume", "e305db33-a2c9-49e2-9dd1-135928ff5df1", AttributeTagType.UUID) {x ->x.copy()}
 
 }

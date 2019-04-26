@@ -1,9 +1,31 @@
 package com.mirf.core.pipeline
 
 import com.mirf.core.data.Data
+import com.mirf.core.log.MirfLogFactory
+import com.mirf.core.repository.RepositoryCommander
+import com.mirf.features.repository.LocalRepositoryCommander
+import org.slf4j.Logger
 import java.time.LocalDateTime
+import java.util.concurrent.ConcurrentHashMap
 
-class Pipeline(val name: String, val creationTime: LocalDateTime = LocalDateTime.now()) : PipelineKeeper {
+class Pipeline(val name: String,
+               val creationTime: LocalDateTime = LocalDateTime.now(),
+               val repositoryCommander: LocalRepositoryCommander = LocalRepositoryCommander()) : PipelineKeeper {
+
+    private val subCommanders: ConcurrentHashMap<PipelineBlock<*, *>, LocalRepositoryCommander> = ConcurrentHashMap()
+    private val log: Logger = MirfLogFactory.currentLogger
+
+    override fun getRepositoryCommander(block: PipelineBlock<*, *>): LocalRepositoryCommander {
+        if (subCommanders.containsKey(block))
+            return subCommanders[block]!!
+
+        log.info("creating sub commander for ${block.name}")
+        val repo = repositoryCommander.createRepoCommanderFor(block)
+        subCommanders[block] = repo
+        log.info("sub commander created, $repo")
+
+        return repositoryCommander.createRepoCommanderFor(block)
+    }
 
     private var _session: PipelineSession = PipelineSession()
 

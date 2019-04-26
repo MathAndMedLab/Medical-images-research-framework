@@ -17,25 +17,25 @@ class ElastixAlg : Algorithm<RegistrationInfo, ImageSeries> {
     override fun execute(input: RegistrationInfo): ImageSeries {
 
         val elastixDir = GlobalConfig.get<String>("elastix_dir")
-        val commander = LocalRepositoryCommander(elastixDir)
+        val commander = LocalRepositoryCommander(Paths.get(elastixDir))
 
         try {
             val movingPath = input.movingSeries.dumpToRepository(commander)
             val fixedPath = input.fixedSeries.dumpToRepository(commander)
             log.info("$logPrefix moving series - \'$movingPath\', fixed series - \'$fixedPath\'")
 
-            val tempDir = commander.createTempDir()
-            val paramFile = commander.saveFile(input.params.toByteArray(), tempDir, "param.txt")
+            val outCommander = commander.createRepoCommanderFor(this)
+            val paramFile = outCommander.saveFile(input.params.toByteArray(), "", "param.txt")
             log.info("$logPrefix params file generated. Path - \'$paramFile\', \n ${input.params}")
 
-            val command = "\"${Paths.get(elastixDir, "elastix")}\" -f \"$fixedPath\" -m \"$movingPath\" -out \"${commander.getAbsolutePath(tempDir)}\" -p \"${commander.getAbsolutePath(paramFile)}\""
+            val command = "\"${Paths.get(elastixDir, "elastix")}\" -f \"$fixedPath\" -m \"$movingPath\" -out \"${outCommander.workingDir}\" -p \"${outCommander.getAbsolutePath(paramFile)}\""
             log.info("$logPrefix generated command - \'$command\'")
             log.info("$ logPrefix running command")
             val terminalManager = TerminalCommandManager(command)
 
             terminalManager.runSync()
 
-            val resultPath = commander.getAbsolutePath(Paths.get(tempDir, "result.0.mhd").toString())
+            val resultPath = outCommander.getAbsolutePath("result.0.mhd")
 
             return MhdFile.load(resultPath).image.asImageSeries()
         } catch (e: Exception) {

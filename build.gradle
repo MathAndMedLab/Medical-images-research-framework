@@ -5,7 +5,7 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'application'
-mainClassName = "Main"
+mainClassName = "com.mirf.Main"
 
 libsDirName = "$project.projectDir/out"
 
@@ -15,7 +15,7 @@ jar {
     manifest {
         attributes 'Implementation-Title': 'med_sample',
                 'Implementation-Version': version,
-                'Main-Class': 'Main'
+                'Main-Class': 'com.mirf.Main'
     }
 }
 

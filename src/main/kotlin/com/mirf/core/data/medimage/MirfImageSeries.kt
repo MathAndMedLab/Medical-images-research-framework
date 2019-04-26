@@ -16,7 +16,7 @@ class MirfImageSeries(override val images: List<MedImage>, attributes: Attribute
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun dumpToRepository(repository: RepositoryCommander) : String {
+    override fun dumpToRepository(repository: RepositoryCommander, name: String) : String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
