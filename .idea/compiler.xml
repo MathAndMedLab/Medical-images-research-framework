@@ -2,6 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="com.mirf.mirfBrainTumor.main" target="1.8" />
+      <module name="com.mirf.mirfBrainTumor.test" target="1.8" />
       <module name="med_sample_main" target="1.5" />
       <module name="med_sample_test" target="1.5" />
       <module name="MIRF_main" target="1.8" />
