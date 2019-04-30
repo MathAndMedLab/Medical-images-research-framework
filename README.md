@@ -10,3 +10,4 @@ Connecting research and medicine
 
 MIRF is an open-source framework for the development of medical applications that are using various types of medical images (such as CT and MRI images). 
 
+ <sup>MIRF is not intended for clinical use.</sup>
