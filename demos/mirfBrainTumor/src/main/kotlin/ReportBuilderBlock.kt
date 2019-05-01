@@ -2,7 +2,7 @@ import com.mirf.core.data.FileData
 import com.mirf.core.data.medimage.ImageSeries
 import com.mirf.core.pipeline.PipelineBlock
 import com.mirf.core.pipeline.PipelineKeeper
-import pdfLayouts.MsPdfReportCreator
+import pdfLayouts.BrainPdfReportCreator
 import pdfLayouts.BrainPdfReportSpecBuilder
 import pdfLayouts.PatientInfo
 
@@ -10,16 +10,24 @@ class ReportBuilderBlock(val patientInfo: PatientInfo,
                          pipelineKeeper: PipelineKeeper) : PipelineBlock<ImageSeries, FileData>("pdfCreator", pipelineKeeper) {
 
     private var masksSender: Any? = null
+    private var coreMasksSender: Any? = null
+    private var edemaMasksSender: Any? = null
     private var seriesSender: Any? = null
 
     private var masksSet = false
+    private var coreMasksSet = false
+    private var edemaMasksSet = false
     private var seriesSet = false
 
     private var masks: ImageSeries? = null
+    private var coreMasks: ImageSeries? = null
+    private var edemaMasks: ImageSeries? = null
     private var series: ImageSeries? = null
 
     override fun flush() {
         flushMasks()
+        flushCoreMasks()
+        flushEdemaMasks()
         flushSeries()
     }
 
@@ -35,9 +43,33 @@ class ReportBuilderBlock(val patientInfo: PatientInfo,
         masksSender = null
     }
 
+    private fun flushCoreMasks() {
+        coreMasksSet = false
+        coreMasks = null
+        coreMasksSender = null
+    }
+
+    private fun flushEdemaMasks() {
+        edemaMasksSet = false
+        edemaMasks = null
+        edemaMasksSender = null
+    }
+
     fun setMasks(sender: PipelineBlock<*, ImageSeries>) {
         flushMasks()
         this.masksSender = sender
+        sender.dataReady += this::inputReady
+    }
+
+    fun setCoreMasks(sender: PipelineBlock<*, ImageSeries>) {
+        flushCoreMasks()
+        this.coreMasksSender = sender
+        sender.dataReady += this::inputReady
+    }
+
+    fun setEdemaMasks(sender: PipelineBlock<*, ImageSeries>) {
+        flushEdemaMasks()
+        this.edemaMasksSender = sender
         sender.dataReady += this::inputReady
     }
 
@@ -54,6 +86,14 @@ class ReportBuilderBlock(val patientInfo: PatientInfo,
                 masks = input
                 masksSet = true
             }
+            coreMasksSender -> {
+                coreMasks = input
+                coreMasksSet = true
+            }
+            edemaMasksSender -> {
+                edemaMasks = input
+                edemaMasksSet = true
+            }
             seriesSender -> {
                 series = input
                 seriesSet = true
@@ -62,12 +102,12 @@ class ReportBuilderBlock(val patientInfo: PatientInfo,
         }
 
 
-        if(masksSet && seriesSet){
+        if(masksSet && coreMasksSet && edemaMasksSet && seriesSet){
 
             val record = pipelineKeeper.session.addNew("[$name]: algorithm execution")
 
-            val spec = BrainPdfReportSpecBuilder(patientInfo, series!!, masks!!).build()
-            val report = MsPdfReportCreator(spec).createReport()
+            val spec = BrainPdfReportSpecBuilder(patientInfo, series!!, masks!!, edemaMasks!!, coreMasks!!).build()
+            val report = BrainPdfReportCreator(spec).createReport()
             val fileData = FileData(report.stream.toByteArray(),"report", ".pdf")
             onDataReady(this, fileData)
 

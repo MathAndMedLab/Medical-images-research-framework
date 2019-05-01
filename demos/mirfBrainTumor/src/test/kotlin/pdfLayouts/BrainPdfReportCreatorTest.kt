@@ -19,7 +19,7 @@ class BrainPdfReportCreatorTest {
         javaClass.getResource("/mask.nii") ?: return
 
         val spec = generateLayoutTestSpec()
-        val doc = MsPdfReportCreator(spec).createReport()
+        val doc = BrainPdfReportCreator(spec).createReport()
 
         val resultPath = Paths.get(javaClass.getResource("/").path, "/check_layout_result.pdf").toString()
         val file = File(resultPath)

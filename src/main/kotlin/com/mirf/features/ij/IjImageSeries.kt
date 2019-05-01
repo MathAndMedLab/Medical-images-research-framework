@@ -63,5 +63,9 @@ class IjImageSeries(private val image: ImagePlus) : MirfData(), ImageSeries {
     override val images: List<MedImage>
         get() = _images.value
 
+    override public fun clone(): IjImageSeries {
+        return IjImageSeries(image.clone() as ImagePlus)
+    }
+
 }
 

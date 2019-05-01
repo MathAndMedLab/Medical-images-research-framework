@@ -17,7 +17,7 @@ import java.nio.file.Paths
 import java.time.LocalDateTime
 
 class BrainReportWorkflow(
-    private val t1Path: String, private val flairPath: String, private val workindDir: String,
+    private val t1Path: String, private val wholeMasksPath: String, private val workindDir: String,
     private val patientInfo: PatientInfo) {
 
     val pipe: Pipeline
@@ -34,13 +34,31 @@ class BrainReportWorkflow(
             name = "T1 reader"
         )
 
-        val maskReader = AlgorithmHostBlock<Data, ImageSeries>(
-            { val masks = Nifti1Reader.read(flairPath).asImageSeries()
+        val wholeMaskReader = AlgorithmHostBlock<Data, ImageSeries>(
+            { val masks = Nifti1Reader.read(wholeMasksPath).asImageSeries()
                 masks.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
                 return@AlgorithmHostBlock masks
             },
             pipelineKeeper = pipe,
-            name = "FLAIR reader"
+            name = "Whole masks reader"
+        )
+
+        val coreMaskReader = AlgorithmHostBlock<Data, ImageSeries>(
+                { val masks = Nifti1Reader.read("/Users/sabrina/Documents/GitHub/brats17/result17/Brats17_2013_3_1_core.nii.gz").asImageSeries()
+                    masks.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
+                    return@AlgorithmHostBlock masks
+                },
+                pipelineKeeper = pipe,
+                name = "Core masks reader"
+        )
+
+        val edemaMaskReader = AlgorithmHostBlock<Data, ImageSeries>(
+                { val masks = Nifti1Reader.read("/Users/sabrina/Documents/GitHub/brats17/result17/Brats17_2013_3_1_ench.nii.gz").asImageSeries()
+                    masks.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
+                    return@AlgorithmHostBlock masks
+                },
+                pipelineKeeper = pipe,
+                name = "Edema masks reader"
         )
 
         val reportBuilderBlock = ReportBuilderBlock(
@@ -53,14 +71,18 @@ class BrainReportWorkflow(
             RepoFileSaver(), ""
         )
 
-        reportBuilderBlock.setMasks(maskReader)
+        reportBuilderBlock.setMasks(wholeMaskReader)
+        reportBuilderBlock.setCoreMasks(coreMaskReader)
+        reportBuilderBlock.setEdemaMasks(edemaMaskReader)
         reportBuilderBlock.setSeries(t1Reader)
 
         reportBuilderBlock.dataReady += reportSaverBlock::inputReady
 
         val root = PipeStarter()
         root.dataReady += t1Reader::inputReady
-        root.dataReady += maskReader::inputReady
+        root.dataReady += wholeMaskReader::inputReady
+        root.dataReady += coreMaskReader::inputReady
+        root.dataReady += edemaMaskReader::inputReady
         pipe.rootBlock = root
     }
 

@@ -3,7 +3,7 @@ package com.mirf.core.data.medimage
 import com.mirf.core.data.Data
 import com.mirf.core.repository.RepositoryCommander
 
-interface ImageSeries : Data {
+interface ImageSeries : Data, Cloneable {
     val images: List<MedImage>
 
     fun getFileBytes(): ByteArray
@@ -16,4 +16,5 @@ interface ImageSeries : Data {
      */
     fun dumpToRepository(repository: RepositoryCommander, name: String = ""): String
     fun applyMask(masks: ImageSeries)
+    override public fun clone(): ImageSeries
 }

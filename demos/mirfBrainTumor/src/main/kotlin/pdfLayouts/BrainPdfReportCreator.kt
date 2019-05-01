@@ -24,7 +24,7 @@ import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
 
 
-class MsPdfReportCreator(private val spec: BrainPdfReportSpec) {
+class BrainPdfReportCreator(private val spec: BrainPdfReportSpec) {
 
     private val marginBlock = Paragraph().setMarginBottom(10f)
 
@@ -47,48 +47,61 @@ class MsPdfReportCreator(private val spec: BrainPdfReportSpec) {
             document.add(createScansDesc())
             document.add(marginBlock)
         }
+        val table = Table(arrayOf(UnitValue.createPercentValue(50f), UnitValue.createPercentValue(50f)))
+        table.addText("Total brain volume").addText(spec.totalVolume.toString())
+                .setTextAlignment(TextAlignment.CENTER)
+        document.add(reformatVolumeBlock(table))
 
-        if (spec.seriesVisualization != null) {
-            document.add(createSeriesVisual())
+        if (spec.seriesWholeVisualization != null) {
+            document.add(createSectionHeader("Edema:"))
+            document.add(createSeriesVisual(spec.seriesWholeVisualization))
+            document.add(marginBlock)
+            val tumorTable = Table(arrayOf(UnitValue.createPercentValue(50f), UnitValue.createPercentValue(50f)))
+            tumorTable.addText("Whole tumor volume")
+                    .addText(spec.tumorVolume.toString())
+                    .addText("Tumor percentage compared to brain volume")
+                    .addText("%.2f".format(spec.totalVolumeDiffPercent) + "%")
+            document.add(reformatVolumeBlock(tumorTable))
             document.add(marginBlock)
         }
 
-        document.add(createVolumeBlock())
-        document.add(marginBlock)
-        document.add(createConclusion())
+        if (spec.seriesTumorCoreVisualization != null) {
+            document.add(createSectionHeader("Necrotic/cystic core:"))
+            document.add(createSeriesVisual(spec.seriesTumorCoreVisualization))
+            document.add(marginBlock)
+            val coreTable = Table(arrayOf(UnitValue.createPercentValue(50f), UnitValue.createPercentValue(50f)))
+            coreTable.addText("Necrotic/cystic core tumor volume")
+                    .addText(spec.coreVolume.toString())
+                    .addText("Percentage compared to brain volume")
+                    .addText("%.2f".format(spec.coreVolumeDiffPercent) + "%")
+            document.add(reformatVolumeBlock(coreTable))
+            document.add(marginBlock)
+        }
 
-        addFooter(document)
+        if (spec.seriesEdemaVisualization != null) {
+            document.add(createSectionHeader("Enhancing core:"))
+            document.add(createSeriesVisual(spec.seriesEdemaVisualization))
+            document.add(marginBlock)
+            val edemaTable = Table(arrayOf(UnitValue.createPercentValue(50f), UnitValue.createPercentValue(50f)))
+            edemaTable.addText("Enhancing core tumor volume")
+                    .addText(spec.edemaVolume.toString())
+                    .addText("Percentage compared to brain volume")
+                    .addText("%.2f".format(spec.edemaVolumeDiffPercent) + "%")
+            document.add(reformatVolumeBlock(edemaTable))
+            document.add(marginBlock)
+        }
+
+        document.add(createConclusion())
 
         document.close()
         return PdfDocumentInfo(pdf, resultStream)
     }
 
-    private fun addFooter(document: Document) {
-        val pdfDoc = document.pdfDocument
-        val canvas = PdfCanvas(pdfDoc.getPage(1))
 
-        val black = DeviceGray(0f)
-
-        canvas.setStrokeColor(black)
-
-                .moveTo(450.0, 30.0)
-
-                .lineTo(550.0, 30.0)
-
-                .closePathStroke()
-    }
-
-    private fun createVolumeBlock(): Table {
-        val table = Table(arrayOf(UnitValue.createPercentValue(50f), UnitValue.createPercentValue(50f)))
-        table.addText("Total brain volume")
-                .addText(spec.totalVolume.toString())
-                .addText("Tumor volume")
-                .addText(spec.activeVolume.toString())
-                .addText("Tumor percentage compared to brain volume: ")
-                .addText("%.2f".format(spec.totalVolumeDiffPercent) + "%")
-                .setTextAlignment(TextAlignment.CENTER)
-                .setFontSize(14f)
-                .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))
+    private fun reformatVolumeBlock(table: Table): Table {
+        table.setTextAlignment(TextAlignment.CENTER)
+                .setFontSize(11f)
+                .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA))
                 .setWidth(UnitValue.createPercentValue(100f))
                 .setMargins(0f, 5f, 0f, 5f)
         return table
@@ -102,9 +115,9 @@ class MsPdfReportCreator(private val spec: BrainPdfReportSpec) {
         return result
     }
 
-    private fun createSeriesVisual(): IBlockElement {
+    private fun createSeriesVisual(images: List<BufferedImage>?): IBlockElement {
         val result = Paragraph()
-        for (image in spec.seriesVisualization!!)
+        for (image in images!!)
             result.addImg(image) { img ->
                 img.setMargins(0f, 5f, 0f, 5f)
             }
@@ -136,13 +149,16 @@ class MsPdfReportCreator(private val spec: BrainPdfReportSpec) {
         return header
     }
 
-    private fun placeLogo(document: Document, pageWidth: Float, pageHeight: Float) {
+    private fun createSectionHeader(text: String): Paragraph {
+        val header = Paragraph()
+        header.setTextAlignment(TextAlignment.CENTER)
 
-        val logo: Image = spec.companyImage.asPdfImage()
-        logo.setHorizontalAlignment(HorizontalAlignment.RIGHT)
-
-        logo.setFixedPosition(pageWidth - document.rightMargin - logo.width.value, pageHeight - document.topMargin - logo.imageScaledHeight)
-        document.add(logo)
+        header.width = UnitValue.createPercentValue(100f)
+        header.setVerticalAlignment(VerticalAlignment.MIDDLE)
+        val titleText = Text(text).setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD)).setFontSize(15f)
+        val title = Paragraph(titleText)
+        header.add(title)
+        return header
     }
 
     private fun createScansDesc(): Table {

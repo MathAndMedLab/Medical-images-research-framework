@@ -34,9 +34,9 @@ public class MainForm extends JFrame{
 
         generateButton.addActionListener(e -> {
             BrainReportWorkflow workflow = new BrainReportWorkflow(
-//                    "/Users/sabrina/Documents/GitHub/brats17/result17/HGG/Brats17_2013_21_1/Brats17_2013_21_1_t1.nii",
-//                   "/Users/sabrina/Documents/GitHub/brats17/result17/HGG/Brats17_2013_21_1.nii",
-                   t1Field.getText(), flairLink.getText(),
+                    "/Users/sabrina/Documents/GitHub/brats17/data/brats17/Brats17_2013_3_1/Brats17_2013_3_1_t1.nii",
+                   "/Users/sabrina/Documents/GitHub/brats17/result17/Brats17_2013_3_1_wh.nii.gz",
+//                   t1Field.getText(), flairLink.getText(),
                     workinDirField.getText(),
                     new PatientInfo(nameField.getText(), AgeField.getText()));
 
