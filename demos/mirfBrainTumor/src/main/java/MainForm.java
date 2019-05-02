@@ -34,8 +34,8 @@ public class MainForm extends JFrame{
 
         generateButton.addActionListener(e -> {
             BrainReportWorkflow workflow = new BrainReportWorkflow(
-                    "/Users/sabrina/Documents/GitHub/brats17/data/brats17/Brats17_2013_3_1/Brats17_2013_3_1_t1.nii",
-                   "/Users/sabrina/Documents/GitHub/brats17/result17/Brats17_2013_3_1_wh.nii.gz",
+                    "/Users/sabrina/Documents/GitHub/brats17/data/brats17/Brats17_2013_3_1",
+                    "/Users/sabrina/Documents/GitHub/brats17/data/brats17/Brats17_2013_3_1/Brats17_2013_3_1_t1.nii.gz",
 //                   t1Field.getText(), flairLink.getText(),
                     workinDirField.getText(),
                     new PatientInfo(nameField.getText(), AgeField.getText()));
@@ -97,6 +97,17 @@ public class MainForm extends JFrame{
 
     @Nullable
     private String getStringFromFileChooser(JFileChooser jfc) {
+        int returnValue = jfc.showOpenDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = jfc.getSelectedFile();
+            return selectedFile.getAbsolutePath();
+        }
+        return null;
+    }
+
+    @Nullable
+    private String getDirectoryNameFromFileChooser(JFileChooser jfc) {
         int returnValue = jfc.showOpenDialog(null);
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {

@@ -17,25 +17,33 @@ import java.nio.file.Paths
 import java.time.LocalDateTime
 
 class BrainReportWorkflow(
-    private val t1Path: String, private val wholeMasksPath: String, private val workindDir: String,
-    private val patientInfo: PatientInfo) {
+        private val dataPath: String,
+        private val coreImagePath: String,
+        private val workindDir: String,
+        private val patientInfo: PatientInfo) {
+
+    private val segmentationClassPath = this.javaClass.getProtectionDomain().getCodeSource().getLocation().getPath() + "../../../segmentation/result/"
 
     val pipe: Pipeline
 
     init {
-        pipe = Pipeline("pipe", LocalDateTime.now(), LocalRepositoryCommander(Paths.get(workindDir)))
+        pipe = Pipeline("pipe", LocalDateTime.now(),
+                LocalRepositoryCommander(Paths.get(workindDir)))
 
-        //T1
-        val t1Reader = AlgorithmHostBlock<Data, ImageSeries>(
-            { val imgs = Nifti1Reader.read(t1Path).asImageSeries()
+        // The main image to apply all masks on it
+        val imageReader = AlgorithmHostBlock<Data, ImageSeries>(
+                {
+                    val imgs = Nifti1Reader.read(coreImagePath).asImageSeries()
                 imgs.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
                 return@AlgorithmHostBlock imgs},
             pipelineKeeper = pipe,
             name = "T1 reader"
         )
-
         val wholeMaskReader = AlgorithmHostBlock<Data, ImageSeries>(
-            { val masks = Nifti1Reader.read(wholeMasksPath).asImageSeries()
+                {
+                    val masks = Nifti1Reader.read(
+                            segmentationClassPath + "segmentation_wh.nii.gz")
+                            .asImageSeries()
                 masks.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
                 return@AlgorithmHostBlock masks
             },
@@ -43,8 +51,13 @@ class BrainReportWorkflow(
             name = "Whole masks reader"
         )
 
+        val segmentationBlock = SegmentationBlock(rootFolder = dataPath, pipelineKeeper = pipe)
+
         val coreMaskReader = AlgorithmHostBlock<Data, ImageSeries>(
-                { val masks = Nifti1Reader.read("/Users/sabrina/Documents/GitHub/brats17/result17/Brats17_2013_3_1_core.nii.gz").asImageSeries()
+                {
+                    val masks = Nifti1Reader.read(
+                            segmentationClassPath + "segmentation_core.nii.gz")
+                            .asImageSeries()
                     masks.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
                     return@AlgorithmHostBlock masks
                 },
@@ -53,7 +66,10 @@ class BrainReportWorkflow(
         )
 
         val edemaMaskReader = AlgorithmHostBlock<Data, ImageSeries>(
-                { val masks = Nifti1Reader.read("/Users/sabrina/Documents/GitHub/brats17/result17/Brats17_2013_3_1_ench.nii.gz").asImageSeries()
+                {
+                    val masks = Nifti1Reader.read(
+                            segmentationClassPath + "segmentation_ench.nii.gz")
+                            .asImageSeries()
                     masks.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
                     return@AlgorithmHostBlock masks
                 },
@@ -74,15 +90,16 @@ class BrainReportWorkflow(
         reportBuilderBlock.setMasks(wholeMaskReader)
         reportBuilderBlock.setCoreMasks(coreMaskReader)
         reportBuilderBlock.setEdemaMasks(edemaMaskReader)
-        reportBuilderBlock.setSeries(t1Reader)
+        reportBuilderBlock.setSeries(imageReader)
 
         reportBuilderBlock.dataReady += reportSaverBlock::inputReady
 
         val root = PipeStarter()
-        root.dataReady += t1Reader::inputReady
-        root.dataReady += wholeMaskReader::inputReady
-        root.dataReady += coreMaskReader::inputReady
-        root.dataReady += edemaMaskReader::inputReady
+        root.dataReady += segmentationBlock::inputReady
+        segmentationBlock.dataReady += imageReader::inputReady
+        segmentationBlock.dataReady += wholeMaskReader::inputReady
+        segmentationBlock.dataReady += coreMaskReader::inputReady
+        segmentationBlock.dataReady += edemaMaskReader::inputReady
         pipe.rootBlock = root
     }
 

@@ -1,0 +1,6 @@
+numpy==1.14.1
+tensorflow==1.6.0
+NiftyNet==0.2.2
+SimpleITK==1.0.1
+scipy==1.0.0
+nibabel==2.2.1
