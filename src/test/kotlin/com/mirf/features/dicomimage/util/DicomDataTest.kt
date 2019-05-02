@@ -47,7 +47,14 @@ class DicomDataTest {
         var shortArrayDicomData: ShortArray = dicomData.getImageDataAsShortArray()
 
         Assert.assertEquals(shortArrayPixelMed.size,  shortArrayDicomData.size)
-        Assert.assertNotNull(shortArrayPixelMed)
+        Assert.assertArrayEquals(shortArrayPixelMed,shortArrayDicomData)
+        var thrown = false
+        try {
+            list.pixelData.byteValues
+        } catch (e : Exception) {
+            thrown = true
+        }
+        Assert.assertNotNull(dicomData.getImageDataAsByteArray())
     }
 
 }

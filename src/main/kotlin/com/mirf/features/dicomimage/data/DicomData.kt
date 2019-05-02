@@ -40,8 +40,8 @@ class DicomData : ImagingData<BufferedImage> {
 
         else if (bitsAllocated == 16) {
             shortArray = cleanByteArrayPixelDataToShortArray(cleanByteArrayPixelData!!)
-            //byteArray = shortArrayToByteArray(shortArray!!)
-            //intArray = shortArrayToIntArray(shortArray!!)
+            byteArray = shortArrayToByteArray(shortArray!!)
+            intArray = shortArrayToIntArray(shortArray!!)
         }
 
         else if (bitsAllocated == 32) {
@@ -98,12 +98,13 @@ class DicomData : ImagingData<BufferedImage> {
         val lut: HashMap<Short, Byte> = HashMap()
         val min : Int = Integer.parseInt(dicomAttributeCollection!!.getAttributeValue(TagFromName.SmallestImagePixelValue))
         val max : Int = Integer.parseInt(dicomAttributeCollection!!.getAttributeValue(TagFromName.LargestImagePixelValue))
-        val j: Int = min
+        var j: Int = min
         while (j <= max) {
             var temp = ((m * j) + b).toInt()
             if(temp > 127) temp = 127
             else if (temp < -128) temp = -128
             lut[j.toShort()] = temp.toByte()
+            j++
         }
         val byteArray = ByteArray(shortArray.size)
         for (i in shortArray.indices) {
