@@ -1,7 +1,7 @@
 package com.mirf.features.dicomimage.data
 
 import com.mirf.core.array.BooleanArray2D
-
+import com.mirf.core.data.attribute.AttributeCreationException
 import com.mirf.core.data.medimage.ImagingData
 import com.pixelmed.dicom.DicomOutputStream
 import com.pixelmed.dicom.TagFromName

@@ -1,7 +1,7 @@
 package com.mirf.features.dicomimage.data
 
 import com.mirf.core.array.BooleanArray2D
-
+import com.mirf.core.data.attribute.AttributeCreationException
 import com.mirf.core.data.medimage.ImagingData
 import com.pixelmed.dicom.DicomOutputStream
 import com.pixelmed.dicom.TagFromName
@@ -40,8 +40,13 @@ class DicomData : ImagingData<BufferedImage> {
 
         else if (bitsAllocated == 16) {
             shortArray = cleanByteArrayPixelDataToShortArray(cleanByteArrayPixelData!!)
+<<<<<<< HEAD
+            //byteArray = shortArrayToByteArray(shortArray!!)
+            //intArray = shortArrayToIntArray(shortArray!!)
+=======
             byteArray = shortArrayToByteArray(shortArray!!)
             intArray = shortArrayToIntArray(shortArray!!)
+>>>>>>> 9699867b7e72396292be5cd7f8f605461829c08c
         }
 
         else if (bitsAllocated == 32) {
@@ -98,7 +103,11 @@ class DicomData : ImagingData<BufferedImage> {
         val lut: HashMap<Short, Byte> = HashMap()
         val min : Int = Integer.parseInt(dicomAttributeCollection!!.getAttributeValue(TagFromName.SmallestImagePixelValue))
         val max : Int = Integer.parseInt(dicomAttributeCollection!!.getAttributeValue(TagFromName.LargestImagePixelValue))
+<<<<<<< HEAD
+        val j: Int = min
+=======
         var j: Int = min
+>>>>>>> 9699867b7e72396292be5cd7f8f605461829c08c
         while (j <= max) {
             var temp = ((m * j) + b).toInt()
             if(temp > 127) temp = 127

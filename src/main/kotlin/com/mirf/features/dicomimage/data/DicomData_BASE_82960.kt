@@ -1,7 +1,6 @@
 package com.mirf.features.dicomimage.data
 
 import com.mirf.core.array.BooleanArray2D
-
 import com.mirf.core.data.medimage.ImagingData
 import com.pixelmed.dicom.DicomOutputStream
 import com.pixelmed.dicom.TagFromName
@@ -41,7 +40,7 @@ class DicomData : ImagingData<BufferedImage> {
         else if (bitsAllocated == 16) {
             shortArray = cleanByteArrayPixelDataToShortArray(cleanByteArrayPixelData!!)
             byteArray = shortArrayToByteArray(shortArray!!)
-            intArray = shortArrayToIntArray(shortArray!!)
+            intArray = shortArrayToIntArrat(shortArray!!)
         }
 
         else if (bitsAllocated == 32) {
@@ -81,7 +80,7 @@ class DicomData : ImagingData<BufferedImage> {
     }
 
 
-    private fun shortArrayToIntArray(shortArray: ShortArray): IntArray {
+    private fun shortArrayToIntArrat(shortArray: ShortArray): IntArray {
         val intArray = IntArray(shortArray.size)
         for (i in intArray.indices) {
             intArray[i] = shortArray[i].toInt()
@@ -96,15 +95,12 @@ class DicomData : ImagingData<BufferedImage> {
         val b : Int = (- (m * x1)).toInt()
 
         val lut: HashMap<Short, Byte> = HashMap()
-        val min : Int = Integer.parseInt(dicomAttributeCollection!!.getAttributeValue(TagFromName.SmallestImagePixelValue))
-        val max : Int = Integer.parseInt(dicomAttributeCollection!!.getAttributeValue(TagFromName.LargestImagePixelValue))
-        var j: Int = min
-        while (j <= max) {
+        val j: Int = Short.MIN_VALUE.toInt()
+        while (j < Short.MAX_VALUE.toInt()) {
             var temp = ((m * j) + b).toInt()
             if(temp > 127) temp = 127
             else if (temp < -128) temp = -128
             lut[j.toShort()] = temp.toByte()
-            j++
         }
         val byteArray = ByteArray(shortArray.size)
         for (i in shortArray.indices) {
@@ -157,7 +153,7 @@ class DicomData : ImagingData<BufferedImage> {
     }
 
     private fun readPixelDataFileAndWriteToDirtyByteArray(): ByteArray {
-        val file = File("src/main/resources/pixeldata.txt")
+        val file = File("pixeldata.txt")
         val imageInputStream = FileImageInputStream(file)
         var dirtyByteArrayPixelData = ByteArray(file.length().toInt())
         imageInputStream.read(dirtyByteArrayPixelData)
@@ -167,7 +163,7 @@ class DicomData : ImagingData<BufferedImage> {
 
     private fun pixelDataWriteToFile() {
         val pixelData = dicomAttributeCollection?.getAttributePixelData()
-        val outputStream = FileOutputStream(File("src/main/resources/pixeldata.txt"))
+        val outputStream = FileOutputStream(File("src/test/resources/pixeldata.txt"))
         val transferSyntaxUID = dicomAttributeCollection?.getAttributeValue(TagFromName.TransactionUID)
         val dicomOutputStream = DicomOutputStream(outputStream, "", transferSyntaxUID)
         pixelData?.write(dicomOutputStream)
@@ -178,14 +174,10 @@ class DicomData : ImagingData<BufferedImage> {
     }
 
     override fun getImageDataAsShortArray(): ShortArray {
-        if(bitsAllocated == 32)
-            throw DicomDataException("Can't get shortArray because bits allocated = 32")
         return shortArray!!
     }
 
     override fun getImageDataAsByteArray(): ByteArray {
-        if(bitsAllocated == 32)
-            throw DicomDataException("Can't get byteArray because bits allocated = 32")
         return byteArray!!
     }
 
