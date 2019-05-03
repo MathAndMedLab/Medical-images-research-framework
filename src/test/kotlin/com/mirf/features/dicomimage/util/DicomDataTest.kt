@@ -9,7 +9,7 @@ import org.junit.Test
 class DicomDataTest {
     @Test
     fun testDicomData_vs_result_PixelMed_8BitsAllocated() {
-        val dicomInputFile = "src/test/resources/0002.DCM"
+        val dicomInputFile = "src/test/resources/8bitsAllocatedExample.DCM"
         val list = DicomReader.readDicomImageAttributesFromLocalFile(dicomInputFile)
         val dicomAttributeCollection : DicomAttributeCollection = DicomAttributeCollection(list)
 
@@ -37,7 +37,7 @@ class DicomDataTest {
 
     @Test
     fun testDicomData_vs_result_PixelMed_16BitsAllocated() {
-        val dicomInputFile = "src/test/resources/000001.dcm"
+        val dicomInputFile = "src/test/resources/16bitsAllocatedExample.dcm"
         val list = DicomReader.readDicomImageAttributesFromLocalFile(dicomInputFile)
         val dicomAttributeCollection : DicomAttributeCollection = DicomAttributeCollection(list)
 
