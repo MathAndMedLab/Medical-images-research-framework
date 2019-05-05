@@ -28,7 +28,7 @@ class ImageSeriesThresholdAlg(private val lowerBound: Byte, private val upperBou
 
         img.raster.setPixels(img.minX, img.minY, img.width, img.height, raw)
 
-        medImage.attributes.add(MirfAttributes.THRESHOLDED, Switch.get())
+        medImage.attributes.add(MirfAttributes.THRESHOLDED, Unit)
 
         return medImage
     }

@@ -14,7 +14,7 @@ class BufferedImageExtKtTest {
     fun toBicolor() {
         val masksPath = javaClass.getResource("/msReport/mask.nii") ?: return
         val masks = Nifti1Reader.read(masksPath.path).asImageSeries()
-        masks.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
+        masks.attributes.add(MirfAttributes.THRESHOLDED.new(Unit))
 
         val image = masks.images[367].image
         val bl =  image!!.toBicolor();

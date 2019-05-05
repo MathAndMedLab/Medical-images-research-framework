@@ -18,7 +18,7 @@ public class QueueManager implements DisposableBean {
 
     @Autowired
     public QueueManager(FileProcessorProperties properties) {
-        rootDir = Paths.get(properties.getRootDir());
+        rootDir = Paths.get(properties.getRootDir()).toAbsolutePath();
 
         createBrainExtractor(properties);
 

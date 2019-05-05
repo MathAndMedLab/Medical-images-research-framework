@@ -52,7 +52,9 @@ public class ProcessQueue implements AutoCloseable {
             UUID id = UUID.randomUUID();
 
             Path sessionDirectory = rootTempDir.resolve(id.toString());
+            log.info("creating dir" + sessionDirectory.toString());
             Files.createDirectory(sessionDirectory);
+            log.info("directory created: " + sessionDirectory.toString());
 
             Path pathToFile = FileManager.saveMiltipartFiles(file, sessionDirectory, ext);
 

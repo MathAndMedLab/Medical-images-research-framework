@@ -1,4 +1,4 @@
-package com.mirf.features.reports.pdf
+package com.mirf.features.pdf
 
 import com.itextpdf.kernel.pdf.PdfDocument
 import java.io.ByteArrayOutputStream

@@ -15,7 +15,7 @@ object MirfAttributes {
     /**
      * todo: (avlomakin) add link to doc
      */
-    val THRESHOLDED: DataAttributeMockup<Switch.Instance> =
+    val THRESHOLDED: DataAttributeMockup<Unit> =
             DataAttributeMockup("Thresholded", "96969da6-e6c2-11e8-9f32-f2801f1b9fd1", AttributeTagType.UUID)
 
     val REPO_INFO: DataAttributeMockup<RepositoryInfo> =

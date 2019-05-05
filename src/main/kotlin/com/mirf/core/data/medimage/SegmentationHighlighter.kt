@@ -22,7 +22,6 @@ fun MedImage.getImageWithHighlightedSegmentation(highlightColor: Color = Color(0
 
     val mask = BufferedImage(image.width, image.height, BufferedImage.TYPE_INT_ARGB)
 
-
     for (i in 0 until mask.width)
         for (j in 0 until mask.height)
             if (bitMask[j][i])

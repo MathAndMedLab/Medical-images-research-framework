@@ -17,8 +17,8 @@ import com.itextpdf.layout.property.HorizontalAlignment
 import com.itextpdf.layout.property.TextAlignment
 import com.itextpdf.layout.property.UnitValue
 import com.itextpdf.layout.property.VerticalAlignment
-import com.mirf.features.reports.pdf.PdfDocumentInfo
-import com.mirf.features.reports.pdf.asPdfImage
+import com.mirf.features.pdf.PdfDocumentInfo
+import com.mirf.features.pdf.asPdfImage
 import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO

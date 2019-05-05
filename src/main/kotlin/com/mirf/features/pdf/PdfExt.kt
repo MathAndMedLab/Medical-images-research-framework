@@ -1,4 +1,4 @@
-package com.mirf.features.reports.pdf
+package com.mirf.features.pdf
 
 import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.layout.element.Image

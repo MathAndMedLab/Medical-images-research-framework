@@ -12,8 +12,8 @@ import com.mirf.features.ij.asImageSeries
 import com.mirf.features.mhdraw.MhdFile
 import com.mirf.features.nifti.util.Nifti1Reader
 import com.mirf.features.reports.PdfElementData
-import com.mirf.features.reports.pdf.PdfElementsAccumulator
-import com.mirf.features.reports.pdf.asPdfElementData
+import com.mirf.features.pdf.PdfElementsAccumulator
+import com.mirf.features.pdf.asPdfElementData
 import com.mirf.features.repository.LocalRepositoryCommander
 import com.mirf.features.repositoryaccessors.RepoFileSaver
 import com.mirf.features.repositoryaccessors.RepositoryAccessorBlock

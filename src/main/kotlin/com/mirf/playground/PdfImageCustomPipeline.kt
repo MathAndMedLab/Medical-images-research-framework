@@ -9,8 +9,8 @@ import com.mirf.features.dicomimage.util.DicomRepoRequestProcessors
 import com.mirf.core.pipeline.Pipeline
 import com.mirf.features.reports.PdfElementData
 import com.mirf.features.reports.creators.RepoAccessorReportCreator
-import com.mirf.features.reports.pdf.PdfElementsAccumulator
-import com.mirf.features.reports.pdf.asPdfElementData
+import com.mirf.features.pdf.PdfElementsAccumulator
+import com.mirf.features.pdf.asPdfElementData
 import com.mirf.features.repository.LocalRepositoryCommander
 import com.mirf.features.repositoryaccessors.RepoFileSaver
 import com.mirf.features.repositoryaccessors.RepositoryAccessorBlock

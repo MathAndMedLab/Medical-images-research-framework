@@ -39,15 +39,15 @@ public class NicMsLesion implements FileProcessor {
             file = Files.copy(file, inDir.resolve(file.getFileName()), StandardCopyOption.REPLACE_EXISTING);
 
             log.info("unzipping " + file.toString());
-            TerminalRunner.runCommandRedirect("gzip -d \"" + file.toString() + "\"", inDir.toFile());
+            TerminalRunner.simpleSyncRun("gzip -d \"" + file.toString() + "\"", inDir.toFile());
             String unzipped = file.toString().replace(".gz", "");
-            TerminalRunner.runCommandRedirect("tar -xf \"" + unzipped + "\" -C \"" + inDir + "\"", inDir.toFile());
-            TerminalRunner.runCommandRedirect("rm \"" + unzipped + "\"", inDir.toFile());
+            TerminalRunner.simpleSyncRun("tar -xf \"" + unzipped + "\" -C \"" + inDir + "\"", inDir.toFile());
+            TerminalRunner.simpleSyncRun("rm \"" + unzipped + "\"", inDir.toFile());
 
 
             log.info("Run segmentation " + inDir.toString());
 
-            String processOutput = TerminalRunner.runCommandRedirect("python " + command + " -dir " + inDir.getParent().toString(), inDir.toFile());
+            String processOutput = TerminalRunner.simpleSyncRun("python " + command + " -dir " + inDir.getParent().toString(), inDir.toFile());
             log.info("Segmentation for " + inDir.toString() + " finished, out: " + processOutput);
 
             return inDir.resolve("_hard_seg.nii.gz");

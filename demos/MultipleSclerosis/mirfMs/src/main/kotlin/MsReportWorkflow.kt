@@ -17,43 +17,44 @@ import java.nio.file.Paths
 import java.time.LocalDateTime
 
 class MsReportWorkflow(
-    private val url: String,
-    private val t1Path: String, private val flairPath: String, private val workindDir: String,
-    private val patientInfo: PatientInfo, private val prevVolumeInfo: MsVolumeInfo) {
+        private val url: String,
+        private val t1Path: String, private val flairPath: String, private val workindDir: String,
+        private val patientInfo: PatientInfo, private val prevVolumeInfo: MsVolumeInfo) {
 
     val pipe: Pipeline
 
     init {
-        pipe = Pipeline("pipe", LocalDateTime.now(), LocalRepositoryCommander(Paths.get(workindDir)))
+        val workingDirPath = Paths.get(workindDir)
+        pipe = Pipeline("pipe", LocalDateTime.now(), LocalRepositoryCommander(workingDirPath))
 
         //T1
         val t1Reader = AlgorithmHostBlock<Data, ImageSeries>(
-            { Nifti1Reader.read(t1Path).asImageSeries() },
-            pipelineKeeper = pipe,
-            name = "T1 reader"
+                { Nifti1Reader.read(t1Path).asImageSeries() },
+                pipelineKeeper = pipe,
+                name = "T1 reader"
         )
 
         //FLAIR
         val flairReader = AlgorithmHostBlock<Data, ImageSeries>(
-            { Nifti1Reader.read(flairPath).asImageSeries() },
-            pipelineKeeper = pipe,
-            name = "FLAIR reader"
+                { Nifti1Reader.read(flairPath).asImageSeries() },
+                pipelineKeeper = pipe,
+                name = "FLAIR reader"
         )
 
         val lesionSegmentationBlock = LesionSegmentation(
-            url = url,
-            pipelineKeeper = pipe
+                url = url,
+                pipelineKeeper = pipe
         )
 
         val reportBuilderBlock = ReportBuilderBlock(
-            patientInfo = patientInfo,
-            prevVolumeInfo = prevVolumeInfo,
-            pipelineKeeper = pipe
+                patientInfo = patientInfo,
+                prevVolumeInfo = prevVolumeInfo,
+                pipelineKeeper = pipe
         )
 
         val reportSaverBlock = RepositoryAccessorBlock<FileData, Data>(
-            pipe.repositoryCommander,
-            RepoFileSaver(), ""
+                pipe.repositoryCommander,
+                RepoFileSaver(), ""
         )
 
         lesionSegmentationBlock.setFlairSender(flairReader)
@@ -71,7 +72,7 @@ class MsReportWorkflow(
     }
 
     fun exec() {
-       pipe.run(MirfData.empty)
+        pipe.run(MirfData.empty)
     }
 
 }

@@ -70,6 +70,7 @@ class ReportBuilderBlock(val patientInfo: PatientInfo,
 
             val spec = MsPdfReportSpecBuilder(patientInfo, series!!, masks!!, prevVolumeInfo).build()
             val report = MsPdfReportCreator(spec).createReport()
+
             val fileData = FileData(report.stream.toByteArray(),"report", ".pdf")
             onDataReady(this, fileData)
 

@@ -10,7 +10,7 @@ import remoteLesion.ProcessRequestStatus
 import java.nio.file.Path
 import java.nio.file.Paths
 
-class LesionSegmentation constructor(val url : String, pipelineKeeper: PipelineKeeper): PipelineBlock<ImageSeries, ImageSeries>("Lesion", pipelineKeeper) {
+class LesionSegmentation constructor(val url: String, pipelineKeeper: PipelineKeeper) : PipelineBlock<ImageSeries, ImageSeries>("Lesion", pipelineKeeper) {
 
 
     private var t1Sender: Any? = null
@@ -59,17 +59,17 @@ class LesionSegmentation constructor(val url : String, pipelineKeeper: PipelineK
 
             val file = createPostFile()
             val id = khttp.post(url = "$url/lesion",
-                files = listOf(file.fileLike("file")),
-                params = mapOf("mirf-ext" to ".tar.gz")).text
+                    files = listOf(file.fileLike("file")),
+                    params = mapOf("mirf-ext" to ".tar.gz")).text
 
             waitUntilProcessed(id)
 
-            val response = invokeWithRetry { khttp.get(url = "$url/lesion", params = mapOf("requestId" to id))}
+            val response = invokeWithRetry { khttp.get(url = "$url/lesion", params = mapOf("requestId" to id)) }
             val commander = pipelineKeeper.getRepositoryCommander(this)
             val resultLink = commander.saveFile(response.content.uncompressGzipArray(), "", "output.nii")
 
             val result = Nifti1Reader.read(commander.getAbsolutePath(resultLink)).asImageSeries()
-            result.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
+            result.attributes.add(MirfAttributes.THRESHOLDED.new(Unit))
 
             record.setSuccess()
 
@@ -82,13 +82,13 @@ class LesionSegmentation constructor(val url : String, pipelineKeeper: PipelineK
         val numOfRetry = 300000
         val interval = 4000
 
-        for (i in 0..numOfRetry){
+        for (i in 0..numOfRetry) {
             val response = khttp.get(
-                url = "$url/status",
-                params = mapOf("requestId" to id)
+                    url = "$url/status",
+                    params = mapOf("requestId" to id)
             )
             val status = ProcessRequestStatus.valueOf(response.text)
-            if(status == ProcessRequestStatus.Processed)
+            if (status == ProcessRequestStatus.Processed)
                 break
             Thread.sleep(interval.toLong())
         }
@@ -98,7 +98,7 @@ class LesionSegmentation constructor(val url : String, pipelineKeeper: PipelineK
         val commander = pipelineKeeper.getRepositoryCommander(this)
 
         val t1Copy = Paths.get(t1Series!!.dumpToRepository(commander, "T1"))
-        val flairCopy =Paths.get(flairSeries!!.dumpToRepository(commander, "FLAIR"))
+        val flairCopy = Paths.get(flairSeries!!.dumpToRepository(commander, "FLAIR"))
 
         val archive = ArchiveCreator.createTar(true, commander.workingDir, t1Copy.toFile().name, flairCopy.toFile().name)
         return archive

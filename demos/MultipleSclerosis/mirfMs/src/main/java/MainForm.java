@@ -33,7 +33,10 @@ public class MainForm extends JFrame{
         setTitle("Ms report generator");
         setSize(700, 800);
 
-        urlField.setText("http://localhost:8080");
+        urlField.setText("http://130.193.42.76:8080");
+        t1Field.setText("C:\\src\\mirfMs-test-data\\T1.nii");
+        flairLink.setText("C:\\src\\mirfMs-test-data\\FLAIR.nii");
+        workinDirField.setText("C:\\src\\mirf_path");
         createProgressTable();
 
         generateButton.addActionListener(e -> {

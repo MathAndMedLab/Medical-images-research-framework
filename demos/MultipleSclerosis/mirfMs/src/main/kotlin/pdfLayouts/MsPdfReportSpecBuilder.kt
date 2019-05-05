@@ -10,28 +10,28 @@ import java.awt.image.BufferedImage
 import java.time.LocalDate
 
 class MsPdfReportSpecBuilder constructor(
-    private val patient: PatientInfo,
-    private val currentImageSeries: ImageSeries,
-    private val currentMasks: ImageSeries,
-    private val prevVolumeInfo: MsVolumeInfo ) {
+        private val patient: PatientInfo,
+        private val currentImageSeries: ImageSeries,
+        private val currentMasks: ImageSeries,
+        private val prevVolumeInfo: MsVolumeInfo) {
 
-    fun build() : MsPdfReportSpec{
+    fun build(): MsPdfReportSpec {
 
         val images = getSeriesVisualization(listOf(140, 178, 200))
         val desc = ComparedMsReportsDesc(
-            MsScanInfo(LocalDate.now().minusYears(1)),
-            MsScanInfo(LocalDate.now())
+                MsScanInfo(LocalDate.now().minusYears(1)),
+                MsScanInfo(LocalDate.now())
         )
 
         val currentVolume = getVolumeInfo(currentMasks)
         val (totalVolumeDiff, activeVolumeDiff) = currentVolume.getDiffPerc(prevVolumeInfo)
 
         return MsPdfReportSpec.createMirfDefault(
-            patientName = patient.name, patientAge = patient.age,
-            seriesDesc = desc,
-            seriesVisualization = images,
-            totalVolume = currentVolume.totalVolume, activeVolume = currentVolume.activeVolume,
-            totalVolumeDiffPercent = totalVolumeDiff, activeVolumeDiffPercent = activeVolumeDiff )
+                patientName = patient.name, patientAge = patient.age,
+                seriesDesc = desc,
+                seriesVisualization = images,
+                totalVolume = currentVolume.totalVolume, activeVolume = currentVolume.activeVolume,
+                totalVolumeDiffPercent = totalVolumeDiff, activeVolumeDiffPercent = activeVolumeDiff)
     }
 
     private fun getVolumeInfo(currentMasks: ImageSeries): MsVolumeInfo {
@@ -41,9 +41,9 @@ class MsPdfReportSpecBuilder constructor(
     private fun getSeriesVisualization(slices: Iterable<Int>): List<BufferedImage> {
         currentImageSeries.applyMask(currentMasks)
         return currentImageSeries.images.slice(slices)
-            .map { x -> x.getImageWithHighlightedSegmentation() }
-            //.map { cropImage(it, Rectangle(144, 350)) }
-            .map { resizeImg(it, 144, 250) }
+                .map { x -> x.getImageWithHighlightedSegmentation() }
+                //.map { cropImage(it, Rectangle(144, 350)) }
+                .map { resizeImg(it, 144, 250) }
     }
 
     private fun resizeImg(img: BufferedImage, newW: Int, newH: Int): BufferedImage {
