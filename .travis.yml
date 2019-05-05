@@ -4,6 +4,10 @@ install: true
 jdk:
 - oraclejdk11
 
+os:
+  - linux
+  - osx
+  
 notifications:
   email:
     recipients:
