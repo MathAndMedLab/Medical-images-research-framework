@@ -27,7 +27,7 @@ class RepoAccessorReportCreator : Algorithm<ImageSeries, AlgorithmReport> {
             }
         }
 
-    private fun getRows(medImages: ImageSeries): List<Dictionary<String, String>> {
+    private fun getRows(medImages: ImageSeries): List<HashMap<String, String>> {
 
         val repositoryInfo = medImages.attributes.findAttributeValue(MirfAttributes.REPO_INFO)
 
@@ -35,13 +35,13 @@ class RepoAccessorReportCreator : Algorithm<ImageSeries, AlgorithmReport> {
 
         val totalLoaded = medImages.images.size.toString()
 
-        val row = Hashtable<String, String>()
+        val row = hashMapOf<String, String>()
         row[REPOSITORY_HEADER] = repositoryInfo!!.repositoryName
         row[LINK_HEADER] = requestInfo!!.link
         row[TOTAL_LOADED] = totalLoaded
         row[IMAGE_TYPE_HEADER] = medImages.images[0].extension
 
-        return object : ArrayList<Dictionary<String, String>>() {
+        return object : ArrayList<HashMap<String, String>>() {
             init {
                 add(row)
             }

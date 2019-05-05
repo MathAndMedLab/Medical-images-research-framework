@@ -2,6 +2,8 @@ package pdfLayouts
 
 import com.itextpdf.layout.element.IBlockElement
 import com.mirf.core.common.VolumeValue
+import com.mirf.core.data.DataTable
+import com.mirf.features.reports.PdfElementData
 import java.awt.image.BufferedImage
 import java.time.LocalDateTime
 import javax.imageio.ImageIO
@@ -10,36 +12,30 @@ data class MsPdfReportSpec(val companyImage: BufferedImage,
                            val reportCreationTime: LocalDateTime,
                            val patientName: String,
                            val patientAge: String,
-                           val seriesDesc: ComparedMsReportsDesc?,
-                           val seriesVisualization: List<BufferedImage>?,
+                           val seriesDesc: ComparedMsReportsDesc,
+                           val seriesVisualization: PdfElementData,
+                           val volumeTable: PdfElementData,
                            val totalVolume: VolumeValue,
-                           val activeVolume: VolumeValue,
-                           val totalVolumeDiffPercent: Double,
-                           val activeVolumeDiffPercent: Double,
                            val footerIncluded: Boolean) {
 
 
     companion object {
         fun createMirfDefault(patientName: String,
                               patientAge: String = "no age info",
-                              seriesDesc: ComparedMsReportsDesc? = null,
-                              seriesVisualization: List<BufferedImage>? = null,
-                              totalVolume: VolumeValue = VolumeValue.zero,
-                              activeVolume: VolumeValue = VolumeValue.zero,
-                              totalVolumeDiffPercent: Double = 0.0,
-                              activeVolumeDiffPercent: Double = 0.0): MsPdfReportSpec {
+                              seriesDesc: ComparedMsReportsDesc,
+                              seriesVisualization: PdfElementData,
+                              volumeTable: PdfElementData,
+                              totalVolume: VolumeValue = VolumeValue.zero): MsPdfReportSpec {
             return MsPdfReportSpec(
-                getMirfLogo(),
-                LocalDateTime.now(),
-                patientName,
-                patientAge = patientAge,
-                seriesDesc = seriesDesc,
-                seriesVisualization = seriesVisualization,
-                totalVolume = totalVolume,
-                activeVolume = activeVolume,
-                totalVolumeDiffPercent = totalVolumeDiffPercent,
-                activeVolumeDiffPercent = activeVolumeDiffPercent,
-                footerIncluded = true
+                    getMirfLogo(),
+                    LocalDateTime.now(),
+                    patientName,
+                    patientAge = patientAge,
+                    seriesDesc = seriesDesc,
+                    seriesVisualization = seriesVisualization,
+                    volumeTable = volumeTable,
+                    totalVolume = totalVolume,
+                    footerIncluded = true
             )
         }
 

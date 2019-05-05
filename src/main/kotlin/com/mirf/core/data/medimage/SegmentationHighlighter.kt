@@ -2,6 +2,7 @@ package com.mirf.core.data.medimage
 
 import com.mirf.core.array.logSize
 import com.mirf.core.common.convertColorspace
+import com.mirf.core.common.debugDisplayInWindow
 import com.mirf.core.common.logSize
 import com.mirf.core.data.MirfException
 import com.mirf.core.data.attribute.MirfAttributes
@@ -14,6 +15,7 @@ fun MedImage.getImageWithHighlightedSegmentation(highlightColor: Color = Color(0
         throw MirfException("[Segmentation highlighter] image has no segmentation mask")
 
     val bitMask = this.attributes[MirfAttributes.IMAGE_SEGMENTATION_MASK]
+
     val image = this.image!!.convertColorspace(BufferedImage.TYPE_INT_RGB)
 
     if (bitMask.rows != image.height || bitMask.columns != image.width)

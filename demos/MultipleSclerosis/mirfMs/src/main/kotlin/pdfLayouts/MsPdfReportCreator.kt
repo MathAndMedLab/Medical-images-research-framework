@@ -36,29 +36,22 @@ class MsPdfReportCreator(private val spec: MsPdfReportSpec) {
 
         val document = Document(pdf, PageSize.A4)
         document.setMargins(0f, 10f, 10f, 10f)
-        val pageWidth = pdf.defaultPageSize.width
-        val pageHeight = pdf.defaultPageSize.height
 
         document.add(createHeader())
 
         document.add(marginBlock)
 
-        if (spec.seriesDesc != null) {
-            document.add(createScansDesc())
-            document.add(marginBlock)
-        }
+        document.add(createScansDesc())
+        document.add(marginBlock)
 
-        if (spec.seriesVisualization != null) {
-            document.add(createSeriesVisual())
-            document.add(marginBlock)
-        }
+        document.add(spec.seriesVisualization.pdfElement)
+        document.add(marginBlock)
 
-        document.add(createVolumeBlock())
+        document.add(spec.volumeTable.pdfElement)
         document.add(marginBlock)
         document.add(createConclusion())
 
         addFooter(document)
-        //placeLogo(document, pageWidth, pageHeight)
 
         document.close()
         return PdfDocumentInfo(pdf, resultStream)
@@ -71,30 +64,9 @@ class MsPdfReportCreator(private val spec: MsPdfReportSpec) {
         val black = DeviceGray(0f)
 
         canvas.setStrokeColor(black)
-
                 .moveTo(450.0, 30.0)
-
                 .lineTo(550.0, 30.0)
-
                 .closePathStroke()
-    }
-
-    private fun createVolumeBlock(): Table {
-        val table = Table(arrayOf(UnitValue.createPercentValue(50f), UnitValue.createPercentValue(50f)))
-        table.addText("Total volume")
-                .addText(spec.totalVolume.toString())
-                .addText("Active volume")
-                .addText(spec.activeVolume.toString())
-                .addText("Total volume grow rate")
-                .addText("%.2f".format(spec.totalVolumeDiffPercent) + "%")
-                .addText("Active volume grow rate")
-                .addText("%.2f".format(spec.activeVolumeDiffPercent) + "%")
-                .setTextAlignment(TextAlignment.CENTER)
-                .setFontSize(14f)
-                .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))
-                .setWidth(UnitValue.createPercentValue(100f))
-                .setMargins(0f, 5f, 0f, 5f)
-        return table
     }
 
     private fun createConclusion(): Paragraph {
@@ -104,19 +76,6 @@ class MsPdfReportCreator(private val spec: MsPdfReportSpec) {
                 .setMargins(0f, 5f, 0f, 5f)
         return result
     }
-
-    private fun createSeriesVisual(): IBlockElement {
-        val result = Paragraph()
-        for (image in spec.seriesVisualization!!)
-            result.addImg(image) { img ->
-                img
-                        //.setWidth(UnitValue.createPercentValue(100f / spec.seriesVisualization.size))
-                        .setMargins(0f, 5f, 0f, 5f)
-            }
-
-        return result.setBackgroundColor(ColorConstants.BLACK).setTextAlignment(TextAlignment.CENTER)
-    }
-
 
     private fun createHeader(): Paragraph {
 
@@ -141,19 +100,7 @@ class MsPdfReportCreator(private val spec: MsPdfReportSpec) {
         return header
     }
 
-    private fun placeLogo(document: Document, pageWidth: Float, pageHeight: Float) {
-
-        val logo: Image = spec.companyImage.asPdfImage()
-        logo.setHorizontalAlignment(HorizontalAlignment.RIGHT)
-
-        logo.setFixedPosition(pageWidth - document.rightMargin - logo.width.value, pageHeight - document.topMargin - logo.imageScaledHeight)
-        document.add(logo)
-    }
-
     private fun createScansDesc(): Table {
-
-        if (spec.seriesDesc == null)
-            throw Exception("scans description must not be null")
 
         val result = Table(arrayOf(UnitValue.createPercentValue(30f), UnitValue.createPercentValue(70f)))
                 .setWidth(UnitValue.createPercentValue(100f))
@@ -212,17 +159,6 @@ class MsPdfReportCreator(private val spec: MsPdfReportSpec) {
         const val TITLE = "MS AI-supported report"
         var DEBUG_SHOW_BORDERS = false
     }
-}
-
-private fun Paragraph.addImg(image: BufferedImage, decorator: (Image) -> Unit = {}): Paragraph {
-    val stream = com.itextpdf.io.source.ByteArrayOutputStream()
-    ImageIO.write(image, "png", stream)
-
-    val pdfImage = Image(ImageDataFactory.create(stream.toByteArray()))
-    decorator(pdfImage)
-
-    this.add(pdfImage)
-    return this
 }
 
 private fun Table.addText(value: String, decorator: ((Cell) -> Unit) = { }): Table {

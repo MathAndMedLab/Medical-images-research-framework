@@ -1,5 +1,8 @@
 package pdfLayouts
 
+import com.mirf.core.common.VolumeValue
+import com.mirf.core.data.attribute.MirfAttributes
+import com.mirf.core.data.medimage.ImageSeries
 import com.mirf.core.data.medimage.getImageWithHighlightedSegmentation
 import com.mirf.features.ij.asImageSeries
 import com.mirf.features.nifti.util.Nifti1Reader
@@ -18,7 +21,14 @@ class MsPdfReportCreatorTest {
     fun checkLayout() {
         javaClass.getResource("/mask.nii") ?: return
 
-        val spec = generateLayoutTestSpec()
+        val (series, masks) = getSeriesAndMasks()
+        val builder = MsPdfReportSpecBuilder(PatientInfo("John Doe", "27"),
+                currentImageSeries = series,
+                currentMasks = masks,
+                prevVolumeInfo = MsVolumeInfo(totalVolume = VolumeValue.zero, activeVolume = VolumeValue.zero))
+
+        val spec = builder.build()
+
         val doc = MsPdfReportCreator(spec).createReport()
 
         val resultPath = Paths.get(javaClass.getResource("/").path.removePrefix("/").removeSuffix("\\"), "check_layout_result.pdf").toString()
@@ -31,40 +41,12 @@ class MsPdfReportCreatorTest {
         println("Done, file location - $resultPath")
     }
 
-    private fun generateLayoutTestSpec(): MsPdfReportSpec {
-        val images = getSeriesVisualization()
-        val desc = ComparedMsReportsDesc(
-            MsScanInfo(LocalDate.now().minusYears(1)),
-            MsScanInfo(LocalDate.now())
-        )
-
-        return MsPdfReportSpec.createMirfDefault("John Doe", "63.y.o", desc, images)
-    }
-
-    private fun getSeriesVisualization(): List<BufferedImage> {
+    private fun getSeriesAndMasks(): Pair<ImageSeries, ImageSeries> {
         val (seriesPath, masksPath) = getTestSeriesAndMask()
-        val masks = Nifti1Reader.read(masksPath).asImageSeries()
+        val masks = Nifti1Reader.read(masksPath).asImageSeries().also { it.attributes.add(MirfAttributes.THRESHOLDED.new(Unit)) }
+
         val series = Nifti1Reader.read(seriesPath).asImageSeries()
-        series.applyMask(masks)
-        return series.images.slice(listOf(284, 316, 366))
-                .map { x -> x.getImageWithHighlightedSegmentation() }
-                .map { cropImage(it, Rectangle(144, 350)) }
-                .map { resizeImg(it, 144, 250) }
-    }
-
-    private fun resizeImg(img: BufferedImage, newW: Int, newH: Int): BufferedImage {
-        val tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH)
-        val dimg = BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB)
-
-        val g2d = dimg.createGraphics()
-        g2d.drawImage(tmp, 0, 0, null)
-        g2d.dispose()
-
-        return dimg
-    }
-
-    private fun cropImage(src: BufferedImage, rect: Rectangle): BufferedImage {
-        return src.getSubimage(0, src.height / 4, rect.width, rect.height)
+        return Pair(series, masks)
     }
 
     private fun getTestSeriesAndMask(): Pair<String, String> {

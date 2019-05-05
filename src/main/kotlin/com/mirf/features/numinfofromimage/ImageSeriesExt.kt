@@ -19,7 +19,7 @@ fun ImageSeries.getVolume(): VolumeValue {
 
     var result = VolumeValue.zero
 
-    for ((i, image) in this.images.withIndex()) {
+    for (image in this.images) {
         val mask = image.toBicolor()
         val allPixelVolumes = mask.map2d { if (it) atomicVolume else VolumeValue.zero }
         result += allPixelVolumes.sum()
@@ -27,7 +27,7 @@ fun ImageSeries.getVolume(): VolumeValue {
     return result
 }
 
-private fun MedImage.toBicolor() : BooleanArray2D {
+private fun MedImage.toBicolor(): BooleanArray2D {
     return this.image!!.toBicolor()
 }
 
