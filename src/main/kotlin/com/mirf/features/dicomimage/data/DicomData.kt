@@ -13,12 +13,12 @@ import java.nio.ByteOrder
 import javax.imageio.stream.FileImageInputStream
 
 class DicomData : ImagingData<BufferedImage> {
-    private var dicomAttributeCollection: DicomAttributeCollection? = null
+    private var dicomAttributeCollection: DicomAttributeCollection
     private var bitsAllocated: Int = 0
-    private var byteArray: ByteArray? = null
-    private var shortArray: ShortArray? = null
-    private var intArray: IntArray? = null
-    private var cleanByteArrayPixelData: ByteArray? = null
+    private lateinit var byteArray: ByteArray
+    private lateinit var shortArray: ShortArray
+    private lateinit var intArray: IntArray
+    private lateinit var cleanByteArrayPixelData: ByteArray
 
 
     constructor(dicomAttributeCollection: DicomAttributeCollection) {
@@ -34,29 +34,19 @@ class DicomData : ImagingData<BufferedImage> {
 
         if (bitsAllocated == 8) {
             byteArray = cleanByteArrayPixelData
-            shortArray = byteArrayToShortArray(byteArray!!)
-            intArray = byteArrayToIntArray(byteArray!!)
+            shortArray = byteArrayToShortArray(byteArray)
+            intArray = byteArrayToIntArray(byteArray)
         }
 
         else if (bitsAllocated == 16) {
-            shortArray = cleanByteArrayPixelDataToShortArray(cleanByteArrayPixelData!!)
-            byteArray = shortArrayToByteArray(shortArray!!)
-            intArray = shortArrayToIntArray(shortArray!!)
+            shortArray = cleanByteArrayPixelDataToShortArray(cleanByteArrayPixelData)
+            byteArray = shortArrayToByteArray(shortArray)
+            intArray = shortArrayToIntArray(shortArray)
         }
 
         else if (bitsAllocated == 32) {
-            intArray = cleanByteArrayPixelDataToIntArray(cleanByteArrayPixelData!!)
-            byteArray = intArrayToByteArray(intArray!!)
-            shortArray = intArrayToShortArray(intArray!!)
+            intArray = cleanByteArrayPixelDataToIntArray(cleanByteArrayPixelData)
         }
-    }
-
-    private fun intArrayToShortArray(intArray: IntArray): ShortArray? {
-        return null
-    }
-
-    private fun intArrayToByteArray(intArray: IntArray): ByteArray? {
-        return null
     }
 
     private fun cleanByteArrayPixelDataToIntArray(cleanByteArrayPixelData: ByteArray): IntArray {
@@ -90,14 +80,14 @@ class DicomData : ImagingData<BufferedImage> {
     }
 
     private fun shortArrayToByteArray(shortArray: ShortArray): ByteArray {
-        val m : Double = 255.0 / Integer.parseInt(dicomAttributeCollection!!.getAttributeValue(TagFromName.WindowWidth))
-        val x1 : Int = Integer.parseInt(dicomAttributeCollection!!.getAttributeValue(TagFromName.WindowCenter)) -
-                Integer.parseInt(dicomAttributeCollection!!.getAttributeValue(TagFromName.WindowCenter)) / 2
+        val m : Double = 255.0 / Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.WindowWidth))
+        val x1 : Int = Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.WindowCenter)) -
+                Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.WindowCenter)) / 2
         val b : Int = (- (m * x1)).toInt()
 
         val lut: HashMap<Short, Byte> = HashMap()
-        val min : Int = Integer.parseInt(dicomAttributeCollection!!.getAttributeValue(TagFromName.SmallestImagePixelValue))
-        val max : Int = Integer.parseInt(dicomAttributeCollection!!.getAttributeValue(TagFromName.LargestImagePixelValue))
+        val min : Int = Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.SmallestImagePixelValue))
+        val max : Int = Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.LargestImagePixelValue))
         var j: Int = min
         while (j <= max) {
             var temp = ((m * j) + b).toInt()
@@ -151,8 +141,8 @@ class DicomData : ImagingData<BufferedImage> {
 
     private fun convertDirtyByteArrayToCleanByteArray(dirtyByteArrayPixelData: ByteArray) {
         cleanByteArrayPixelData = ByteArray(dirtyByteArrayPixelData.size - 144)
-        for (i in cleanByteArrayPixelData!!.indices) {
-            cleanByteArrayPixelData!![i] = dirtyByteArrayPixelData[i + 144]
+        for (i in cleanByteArrayPixelData.indices) {
+            cleanByteArrayPixelData[i] = dirtyByteArrayPixelData[i + 144]
         }
     }
 
@@ -166,15 +156,15 @@ class DicomData : ImagingData<BufferedImage> {
     }
 
     private fun pixelDataWriteToFile() {
-        val pixelData = dicomAttributeCollection?.getAttributePixelData()
+        val pixelData = dicomAttributeCollection.getAttributePixelData()
         val outputStream = FileOutputStream(File("src/main/resources/pixeldata.txt"))
-        val transferSyntaxUID = dicomAttributeCollection?.getAttributeValue(TagFromName.TransactionUID)
+        val transferSyntaxUID = dicomAttributeCollection.getAttributeValue(TagFromName.TransactionUID)
         val dicomOutputStream = DicomOutputStream(outputStream, "", transferSyntaxUID)
-        pixelData?.write(dicomOutputStream)
+        pixelData.write(dicomOutputStream)
     }
 
     override fun getImage(): BufferedImage {
-        return dicomAttributeCollection!!.buildHumanReadableImage()
+        return dicomAttributeCollection.buildHumanReadableImage()
     }
 
     override fun getImageDataAsShortArray(): ShortArray {
@@ -186,15 +176,15 @@ class DicomData : ImagingData<BufferedImage> {
     override fun getImageDataAsByteArray(): ByteArray {
         if(bitsAllocated == 32)
             throw DicomDataException("Can't get byteArray because bits allocated = 32")
-        return byteArray!!
+        return byteArray
     }
 
     override fun getImageDataAsIntArray(): IntArray {
-        return intArray!!
+        return intArray
     }
 
     override fun copy(): ImagingData<BufferedImage> {
-        return DicomData(dicomAttributeCollection!!.clone())
+        return DicomData(dicomAttributeCollection.clone())
     }
 
     override fun applyMask(mask: BooleanArray2D) {
@@ -202,7 +192,7 @@ class DicomData : ImagingData<BufferedImage> {
     }
 
     override val width: Int
-        get() = dicomAttributeCollection!!.buildHumanReadableImage().width
+        get() = dicomAttributeCollection.buildHumanReadableImage().width
     override val height: Int
-        get() = dicomAttributeCollection!!.buildHumanReadableImage().height
+        get() = dicomAttributeCollection.buildHumanReadableImage().height
 }
