@@ -16,6 +16,7 @@ import javax.imageio.stream.FileImageInputStream
  * Realize ImageData on dicom
  */
 class DicomData(private var dicomAttributeCollection: DicomAttributeCollection) : ImagingData<BufferedImage> {
+
     private var bitsAllocated: Int = 0
     private lateinit var byteArray: ByteArray
     private lateinit var shortArray: ShortArray
@@ -32,9 +33,9 @@ class DicomData(private var dicomAttributeCollection: DicomAttributeCollection) 
      * Analise image and initialized byteArray, shortArray and IntArray
      */
     private fun analisePixelData() {
-        pixelDataWriteToFile()
-        val dirtyByteArrayPixelData: ByteArray = readPixelDataFileAndWriteToDirtyByteArray()
-        convertDirtyByteArrayToCleanByteArray(dirtyByteArrayPixelData)
+        val pixelData : PixelData = PixelData(dicomAttributeCollection,"src/main/resources/pixeldata.txt")
+        pixelData.writeToFile()
+        cleanByteArrayPixelData = pixelData.getByteArray()
 
         when (bitsAllocated) {
             8 -> {
@@ -44,69 +45,11 @@ class DicomData(private var dicomAttributeCollection: DicomAttributeCollection) 
             }
             16 -> {
                 shortArray = cleanByteArrayPixelDataToShortArray(cleanByteArrayPixelData)
-                byteArray = shortArrayToByteArray(shortArray)
+                byteArray = shortArrayToByteArray(shortArray, dicomAttributeCollection)
                 intArray = shortArrayToIntArray(shortArray)
             }
             32 -> intArray = cleanByteArrayPixelDataToIntArray(cleanByteArrayPixelData)
         }
-    }
-
-    /**
-     * Convert byte array image with preamble to image byte array image
-     */
-    private fun convertDirtyByteArrayToCleanByteArray(dirtyByteArrayPixelData: ByteArray) {
-        cleanByteArrayPixelData = ByteArray(dirtyByteArrayPixelData.size - 144)
-        for (i in cleanByteArrayPixelData.indices) {
-            cleanByteArrayPixelData[i] = dirtyByteArrayPixelData[i + 144]
-        }
-    }
-
-    /**
-     * Convert short array to byte array use "grayscale standard display function"
-     */
-    private fun shortArrayToByteArray(shortArray: ShortArray): ByteArray {
-        val m : Double = 255.0 / Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.WindowWidth))
-        val x1 : Int = Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.WindowCenter)) -
-                Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.WindowCenter)) / 2
-        val b : Int = (- (m * x1)).toInt()
-
-        val lut: HashMap<Short, Byte> = HashMap()
-        val min : Int = Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.SmallestImagePixelValue))
-        val max : Int = Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.LargestImagePixelValue))
-        var j: Int = min
-        while (j <= max) {
-            var temp = ((m * j) + b).toInt()
-            if(temp > 127) temp = 127
-            else if (temp < -128) temp = -128
-            lut[j.toShort()] = temp.toByte()
-            j++
-        }
-        val byteArray = ByteArray(shortArray.size)
-        for (i in shortArray.indices) {
-            byteArray[i] = lut[shortArray[i]] as Byte;
-        }
-
-        return byteArray
-    }
-
-    /**
-     * Read image and write to byte array image with preamble
-     */
-    private fun readPixelDataFileAndWriteToDirtyByteArray(): ByteArray {
-        val file = File("src/main/resources/pixeldata.txt")
-        val imageInputStream = FileImageInputStream(file)
-        val dirtyByteArrayPixelData = ByteArray(file.length().toInt())
-        imageInputStream.read(dirtyByteArrayPixelData)
-        imageInputStream.close()
-        return dirtyByteArrayPixelData
-    }
-
-    private fun pixelDataWriteToFile() {
-        val pixelData = dicomAttributeCollection.getAttributePixelData()
-        val outputStream = FileOutputStream(File("src/main/resources/pixeldata.txt"))
-        val transferSyntaxUID = dicomAttributeCollection.getAttributeValue(TagFromName.TransactionUID)
-        val dicomOutputStream = DicomOutputStream(outputStream, "", transferSyntaxUID)
-        pixelData.write(dicomOutputStream)
     }
 
     /**

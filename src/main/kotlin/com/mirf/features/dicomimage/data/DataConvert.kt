@@ -1,4 +1,5 @@
 package com.mirf.features.dicomimage.data
+import com.pixelmed.dicom.TagFromName
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
@@ -89,3 +90,31 @@ fun byteArrayToIntArray(byteArray: ByteArray) : IntArray {
     return intArray
 }
 
+/**
+ * Convert short array to byte array use "grayscale standard display function"
+ */
+fun shortArrayToByteArray(shortArray: ShortArray, dicomAttributeCollection : DicomAttributeCollection): ByteArray {
+    val m : Double = 255.0 / Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.WindowWidth))
+    val x1 : Int = Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.WindowCenter)) -
+            Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.WindowCenter)) / 2
+    val b : Int = (- (m * x1)).toInt()
+
+    val lut: HashMap<Short, Byte> = HashMap()
+    val min : Int = Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.SmallestImagePixelValue))
+    val max : Int = Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.LargestImagePixelValue))
+    var j: Int = min
+    while (j <= max) {
+        var temp = ((m * j) + b).toInt()
+        if(temp > 127) temp = 127
+        else if (temp < -128) temp = -128
+        lut[j.toShort()] = temp.toByte()
+        j++
+    }
+    val byteArray = ByteArray(shortArray.size)
+    for (i in shortArray.indices) {
+        val byte = lut[shortArray[i]] as Byte
+        byteArray[i] = byte;
+    }
+
+    return byteArray
+}
