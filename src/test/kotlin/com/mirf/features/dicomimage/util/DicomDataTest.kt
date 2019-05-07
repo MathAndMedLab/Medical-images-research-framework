@@ -6,9 +6,6 @@ import com.pixelmed.dicom.TagFromName
 import org.junit.Assert
 import org.junit.Test
 
-/**
- * DicomData test
- */
 class DicomDataTest {
 
     /**

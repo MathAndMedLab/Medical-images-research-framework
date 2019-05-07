@@ -13,7 +13,7 @@ import java.nio.ByteOrder
 import javax.imageio.stream.FileImageInputStream
 
 /**
- * Realize ImageData on dicom
+ * Realize interface ImageData on dicom image format
  */
 class DicomData(private var dicomAttributeCollection: DicomAttributeCollection) : ImagingData<BufferedImage> {
     private var bitsAllocated: Int = 0
@@ -185,6 +185,9 @@ class DicomData(private var dicomAttributeCollection: DicomAttributeCollection) 
         return dirtyByteArrayPixelData
     }
 
+    /**
+     * PixelData write to support file
+     */
     private fun pixelDataWriteToFile() {
         val pixelData = dicomAttributeCollection.getAttributePixelData()
         val outputStream = FileOutputStream(File("src/main/resources/pixeldata.txt"))
