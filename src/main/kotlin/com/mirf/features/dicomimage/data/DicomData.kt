@@ -12,8 +12,10 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import javax.imageio.stream.FileImageInputStream
 
-class DicomData : ImagingData<BufferedImage> {
-    private var dicomAttributeCollection: DicomAttributeCollection
+/**
+ * Realize ImageData on dicom
+ */
+class DicomData(private var dicomAttributeCollection: DicomAttributeCollection) : ImagingData<BufferedImage> {
     private var bitsAllocated: Int = 0
     private lateinit var byteArray: ByteArray
     private lateinit var shortArray: ShortArray
@@ -21,16 +23,18 @@ class DicomData : ImagingData<BufferedImage> {
     private lateinit var cleanByteArrayPixelData: ByteArray
 
 
-    constructor(dicomAttributeCollection: DicomAttributeCollection) {
-        this.dicomAttributeCollection = dicomAttributeCollection
+    init {
         bitsAllocated = Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.BitsAllocated))
         analisePixelData()
     }
 
+    /**
+     * Analise image and initialized byteArray, shortArray and IntArray
+     */
     private fun analisePixelData() {
         pixelDataWriteToFile()
-        var dirtyByteArrayPixelData: ByteArray? = readPixelDataFileAndWriteToDirtyByteArray()
-        convertDirtyByteArrayToCleanByteArray(dirtyByteArrayPixelData!!)
+        val dirtyByteArrayPixelData: ByteArray = readPixelDataFileAndWriteToDirtyByteArray()
+        convertDirtyByteArrayToCleanByteArray(dirtyByteArrayPixelData)
 
         if (bitsAllocated == 8) {
             byteArray = cleanByteArrayPixelData
@@ -49,6 +53,9 @@ class DicomData : ImagingData<BufferedImage> {
         }
     }
 
+    /**
+     * Convert image data from file to int array
+     */
     private fun cleanByteArrayPixelDataToIntArray(cleanByteArrayPixelData: ByteArray): IntArray {
         val intArray = IntArray(cleanByteArrayPixelData.size / 4)
         var j = 0
@@ -66,11 +73,16 @@ class DicomData : ImagingData<BufferedImage> {
         return intArray
     }
 
+    /**
+     * Convert byte array to int value
+     */
     private fun bytesToInt(bytes: ByteArray): Int {
         return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).int
     }
 
-
+    /**
+     * Convert short array to int array
+     */
     private fun shortArrayToIntArray(shortArray: ShortArray): IntArray {
         val intArray = IntArray(shortArray.size)
         for (i in intArray.indices) {
@@ -78,7 +90,9 @@ class DicomData : ImagingData<BufferedImage> {
         }
         return intArray
     }
-
+    /**
+     * Convert short array to byte array use "grayscale standard display function"
+     */
     private fun shortArrayToByteArray(shortArray: ShortArray): ByteArray {
         val m : Double = 255.0 / Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.WindowWidth))
         val x1 : Int = Integer.parseInt(dicomAttributeCollection.getAttributeValue(TagFromName.WindowCenter)) -
@@ -98,12 +112,15 @@ class DicomData : ImagingData<BufferedImage> {
         }
         val byteArray = ByteArray(shortArray.size)
         for (i in shortArray.indices) {
-            byteArray[i] = lut[shortArray[i]]!!
+            byteArray[i] = lut[shortArray[i]] as Byte;
         }
 
         return byteArray
     }
 
+    /**
+     * Convert image data from file to int array
+     */
     private fun cleanByteArrayPixelDataToShortArray(cleanByteArray : ByteArray): ShortArray {
         val shortArray = ShortArray(cleanByteArray.size / 2)
         var j = 0
@@ -119,10 +136,16 @@ class DicomData : ImagingData<BufferedImage> {
         return shortArray
     }
 
+    /**
+     * Convert byte array to short value
+     */
     private fun bytesToShort(bytes: ByteArray): Short {
         return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).short
     }
 
+    /**
+     * Convert byte array to int array
+     */
     private fun byteArrayToIntArray(byteArray: ByteArray) : IntArray {
         val intArray = IntArray(byteArray.size)
         for (i in intArray.indices) {
@@ -131,6 +154,9 @@ class DicomData : ImagingData<BufferedImage> {
         return intArray
     }
 
+    /**
+     * Convert byte array to short array
+     */
     private fun byteArrayToShortArray(byteArray: ByteArray) : ShortArray {
         val shortArray = ShortArray(byteArray.size)
         for (i in shortArray.indices) {
@@ -139,6 +165,9 @@ class DicomData : ImagingData<BufferedImage> {
         return shortArray
     }
 
+    /**
+     * Convert byte array image with preamble to image byte array image
+     */
     private fun convertDirtyByteArrayToCleanByteArray(dirtyByteArrayPixelData: ByteArray) {
         cleanByteArrayPixelData = ByteArray(dirtyByteArrayPixelData.size - 144)
         for (i in cleanByteArrayPixelData.indices) {
@@ -146,15 +175,21 @@ class DicomData : ImagingData<BufferedImage> {
         }
     }
 
+    /**
+     * Read image and write to byte array image with preamble
+     */
     private fun readPixelDataFileAndWriteToDirtyByteArray(): ByteArray {
         val file = File("src/main/resources/pixeldata.txt")
         val imageInputStream = FileImageInputStream(file)
-        var dirtyByteArrayPixelData = ByteArray(file.length().toInt())
+        val dirtyByteArrayPixelData = ByteArray(file.length().toInt())
         imageInputStream.read(dirtyByteArrayPixelData)
         imageInputStream.close()
-        return dirtyByteArrayPixelData!!
+        return dirtyByteArrayPixelData
     }
 
+    /**
+    * Image write to support file
+    */
     private fun pixelDataWriteToFile() {
         val pixelData = dicomAttributeCollection.getAttributePixelData()
         val outputStream = FileOutputStream(File("src/main/resources/pixeldata.txt"))
@@ -163,22 +198,34 @@ class DicomData : ImagingData<BufferedImage> {
         pixelData.write(dicomOutputStream)
     }
 
+    /**
+     * Get dicom image in the view BufferedImage
+     */
     override fun getImage(): BufferedImage {
         return dicomAttributeCollection.buildHumanReadableImage()
     }
 
+    /**
+     * Get dicom image in the view ShortArray
+     */
     override fun getImageDataAsShortArray(): ShortArray {
         if(bitsAllocated == 32)
             throw DicomDataException("Can't get shortArray because bits allocated = 32")
-        return shortArray!!
+        return shortArray
     }
 
+    /**
+     * Get dicom image in the view ByteArray
+     */
     override fun getImageDataAsByteArray(): ByteArray {
         if(bitsAllocated == 32)
             throw DicomDataException("Can't get byteArray because bits allocated = 32")
         return byteArray
     }
 
+    /**
+     * Get dicom image in the view IntArray
+     */
     override fun getImageDataAsIntArray(): IntArray {
         return intArray
     }

@@ -5,8 +5,14 @@ import com.pixelmed.dicom.TagFromName
 import org.junit.Assert
 import org.junit.Test
 
-
+/**
+ * DicomData test
+ */
 class DicomDataTest {
+
+    /**
+     * Test dicom with 8 bits allocated
+     */
     @Test
     fun testDicomData_vs_result_PixelMed_8BitsAllocated() {
         val dicomInputFile = "src/test/resources/dicomDataTest/8bitsAllocatedExample.DCM"
@@ -15,8 +21,8 @@ class DicomDataTest {
 
         val dicomData : DicomData = DicomData(dicomAttributeCollection)
 
-        var byteArrayPixelMed: ByteArray = list.pixelData.byteValues
-        var byteArrayDicomData: ByteArray = dicomData.getImageDataAsByteArray()
+        val byteArrayPixelMed: ByteArray = list.pixelData.byteValues
+        val byteArrayDicomData: ByteArray = dicomData.getImageDataAsByteArray()
 
         Assert.assertEquals(byteArrayPixelMed.size, byteArrayDicomData.size)
         Assert.assertArrayEquals(byteArrayPixelMed, byteArrayDicomData)
@@ -35,6 +41,9 @@ class DicomDataTest {
         Assert.assertNotNull(dicomData.getImageDataAsIntArray())
     }
 
+    /**
+     * Test dicom with 16 bits allocated
+     */
     @Test
     fun testDicomData_vs_result_PixelMed_16BitsAllocated() {
         val dicomInputFile = "src/test/resources/dicomDataTest/16bitsAllocatedExample.dcm"
@@ -43,8 +52,8 @@ class DicomDataTest {
 
         val dicomData : DicomData = DicomData(dicomAttributeCollection)
 
-        var shortArrayPixelMed: ShortArray = list.pixelData.shortValues
-        var shortArrayDicomData: ShortArray = dicomData.getImageDataAsShortArray()
+        val shortArrayPixelMed: ShortArray = list.pixelData.shortValues
+        val shortArrayDicomData: ShortArray = dicomData.getImageDataAsShortArray()
 
         Assert.assertEquals(shortArrayPixelMed.size,  shortArrayDicomData.size)
         Assert.assertArrayEquals(shortArrayPixelMed,shortArrayDicomData)
@@ -54,7 +63,10 @@ class DicomDataTest {
         } catch (e : Exception) {
             thrown = true
         }
+
+        Assert.assertTrue(thrown)
         Assert.assertNotNull(dicomData.getImageDataAsByteArray())
+        Assert.assertNotNull(dicomData.getImageDataAsIntArray())
     }
 
 }
