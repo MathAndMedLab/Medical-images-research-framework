@@ -1,6 +1,7 @@
 package com.mirf.features.dicomimage.util
 import com.mirf.features.dicomimage.data.DicomAttributeCollection
 import com.mirf.features.dicomimage.data.DicomData
+import com.pixelmed.dicom.DicomException
 import com.pixelmed.dicom.TagFromName
 import org.junit.Assert
 import org.junit.Test
@@ -31,7 +32,7 @@ class DicomDataTest {
         var thrown = false
         try {
             list.pixelData.shortValues
-        } catch (e : Exception) {
+        } catch (e : DicomException) {
             thrown = true
         }
 
@@ -60,7 +61,7 @@ class DicomDataTest {
         var thrown = false
         try {
             list.pixelData.byteValues
-        } catch (e : Exception) {
+        } catch (e : DicomException) {
             thrown = true
         }
 
