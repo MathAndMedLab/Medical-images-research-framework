@@ -30,11 +30,11 @@ class ShortImagingData(
         return rawPixels.to1D()
     }
 
-    override fun getImageDataAsByteArray(): ShortArray {
+    override fun getImageDataAsByteArray(): ByteArray {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getImageDataAsIntArray(): ShortArray {
+    override fun getImageDataAsIntArray(): IntArray {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
