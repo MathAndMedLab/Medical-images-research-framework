@@ -6,6 +6,12 @@ import pdfLayouts.BrainPdfReportCreator
 import pdfLayouts.BrainPdfReportSpecBuilder
 import pdfLayouts.PatientInfo
 
+/**
+ * ReportBuilderBlock is a MIRF PipelineBlock for report generation of the segmentation example.
+ * It gathers together all the information about the masks and generates a pdf report based on this data
+ *
+ * It has 4 listeners from pipeline execution that must pass in the data: wholeMasks, coreMasks, edemaMasks and baseImage.
+ */
 class ReportBuilderBlock(val patientInfo: PatientInfo,
                          pipelineKeeper: PipelineKeeper) : PipelineBlock<ImageSeries, FileData>("pdfCreator", pipelineKeeper) {
 

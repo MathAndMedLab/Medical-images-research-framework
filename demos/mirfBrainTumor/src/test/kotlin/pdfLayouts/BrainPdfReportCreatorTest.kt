@@ -34,7 +34,7 @@ class BrainPdfReportCreatorTest {
     private fun generateLayoutTestSpec(): BrainPdfReportSpec {
         val images = getSeriesVisualization()
         val desc = BrainReportsDesc(
-            BrainScanInfo(LocalDate.now())
+                BrainScanInfo(LocalDate.now())
         )
 
         return BrainPdfReportSpec.createMirfDefault("John Doe", "63.y.o", desc, images)

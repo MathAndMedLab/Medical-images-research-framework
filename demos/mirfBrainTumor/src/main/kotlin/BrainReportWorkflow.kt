@@ -16,6 +16,16 @@ import pdfLayouts.PatientInfo
 import java.nio.file.Paths
 import java.time.LocalDateTime
 
+/*
+ * BrainReportWorkflow stores the main MIRF Pipeline for Brain Tumor Segmentation Example.
+ *
+ * @param dataPath is the directory path, where the T1, T1ce, T2 and flair images are stored.
+ * @param coreImagePath is the path to the image that is gonna be used in the final report.
+ * The masks would be applies to the coreImage.
+ * @param workindDir is the directory path, where final report would be saved.
+ * @param patientInf stores the information about patient (e.g. age, name) that is gonna be added to the report.
+ *
+ */
 class BrainReportWorkflow(
         private val dataPath: String,
         private val coreImagePath: String,
@@ -34,24 +44,26 @@ class BrainReportWorkflow(
         val imageReader = AlgorithmHostBlock<Data, ImageSeries>(
                 {
                     val imgs = Nifti1Reader.read(coreImagePath).asImageSeries()
-                imgs.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
-                return@AlgorithmHostBlock imgs},
-            pipelineKeeper = pipe,
-            name = "T1 reader"
+                    imgs.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
+                    return@AlgorithmHostBlock imgs
+                },
+                pipelineKeeper = pipe,
+                name = "T1 reader"
         )
+
+        val segmentationBlock = SegmentationBlock(rootFolder = dataPath, pipelineKeeper = pipe)
+
         val wholeMaskReader = AlgorithmHostBlock<Data, ImageSeries>(
                 {
                     val masks = Nifti1Reader.read(
                             segmentationClassPath + "segmentation_wh.nii.gz")
                             .asImageSeries()
-                masks.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
-                return@AlgorithmHostBlock masks
-            },
-            pipelineKeeper = pipe,
-            name = "Whole masks reader"
+                    masks.attributes.add(MirfAttributes.THRESHOLDED.new(Switch.get()))
+                    return@AlgorithmHostBlock masks
+                },
+                pipelineKeeper = pipe,
+                name = "Whole masks reader"
         )
-
-        val segmentationBlock = SegmentationBlock(rootFolder = dataPath, pipelineKeeper = pipe)
 
         val coreMaskReader = AlgorithmHostBlock<Data, ImageSeries>(
                 {
@@ -78,13 +90,13 @@ class BrainReportWorkflow(
         )
 
         val reportBuilderBlock = ReportBuilderBlock(
-            patientInfo = patientInfo,
-            pipelineKeeper = pipe
+                patientInfo = patientInfo,
+                pipelineKeeper = pipe
         )
 
         val reportSaverBlock = RepositoryAccessorBlock<FileData, Data>(
-            pipe.repositoryCommander,
-            RepoFileSaver(), ""
+                pipe.repositoryCommander,
+                RepoFileSaver(), ""
         )
 
         reportBuilderBlock.setMasks(wholeMaskReader)
@@ -104,7 +116,7 @@ class BrainReportWorkflow(
     }
 
     fun exec() {
-       pipe.run(MirfData.empty)
+        pipe.run(MirfData.empty)
     }
 
 }

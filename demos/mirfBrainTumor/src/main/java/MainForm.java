@@ -1,5 +1,11 @@
+import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
 import com.mirf.core.pipeline.PipelineSessionRecord;
 import kotlin.Unit;
+import org.icepdf.ri.common.ComponentKeyBinding;
+import org.icepdf.ri.common.SwingController;
+import org.icepdf.ri.common.SwingViewBuilder;
+import org.icepdf.ri.common.views.DocumentViewController;
+import org.icepdf.ri.common.views.DocumentViewControllerImpl;
 import org.jetbrains.annotations.Nullable;
 import pdfLayouts.PatientInfo;
 
@@ -7,65 +13,103 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.io.File;
 
-public class MainForm extends JFrame{
-    private JTextField urlField;
-    private JTextField t1Field;
+public class MainForm extends JFrame {
+    private JTextField folderField;
     private JTextField nameField;
     private JTextField AgeField;
-    private JTextField flairLink;
+    private JTextField mainImageField;
     private JButton generateButton;
-    private JButton chooseT1Button;
-    private JButton chooseFlairButton;
+    private JButton chooseFolder;
+    private JButton chooseMainImageButton;
     private JTextField workinDirField;
     private JButton chooseWorkinDirButton;
     private JPanel rootPanel;
     private JTable progress;
-
+    private SwingController controller;
 
     public MainForm() {
+        setTitle("Brain tumor report generation");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        add(rootPanel);
-        setTitle("Ms report generator");
-        setSize(700, 800);
-
-        createProgressTable();
+        JPanel flow = new JPanel(new BorderLayout());
+        addMenu(flow);
+        addPdfView(flow);
+        Container container = getContentPane();
+        container.add(flow, BorderLayout.PAGE_START);
 
         generateButton.addActionListener(e -> {
             BrainReportWorkflow workflow = new BrainReportWorkflow(
-                    "/Users/sabrina/Documents/GitHub/brats17/data/brats17/Brats17_2013_3_1",
-                    "/Users/sabrina/Documents/GitHub/brats17/data/brats17/Brats17_2013_3_1/Brats17_2013_3_1_t1.nii.gz",
-//                   t1Field.getText(), flairLink.getText(),
+//                    "/Users/sabrina/Documents/GitHub/brats17/data/brats17/Brats17_2013_3_1",
+//                    "/Users/sabrina/Documents/GitHub/brats17/data/brats17/Brats17_2013_3_1/Brats17_2013_3_1_t1.nii.gz",
+                    folderField.getText(), mainImageField.getText(),
                     workinDirField.getText(),
                     new PatientInfo(nameField.getText(), AgeField.getText()));
 
-            workflow.getPipe().getSession().getNewRecord().plusAssign(((x, a )-> addRecord(a)));
+            workflow.getPipe().getSession().getNewRecord().plusAssign(((x, a) -> addRecord(a)));
 
-            new Thread(workflow::exec).start();
-
+            System.out.println(workinDirField.getText());
+            new Thread(new Runnable() {
+                public void run() {
+                    workflow.exec();
+                    updatePdf();
+                }
+            }).start();
         });
 
-        chooseT1Button.addActionListener(e -> {
-            String path = getNiiSeriesFromFileChooser();
+        chooseFolder.addActionListener(e -> {
+            String path = getDirectoryFromFileChooser();
 
-            if(path != null)
-                t1Field.setText(path);
+            if (path != null)
+                folderField.setText(path);
         });
 
-        chooseFlairButton.addActionListener(e -> {
+        chooseMainImageButton.addActionListener(e -> {
             String path = getNiiSeriesFromFileChooser();
 
-            if(path != null)
-                flairLink.setText(path);
+            if (path != null)
+                mainImageField.setText(path);
         });
 
         chooseWorkinDirButton.addActionListener(e -> {
             String path = getDirectoryFromFileChooser();
 
-            if(path != null)
+            if (path != null)
                 workinDirField.setText(path);
         });
+
+        // show the component
+        pack();
+        setVisible(true);
+    }
+
+    private void addMenu(JPanel flow) {
+        JPanel menu = new JPanel(new FlowLayout());
+        menu.add(rootPanel);
+        createProgressTable();
+        flow.add(menu, BorderLayout.NORTH);
+    }
+
+    private void addPdfView(JPanel flow) {
+        controller = new SwingController();
+        SwingViewBuilder factory = new SwingViewBuilder(controller);
+        controller.setIsEmbeddedComponent(true);
+        JPanel pdf = factory.buildViewerPanel();
+        ComponentKeyBinding.install(controller, pdf);
+        controller.getDocumentViewController().setAnnotationCallback(
+                new org.icepdf.ri.common.MyAnnotationCallback(
+                        controller.getDocumentViewController()));
+        flow.add(pdf, BorderLayout.CENTER);
+
+        controller.setPageViewMode(
+                DocumentViewControllerImpl.ONE_PAGE_VIEW,
+                false);
+    }
+
+    private void updatePdf() {
+        controller.openDocument(workinDirField.getText() + "/report.pdf");
     }
 
     private void createProgressTable() {
@@ -79,16 +123,20 @@ public class MainForm extends JFrame{
     }
 
 
-
     private String getNiiSeriesFromFileChooser() {
-        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        JFileChooser jfc;
+        if (mainImageField.getText() != null) {
+            jfc = new JFileChooser(FileSystemView.getFileSystemView().createFileObject(folderField.getText()));
+        } else {
+            jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        }
         FileNameExtensionFilter filter = new FileNameExtensionFilter("NIFTI series", "nii");
         jfc.addChoosableFileFilter(filter);
 
         return getStringFromFileChooser(jfc);
     }
 
-    private String getDirectoryFromFileChooser(){
+    private String getDirectoryFromFileChooser() {
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
