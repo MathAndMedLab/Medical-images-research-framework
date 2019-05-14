@@ -48,14 +48,18 @@ class BitmapRawImage : RawImageData, Data {
         resized!!.getPixels(bitBuff, 0, resizedWidth, 0, 0, resizedWidth, resizedHeight);
         for (i in 0..resizedHeight - 1) {
             for (j in 0..resizedWidth - 1) {
-                rIndex = i * resizedWidth + j
-                gIndex = rIndex + bitmapSize
-                bIndex = gIndex + bitmapSize
+                if (k >= bitmapSize - 1) {
+                    break
+                }
+                rIndex = k * 3
+                gIndex = rIndex + 1
+                bIndex = gIndex + 2
 
-                var color = bitBuff[k++];
+                var color = bitBuff[k]
                 buff[rIndex] = (Color.red(color)).toFloat()
                 buff[gIndex] = (Color.green(color)).toFloat()
                 buff[bIndex] = (Color.blue(color)).toFloat()
+                k++
             }
         }
 

@@ -1,6 +1,5 @@
 package com.example.mirfskincancer
 
-import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu
@@ -22,75 +21,75 @@ import kotlin.math.roundToInt
 import org.tensorflow.Graph
 import org.tensorflow.contrib.android.TensorFlowInferenceInterface;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.view.View;
+import android.widget.TextView;
+import android.view.View.OnClickListener;
+
 class MainActivity : AppCompatActivity() {
-    // TODO: think of a way to implement accumulator for different types of data
-    // TODO: make a clear demo with activities and good code
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        val modelName = "skin_cancer_model.pb"
-        val tensorflowModel = TensorflowModel(
-            getAssets(), modelName, "conv2d_1_input_1", "activation_5_1/Sigmoid", 1, 1
-        )
-        val graph: Graph = tensorflowModel.inferenceInterface!!.graph()
-        graph.operations().forEach {
-            println(it.name())
-        }
-        val pipe = Pipeline("Detect moles")
-        var picName = "test.png"
-        val assetsBlock = AlgorithmHostBlock<Data, AssetsData>(
-            { AssetsData(getAssets()) },
-            pipelineKeeper = pipe
-        )
-        val imageReader = AlgorithmHostBlock<AssetsData, BitmapRawImage>(
-            { BitmapRawImage(it.openImageInAssets(picName)) },
-            pipelineKeeper = pipe
-        )
-        val tensorflowModelRunner = AlgorithmHostBlock<BitmapRawImage, ParametrizedData<Int>>(
-            {
-                ParametrizedData<Int>(
-                    tensorflowModel.runModel(
+        val button = findViewById(R.id.btnRunPipe) as Button
+        val image = findViewById(R.id.imageView1) as ImageView
+        val text = findViewById(R.id.resText) as TextView;
+
+        button.setOnClickListener {
+            val modelName = "skin_cancer_model.pb"
+            val tensorflowModel = TensorflowModel(
+                    getAssets(), modelName, "conv2d_1_input_1", "activation_5_1/Sigmoid", 1, 1
+            )
+            val pipe = Pipeline("Detect moles")
+            var picName = "test.png"
+            val assetsBlock = AlgorithmHostBlock<Data, AssetsData>(
+                    { AssetsData(getAssets()) },
+                    pipelineKeeper = pipe
+            )
+            val imageReader = AlgorithmHostBlock<AssetsData, BitmapRawImage>(
+                    {
+                        val rawImg = it.openImageInAssets(picName)
+                        val img = BitmapRawImage(rawImg)
+                        image.setImageBitmap(rawImg)
+                        return@AlgorithmHostBlock img
+                    },
+                    pipelineKeeper = pipe
+            )
+            val tensorflowModelRunner = AlgorithmHostBlock<BitmapRawImage, ParametrizedData<Int>>(
+                    {
+                        val res = tensorflowModel.runModel(
                         it.getFloatImageArray(128, 128),
                         1,
                         128,
                         128,
                         3
                     )[0].roundToInt()
-                )
-            },
-            pipelineKeeper = pipe
-        )
-        pipe.session.newRecord += { _, b -> println(b) }
+                        text.setText("The mole is " + formatResult(res))
+                        return@AlgorithmHostBlock ParametrizedData<Int>(res)
 
-        //run
-        val root = PipeStarter()
-        root.dataReady += assetsBlock::inputReady
-        assetsBlock.dataReady += imageReader::inputReady
-        imageReader.dataReady += tensorflowModelRunner::inputReady
+                    },
+                    pipelineKeeper = pipe
+            )
+            //run
+            val root = PipeStarter()
+            root.dataReady += assetsBlock::inputReady
+            assetsBlock.dataReady += imageReader::inputReady
+            imageReader.dataReady += tensorflowModelRunner::inputReady
 
-        pipe.rootBlock = root
-        pipe.run(MirfData.empty)
+            pipe.rootBlock = root
+            pipe.run(MirfData.empty)
+        }
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+    }
+
+    private fun formatResult(res: Int): String {
+        if (res == 1) {
+            return "malignant"
+        } else {
+            return "benign"
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 }

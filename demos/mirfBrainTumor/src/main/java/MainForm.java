@@ -1,10 +1,8 @@
-import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
 import com.mirf.core.pipeline.PipelineSessionRecord;
 import kotlin.Unit;
 import org.icepdf.ri.common.ComponentKeyBinding;
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
-import org.icepdf.ri.common.views.DocumentViewController;
 import org.icepdf.ri.common.views.DocumentViewControllerImpl;
 import org.jetbrains.annotations.Nullable;
 import pdfLayouts.PatientInfo;
@@ -42,8 +40,6 @@ public class MainForm extends JFrame {
 
         generateButton.addActionListener(e -> {
             BrainReportWorkflow workflow = new BrainReportWorkflow(
-//                    "/Users/sabrina/Documents/GitHub/brats17/data/brats17/Brats17_2013_3_1",
-//                    "/Users/sabrina/Documents/GitHub/brats17/data/brats17/Brats17_2013_3_1/Brats17_2013_3_1_t1.nii.gz",
                     folderField.getText(), mainImageField.getText(),
                     workinDirField.getText(),
                     new PatientInfo(nameField.getText(), AgeField.getText()));
