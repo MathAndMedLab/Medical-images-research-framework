@@ -1,16 +1,13 @@
 package com.mirf.features.dicomimage.data
 
 import com.mirf.core.array.BooleanArray2D
-
 import com.mirf.core.data.medimage.ImagingData
 import com.pixelmed.dicom.DicomOutputStream
 import com.pixelmed.dicom.TagFromName
 import java.awt.image.BufferedImage
-import java.io.File
-import java.io.FileOutputStream
+import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
-import javax.imageio.stream.FileImageInputStream
 
 /**
  * Realize interface ImageData on dicom image format
@@ -32,9 +29,8 @@ class DicomData(private var dicomAttributeCollection: DicomAttributeCollection) 
      * Analise image and initialized byteArray, shortArray and IntArray
      */
     private fun analisePixelData() {
-        pixelDataWriteToFile()
-        val dirtyByteArrayPixelData: ByteArray = readPixelDataFileAndWriteToDirtyByteArray()
-        convertDirtyByteArrayToCleanByteArray(dirtyByteArrayPixelData)
+        val pixelDataDirtyBytes = getPixelDataDirtyBytes()
+        convertDirtyByteArrayToCleanByteArray(pixelDataDirtyBytes)
 
         when (bitsAllocated) {
             8 -> {
@@ -110,7 +106,7 @@ class DicomData(private var dicomAttributeCollection: DicomAttributeCollection) 
         }
         val byteArray = ByteArray(shortArray.size)
         for (i in shortArray.indices) {
-            byteArray[i] = lut[shortArray[i]] as Byte;
+            byteArray[i] = lut[shortArray[i]] as Byte
         }
 
         return byteArray
@@ -174,26 +170,16 @@ class DicomData(private var dicomAttributeCollection: DicomAttributeCollection) 
     }
 
     /**
-     * Read image and write to byte array image with preamble
-     */
-    private fun readPixelDataFileAndWriteToDirtyByteArray(): ByteArray {
-        val file = File("src/main/resources/pixeldata.txt")
-        val imageInputStream = FileImageInputStream(file)
-        val dirtyByteArrayPixelData = ByteArray(file.length().toInt())
-        imageInputStream.read(dirtyByteArrayPixelData)
-        imageInputStream.close()
-        return dirtyByteArrayPixelData
-    }
-
-    /**
      * PixelData write to support file
      */
-    private fun pixelDataWriteToFile() {
+    private fun getPixelDataDirtyBytes(): ByteArray {
         val pixelData = dicomAttributeCollection.getAttributePixelData()
-        val outputStream = FileOutputStream(File("src/main/resources/pixeldata.txt"))
+        //val outputStream = FileOutputStream(File("src/main/resources/pixeldata.txt"))
+        val outputStream = ByteArrayOutputStream()
         val transferSyntaxUID = dicomAttributeCollection.getAttributeValue(TagFromName.TransactionUID)
         val dicomOutputStream = DicomOutputStream(outputStream, "", transferSyntaxUID)
         pixelData.write(dicomOutputStream)
+        return outputStream.toByteArray()
     }
 
     /**
