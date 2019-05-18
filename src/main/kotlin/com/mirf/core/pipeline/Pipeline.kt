@@ -20,11 +20,11 @@ class Pipeline(val name: String,
             return subCommanders[block]!!
 
         log.info("creating sub commander for ${block.name}")
-        val repo = repositoryCommander.createRepoCommanderFor(block)
+        val repo = repositoryCommander.createRepoCommanderForBlock(block)
         subCommanders[block] = repo
         log.info("sub commander created, $repo")
 
-        return repositoryCommander.createRepoCommanderFor(block)
+        return repo
     }
 
     private var _session: PipelineSession = PipelineSession()

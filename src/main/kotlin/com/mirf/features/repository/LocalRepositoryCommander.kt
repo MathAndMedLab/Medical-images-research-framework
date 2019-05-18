@@ -1,6 +1,8 @@
 package com.mirf.features.repository
 
 import com.mirf.core.log.MirfLogFactory
+import com.mirf.core.pipeline.Pipeline
+import com.mirf.core.pipeline.PipelineBlock
 import com.mirf.core.repository.LinkType
 import com.mirf.core.repository.RepositoryCommander
 import com.mirf.core.repository.RepositoryCommanderException
@@ -83,6 +85,15 @@ class LocalRepositoryCommander constructor(val workingDir: Path = Paths.get(""))
         return path
     }
 
+    fun createSubDir(prefix: String) : Path{
+
+        val path = workingDir.resolve(prefix + "_" + UUID.randomUUID().toString().replace(Regex("-.*"), ""))
+        Files.createDirectory(path)
+
+        tempFiles.add(path)
+        return path
+    }
+
     /**
      * Removes all temp directories and files from the file system.
      * If any of the file is in use, it will be skipped
@@ -100,6 +111,14 @@ class LocalRepositoryCommander constructor(val workingDir: Path = Paths.get(""))
 
         val commander = LocalRepositoryCommander(createSubDir())
         createdSubCommanders[entity] = commander
+
+        return commander
+    }
+
+    fun createRepoCommanderForBlock(block: PipelineBlock<*, *>): LocalRepositoryCommander {
+
+        val commander = LocalRepositoryCommander(createSubDir(block.name))
+        createdSubCommanders[block] = commander
 
         return commander
     }

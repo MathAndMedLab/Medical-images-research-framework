@@ -12,6 +12,4 @@ object Main {
             form.isVisible = true
         }
     }
-
-
 }

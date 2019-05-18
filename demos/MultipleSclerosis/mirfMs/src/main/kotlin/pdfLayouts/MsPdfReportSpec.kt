@@ -1,6 +1,8 @@
 package pdfLayouts
 
 import com.itextpdf.layout.element.IBlockElement
+import com.itextpdf.layout.element.Paragraph
+import com.itextpdf.layout.element.Table
 import com.mirf.core.common.VolumeValue
 import com.mirf.core.data.DataTable
 import com.mirf.features.reports.PdfElementData
@@ -13,8 +15,8 @@ data class MsPdfReportSpec(val companyImage: BufferedImage,
                            val patientName: String,
                            val patientAge: String,
                            val seriesDesc: ComparedMsReportsDesc,
-                           val seriesVisualization: PdfElementData,
-                           val volumeTable: PdfElementData,
+                           val seriesVisualization: Paragraph,
+                           val volumeTable: Table,
                            val totalVolume: VolumeValue,
                            val footerIncluded: Boolean) {
 
@@ -23,8 +25,8 @@ data class MsPdfReportSpec(val companyImage: BufferedImage,
         fun createMirfDefault(patientName: String,
                               patientAge: String = "no age info",
                               seriesDesc: ComparedMsReportsDesc,
-                              seriesVisualization: PdfElementData,
-                              volumeTable: PdfElementData,
+                              seriesVisualization: Paragraph,
+                              volumeTable: Table,
                               totalVolume: VolumeValue = VolumeValue.zero): MsPdfReportSpec {
             return MsPdfReportSpec(
                     getMirfLogo(),

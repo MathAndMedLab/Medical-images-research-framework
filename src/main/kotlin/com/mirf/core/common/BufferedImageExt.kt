@@ -43,10 +43,18 @@ fun BufferedImage.debugDisplayInWindow(){
 
     JFrame.setDefaultLookAndFeelDecorated(true)
     val frame = JFrame("Debug image viewer")
-    frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+    frame.defaultCloseOperation = JFrame.HIDE_ON_CLOSE
 
     frame.add(panel)
 
     frame.pack()
     frame.isVisible = true
+}
+
+////
+fun List<BufferedImage>.pickImages() : List<BufferedImage>{
+    if(this.isEmpty())
+        return this
+
+    return ImagePicker(this).getPickedImages()
 }

@@ -44,10 +44,10 @@ class MsPdfReportCreator(private val spec: MsPdfReportSpec) {
         document.add(createScansDesc())
         document.add(marginBlock)
 
-        document.add(spec.seriesVisualization.pdfElement)
+        document.add(spec.seriesVisualization)
         document.add(marginBlock)
 
-        document.add(spec.volumeTable.pdfElement)
+        document.add(spec.volumeTable)
         document.add(marginBlock)
         document.add(createConclusion())
 

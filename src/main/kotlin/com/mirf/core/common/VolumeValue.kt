@@ -27,6 +27,10 @@ class VolumeValue private constructor(val value: Double, val unit: VolumeUnit) {
         return "$value $unit"
     }
 
+    fun toString(decimalPlaces: Int): String {
+        return String.format("%.${decimalPlaces}f $unit", value)
+    }
+
     fun copy(): VolumeValue = VolumeValue(value, unit)
 
     operator fun compareTo(other: VolumeValue): Int {

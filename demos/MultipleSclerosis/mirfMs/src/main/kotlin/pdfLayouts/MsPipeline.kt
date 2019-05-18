@@ -8,6 +8,7 @@ import com.mirf.core.pipeline.AccumulatorWithAlgBlock
 import com.mirf.core.pipeline.AlgorithmHostBlock
 import com.mirf.core.pipeline.PipeStarter
 import com.mirf.core.pipeline.Pipeline
+import com.mirf.features.elastix.ElastixBlock
 import com.mirf.features.ij.asImageSeries
 import com.mirf.features.nifti.util.Nifti1Reader
 import com.mirf.features.pdf.PdfElementsAccumulator
@@ -16,14 +17,13 @@ import com.mirf.features.reports.PdfElementData
 import com.mirf.features.repository.LocalRepositoryCommander
 import com.mirf.features.repositoryaccessors.RepoFileSaver
 import com.mirf.features.repositoryaccessors.RepositoryAccessorBlock
-import com.mirf.modules.elastix.ElastixBlock
 
 /**
  * Predefined pipeline for multiple sclerosis report generation. Report is generated based on the 2 image series
  */
 class MsPipeline {
 
-    fun exec(baselineImageSeriesPath: String, followupImageSeriesPath: String, resultFolderLink: String)  {
+    fun exec(baselineImageSeriesPath: String, followupImageSeriesPath: String, resultFolderLink: String) {
         val pipe = Pipeline("MS report generator")
 
         //initializing blocks
@@ -47,14 +47,14 @@ class MsPipeline {
 
         //TODO:(avlomakin) create method for single PdfData to FileData transform
         val pdfBlock = AccumulatorWithAlgBlock(
-            PdfElementsAccumulator(
-                "report"),
+                PdfElementsAccumulator(
+                        "report"),
                 2,
                 "ReportCreator",
                 pipe)
 
         val reportSaver = RepositoryAccessorBlock<FileData, Data>(
-            LocalRepositoryCommander(),
+                LocalRepositoryCommander(),
                 RepoFileSaver(), resultFolderLink)
 
         elastixBlock.setFixedSender(baselineReader)

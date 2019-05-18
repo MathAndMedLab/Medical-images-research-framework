@@ -1,23 +1,20 @@
-import com.mirf.core.common.VolumeValue;
 import com.mirf.core.pipeline.PipelineSessionRecord;
 import kotlin.Unit;
 import org.jetbrains.annotations.Nullable;
-import pdfLayouts.MsVolumeInfo;
 import pdfLayouts.PatientInfo;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.io.File;
 
 public class MainForm extends JFrame{
     private JTextField urlField;
-    private JTextField t1Field;
+    private JTextField baselineT1Link;
     private JTextField nameField;
     private JTextField AgeField;
-    private JTextField flairLink;
+    private JTextField baselineFLAIRLink;
     private JButton generateButton;
     private JButton chooseT1Button;
     private JButton chooseFlairButton;
@@ -25,27 +22,30 @@ public class MainForm extends JFrame{
     private JButton chooseWorkinDirButton;
     private JPanel rootPanel;
     private JTable progress;
+    private JTextField followupT1Link;
+    private JTextField followupFlairLink;
+    private JButton chooseCurT1;
+    private JButton chooseCurFlair;
 
 
     public MainForm() {
 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(rootPanel);
         setTitle("Ms report generator");
         setSize(700, 800);
 
-        urlField.setText("http://130.193.42.76:8080");
-        t1Field.setText("C:\\src\\mirfMs-test-data\\T1.nii");
-        flairLink.setText("C:\\src\\mirfMs-test-data\\FLAIR.nii");
+        urlField.setText("http://localhost:8080");
+        baselineT1Link.setText("C:\\MS-DATA\\patient\\baseline\\T1.nii");
+        baselineFLAIRLink.setText("C:\\MS-DATA\\patient\\baseline\\FLAIR.nii");
+        followupT1Link.setText("C:\\MS-DATA\\patient\\followup\\T1.nii");
+        followupFlairLink.setText("C:\\MS-DATA\\patient\\followup\\FLAIR.nii");
         workinDirField.setText("C:\\src\\mirf_path");
         createProgressTable();
 
         generateButton.addActionListener(e -> {
-            MsReportWorkflow workflow = new MsReportWorkflow(
-                    urlField.getText(),
-                    t1Field.getText(), flairLink.getText(),
-                    workinDirField.getText(),
-                    new PatientInfo(nameField.getText(), AgeField.getText()),
-                    new MsVolumeInfo(VolumeValue.Companion.getZero(), VolumeValue.Companion.getZero()));
+            MsReportWorkflow workflow = MsReportWorkflow.Companion.createFull(urlField.getText(), followupT1Link.getText(), followupFlairLink.getText(),
+                    workinDirField.getText(), new PatientInfo(nameField.getText(), AgeField.getText()), baselineT1Link.getText(), baselineFLAIRLink.getText());
 
             workflow.getPipe().getSession().getNewRecord().plusAssign(((x, a )-> addRecord(a)));
 
@@ -57,14 +57,28 @@ public class MainForm extends JFrame{
             String path = getNiiSeriesFromFileChooser();
 
             if(path != null)
-                t1Field.setText(path);
+                baselineT1Link.setText(path);
         });
 
         chooseFlairButton.addActionListener(e -> {
             String path = getNiiSeriesFromFileChooser();
 
             if(path != null)
-                flairLink.setText(path);
+                baselineFLAIRLink.setText(path);
+        });
+
+        chooseCurFlair.addActionListener(e -> {
+            String path = getNiiSeriesFromFileChooser();
+
+            if(path != null)
+                followupFlairLink.setText(path);
+        });
+
+        chooseCurT1.addActionListener(e -> {
+            String path = getNiiSeriesFromFileChooser();
+
+            if(path != null)
+                followupT1Link.setText(path);
         });
 
         chooseWorkinDirButton.addActionListener(e -> {

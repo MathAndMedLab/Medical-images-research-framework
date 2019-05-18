@@ -3,12 +3,22 @@ package com.mirf.core.common
 import com.mirf.core.array.logSize
 import com.mirf.core.array.map2d
 import com.mirf.core.data.attribute.MirfAttributes
-import com.mirf.core.data.attribute.Switch
 import com.mirf.features.ij.asImageSeries
 import com.mirf.features.nifti.util.Nifti1Reader
 import org.junit.Test
 
 class BufferedImageExtKtTest {
+
+    @Test
+    fun imagePickerTest(){
+        val path = javaClass.getResource("/t1.nii") ?: return
+        val series = Nifti1Reader.read(path.path).asImageSeries()
+        series.attributes.add(MirfAttributes.THRESHOLDED.new(Unit))
+
+        val images = series.images.map { it.image!! }.pickImages()
+        print(images.size)
+        images.forEach{ it.debugDisplayInWindow()}
+    }
 
     @Test
     fun toBicolor() {

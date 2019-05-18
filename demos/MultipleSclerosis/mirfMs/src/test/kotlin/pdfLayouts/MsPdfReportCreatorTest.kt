@@ -3,16 +3,12 @@ package pdfLayouts
 import com.mirf.core.common.VolumeValue
 import com.mirf.core.data.attribute.MirfAttributes
 import com.mirf.core.data.medimage.ImageSeries
-import com.mirf.core.data.medimage.getImageWithHighlightedSegmentation
 import com.mirf.features.ij.asImageSeries
 import com.mirf.features.nifti.util.Nifti1Reader
 import org.junit.Test
-import java.awt.image.BufferedImage
 import java.io.File
-import java.time.LocalDate
-import java.awt.Image
-import java.awt.Rectangle
 import java.nio.file.Paths
+import javax.swing.UIManager
 
 
 class MsPdfReportCreatorTest {
@@ -20,12 +16,13 @@ class MsPdfReportCreatorTest {
     @Test
     fun checkLayout() {
         javaClass.getResource("/mask.nii") ?: return
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
 
         val (series, masks) = getSeriesAndMasks()
-        val builder = MsPdfReportSpecBuilder(PatientInfo("John Doe", "27"),
+        val builder = MsPdfReportParagraphsBuilder(PatientInfo("John Doe", "27"),
                 currentImageSeries = series,
                 currentMasks = masks,
-                prevVolumeInfo = MsVolumeInfo(totalVolume = VolumeValue.zero, activeVolume = VolumeValue.zero))
+                prevVolumeInfo = MsVolumeInfo(totalVolume = VolumeValue.createFromCM3(32.0), activeVolume = VolumeValue.createFromCM3(10.0)))
 
         val spec = builder.build()
 
