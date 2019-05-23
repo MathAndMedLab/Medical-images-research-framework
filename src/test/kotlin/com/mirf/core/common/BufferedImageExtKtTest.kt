@@ -11,7 +11,7 @@ class BufferedImageExtKtTest {
 
     @Test
     fun imagePickerTest(){
-        val path = javaClass.getResource("/t1.nii") ?: return
+        val path = javaClass.getResource("/msReport/mask.nii") ?: return
         val series = Nifti1Reader.read(path.path).asImageSeries()
         series.attributes.add(MirfAttributes.THRESHOLDED.new(Unit))
 
