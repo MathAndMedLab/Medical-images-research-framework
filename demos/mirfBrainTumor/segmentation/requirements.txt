@@ -1,4 +1,4 @@
-numpy==1.14.1
+numpy==1.22.0
 tensorflow==1.6.0
 NiftyNet==0.2.2
 SimpleITK==1.0.1
